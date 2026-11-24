@@ -1287,7 +1287,7 @@ const people = () => {
         query: "Foo",
         readMask: "names,emailAddresses",
     });
-    console.log(otherContactsSearchResponse.people?.[0].names ?? "none");
+    console.log(otherContactsSearchResponse.results?.[0].person?.names ?? "none");
     const otherContactsCopyResponse = People.OtherContacts.copyOtherContactToMyContactsGroup({
         copyMask: "names,emailAddresses,phoneNumbers",
     }, "people/test0123");

@@ -1017,8 +1017,8 @@ function testPeopleApi() {
             streetAddress: "1 Example Street",
             type: "home",
         }],
-        ageRanges: [{ ageRange: "18-30", metadata: fieldMetadata }],
-        biographies: [{ contentType: "text/plain", metadata: fieldMetadata, value: "Developer" }],
+        ageRanges: [{ ageRange: "EIGHTEEN_TO_TWENTY", metadata: fieldMetadata }],
+        biographies: [{ contentType: "TEXT_PLAIN", metadata: fieldMetadata, value: "Developer" }],
         birthdays: [{ date: { day: 1, month: 1, year: 1990 }, metadata: fieldMetadata, text: "January 1" }],
         emailAddresses: [{
             displayName: "Example User",
@@ -1071,6 +1071,7 @@ function testPeopleApi() {
     const batchGetContactGroupsWithArgs = contactGroups.batchGet({
         resourceNames: ["contactGroups/friends"],
         maxMembers: 100,
+        groupFields: "name,memberCount",
     });
     // $ExpectType ContactGroup
     const createContactGroup = contactGroups.create({ contactGroup: contactGroupFixture });
@@ -1086,9 +1087,9 @@ function testPeopleApi() {
         pageToken: "page-token",
         syncToken: "sync-token",
     });
-    // $ExpectType void
+    // $ExpectType Empty
     const removeContactGroup = contactGroups.remove("contactGroups/friends");
-    // $ExpectType void
+    // $ExpectType Empty
     const removeContactGroupWithArgs = contactGroups.remove("contactGroups/friends", { deleteContacts: false });
     // $ExpectType ContactGroup
     const updateContactGroup = contactGroups.update({
@@ -1101,7 +1102,7 @@ function testPeopleApi() {
     const copyOtherContact = otherContacts.copyOtherContactToMyContactsGroup({
         copyMask: "names,emailAddresses",
         readMask: "names,emailAddresses",
-        sources: ["CONTACT"],
+        sources: ["READ_SOURCE_TYPE_CONTACT"],
     }, "otherContacts/123");
     // $ExpectType ListOtherContactsResponse
     const listOtherContacts = otherContacts.list();
@@ -1110,14 +1111,13 @@ function testPeopleApi() {
         pageSize: 100,
         pageToken: "page-token",
         readMask: "names,emailAddresses",
-        sources: ["CONTACT"],
+        sources: ["READ_SOURCE_TYPE_CONTACT"],
     });
-    // $ExpectType SearchDirectoryPeopleResponse
+    // $ExpectType SearchResponse
     const searchOtherContacts = otherContacts.search();
-    // $ExpectType SearchDirectoryPeopleResponse
+    // $ExpectType SearchResponse
     const searchOtherContactsWithArgs = otherContacts.search({
         pageSize: 100,
-        pageToken: "page-token",
         query: "Example",
         readMask: "names,emailAddresses",
     });
@@ -1133,7 +1133,8 @@ function testPeopleApi() {
         pageSize: 100,
         pageToken: "page-token",
         personFields: "names,emailAddresses",
-        requestMask: "personNames,emailAddresses",
+        "requestMask.includeField": "personNames,emailAddresses",
+        requestSyncToken: true,
         sortOrder: "FIRST_NAME_ASCENDING",
         sources: ["READ_SOURCE_TYPE_CONTACT"],
         syncToken: "sync-token",
@@ -1143,7 +1144,7 @@ function testPeopleApi() {
     const batchCreateContacts = peopleCollection.batchCreateContacts({
         contacts: [{ contactPerson: personFixture }],
         readMask: "names,emailAddresses",
-        sources: ["CONTACT"],
+        sources: ["READ_SOURCE_TYPE_CONTACT"],
     });
     // $ExpectType Empty
     const batchDeleteContacts = peopleCollection.batchDeleteContacts({
@@ -1153,7 +1154,7 @@ function testPeopleApi() {
     const batchUpdateContacts = peopleCollection.batchUpdateContacts({
         contacts: { "people/123": personFixture },
         readMask: "names,emailAddresses",
-        sources: ["CONTACT"],
+        sources: ["READ_SOURCE_TYPE_CONTACT"],
         updateMask: "names,emailAddresses",
     });
     // $ExpectType Person
@@ -1161,23 +1162,23 @@ function testPeopleApi() {
     // $ExpectType Person
     const createContactWithArgs = peopleCollection.createContact(personFixture, {
         personFields: "names,emailAddresses",
-        sources: ["CONTACT"],
+        sources: ["READ_SOURCE_TYPE_CONTACT"],
     });
-    // $ExpectType void
+    // $ExpectType Empty
     const deleteContact = peopleCollection.deleteContact("people/123");
     // $ExpectType DeleteContactPhotoResponse
     const deleteContactPhoto = peopleCollection.deleteContactPhoto("people/123");
     // $ExpectType DeleteContactPhotoResponse
     const deleteContactPhotoWithArgs = peopleCollection.deleteContactPhoto("people/123", {
         personFields: "names,emailAddresses",
-        sources: ["CONTACT"],
+        sources: ["READ_SOURCE_TYPE_CONTACT"],
     });
     // $ExpectType Person
     const getPerson = peopleCollection.get("people/123");
     // $ExpectType Person
     const getPersonWithArgs = peopleCollection.get("people/123", {
         personFields: "names,emailAddresses",
-        requestMask: "personNames,emailAddresses",
+        "requestMask.includeField": "personNames,emailAddresses",
         sources: ["READ_SOURCE_TYPE_CONTACT"],
     });
     // $ExpectType GetPeopleResponse
@@ -1195,6 +1196,8 @@ function testPeopleApi() {
         pageSize: 100,
         pageToken: "page-token",
         readMask: "names,emailAddresses",
+        mergeSources: ["DIRECTORY_MERGE_SOURCE_TYPE_CONTACT"],
+        requestSyncToken: true,
         sources: ["DIRECTORY_SOURCE_TYPE_DOMAIN_PROFILE"],
     });
     // $ExpectType SearchResponse
@@ -1204,6 +1207,7 @@ function testPeopleApi() {
         pageSize: 100,
         query: "Example",
         readMask: "names,emailAddresses",
+        sources: ["READ_SOURCE_TYPE_CONTACT"],
     });
     // $ExpectType SearchDirectoryPeopleResponse
     const searchDirectoryPeople = peopleCollection.searchDirectoryPeople();
@@ -1221,14 +1225,14 @@ function testPeopleApi() {
     // $ExpectType Person
     const updateContactWithArgs = peopleCollection.updateContact(personFixture, "people/123", {
         personFields: "names,emailAddresses",
-        sources: ["CONTACT"],
+        sources: ["READ_SOURCE_TYPE_CONTACT"],
         updatePersonFields: "names,emailAddresses",
     });
     // $ExpectType UpdateContactPhotoResponse
     const updateContactPhoto = peopleCollection.updateContactPhoto({
         personFields: "names,emailAddresses",
         photoBytes: "base64-photo",
-        sources: ["CONTACT"],
+        sources: ["READ_SOURCE_TYPE_CONTACT"],
     }, "people/123");
 }
 

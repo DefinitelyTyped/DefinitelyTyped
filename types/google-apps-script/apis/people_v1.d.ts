@@ -3,175 +3,259 @@ declare namespace GoogleAppsScript {
         namespace Collection {
             namespace ContactGroups {
                 interface MembersCollection {
-                    // Modify the members of a contact group owned by the authenticated user.
-                    // <br>
-                    // The only system contact groups that can have members added are
-                    // `contactGroups/myContacts` and `contactGroups/starred`. Other system
-                    // contact groups are deprecated and can only have contacts removed.
                     modify(
-                        resource: Schema.ModifyContactGroupMembersRequest,
+                        $resource: Schema.ModifyContactGroupMembersRequest,
                         resourceName: string,
                     ): Schema.ModifyContactGroupMembersResponse;
                 }
             }
             namespace People {
                 interface ConnectionsCollection {
-                    // Provides a list of the authenticated user's contacts merged with any
-                    // connected profiles.
-                    // <br>
-                    // The request throws a 400 error if 'personFields' is not specified.
-                    list(resourceName: string): Schema.ListConnectionsResponse;
-                    // Provides a list of the authenticated user's contacts merged with any
-                    // connected profiles.
-                    // <br>
-                    // The request throws a 400 error if 'personFields' is not specified.
-                    list(resourceName: string, optionalArgs: object): Schema.ListConnectionsResponse;
+                    list(
+                        resourceName: string,
+                        args?: {
+                            pageSize?: number | undefined;
+                            pageToken?: string | undefined;
+                            personFields?: string | undefined;
+                            "requestMask.includeField"?: string | undefined;
+                            requestSyncToken?: boolean | undefined;
+                            sortOrder?:
+                                | "LAST_MODIFIED_ASCENDING"
+                                | "LAST_MODIFIED_DESCENDING"
+                                | "FIRST_NAME_ASCENDING"
+                                | "LAST_NAME_ASCENDING"
+                                | undefined;
+                            sources?:
+                                | Array<
+                                    | "READ_SOURCE_TYPE_UNSPECIFIED"
+                                    | "READ_SOURCE_TYPE_PROFILE"
+                                    | "READ_SOURCE_TYPE_CONTACT"
+                                    | "READ_SOURCE_TYPE_DOMAIN_CONTACT"
+                                    | "READ_SOURCE_TYPE_OTHER_CONTACT"
+                                >
+                                | undefined;
+                            syncToken?: string | undefined;
+                        },
+                    ): Schema.ListConnectionsResponse;
                 }
             }
             interface ContactGroupsCollection {
-                Members: Collection.ContactGroups.MembersCollection;
-                // Get a list of contact groups owned by the authenticated user by specifying
-                // a list of contact group resource names.
-                batchGet(): Schema.BatchGetContactGroupsResponse;
-                // Get a list of contact groups owned by the authenticated user by specifying
-                // a list of contact group resource names.
-                batchGet(optionalArgs: object): Schema.BatchGetContactGroupsResponse;
-                // Create a new contact group owned by the authenticated user.
-                create(resource: Schema.CreateContactGroupRequest): Schema.ContactGroup;
-                // Get a specific contact group owned by the authenticated user by specifying
-                // a contact group resource name.
-                get(resourceName: string): Schema.ContactGroup;
-                // Get a specific contact group owned by the authenticated user by specifying
-                // a contact group resource name.
-                get(resourceName: string, optionalArgs: object): Schema.ContactGroup;
-                // List all contact groups owned by the authenticated user. Members of the
-                // contact groups are not populated.
-                list(): Schema.ListContactGroupsResponse;
-                // List all contact groups owned by the authenticated user. Members of the
-                // contact groups are not populated.
-                list(optionalArgs: object): Schema.ListContactGroupsResponse;
-                // Delete an existing contact group owned by the authenticated user by
-                // specifying a contact group resource name.
-                remove(resourceName: string): void;
-                // Delete an existing contact group owned by the authenticated user by
-                // specifying a contact group resource name.
-                remove(resourceName: string, optionalArgs: object): void;
-                // Update the name of an existing contact group owned by the authenticated
-                // user.
-                update(resource: Schema.UpdateContactGroupRequest, resourceName: string): Schema.ContactGroup;
+                Members: ContactGroups.MembersCollection;
+                batchGet(
+                    args?: {
+                        groupFields?: string | undefined;
+                        maxMembers?: number | undefined;
+                        resourceNames?: Array<string> | undefined;
+                    },
+                ): Schema.BatchGetContactGroupsResponse;
+                create(
+                    $resource: Schema.CreateContactGroupRequest,
+                ): Schema.ContactGroup;
+                get(
+                    resourceName: string,
+                    args?: {
+                        groupFields?: string | undefined;
+                        maxMembers?: number | undefined;
+                    },
+                ): Schema.ContactGroup;
+                list(
+                    args?: {
+                        groupFields?: string | undefined;
+                        pageSize?: number | undefined;
+                        pageToken?: string | undefined;
+                        syncToken?: string | undefined;
+                    },
+                ): Schema.ListContactGroupsResponse;
+                remove(
+                    resourceName: string,
+                    args?: {
+                        deleteContacts?: boolean | undefined;
+                    },
+                ): Schema.Empty;
+                update(
+                    $resource: Schema.UpdateContactGroupRequest,
+                    resourceName: string,
+                ): Schema.ContactGroup;
             }
             interface OtherContactsCollection {
-                // Copies an "Other contact" to a new contact in the user's "myContacts"
-                // group Mutate requests for the same user should be sent sequentially
-                // to avoid increased latency and failures.
                 copyOtherContactToMyContactsGroup(
-                    resource: Schema.CopyOtherContactToMyContactsGroupRequest,
+                    $resource: Schema.CopyOtherContactToMyContactsGroupRequest,
                     resourceName: string,
                 ): Schema.Person;
-                // List all "Other contacts", that is contacts that are not in a contact group.
-                list(): Schema.ListOtherContactsResponse;
-                // List all "Other contacts", that is contacts that are not in a contact group.
-                list(optionalArgs: object): Schema.ListOtherContactsResponse;
-                // Provides a list of contacts in the authenticated user's other contacts
-                // that matches the search query.
-                search(): Schema.SearchDirectoryPeopleResponse;
-                // Provides a list of contacts in the authenticated user's other contacts
-                // that matches the search query.
-                search(optionalArgs: object): Schema.SearchDirectoryPeopleResponse;
+                list(
+                    args?: {
+                        pageSize?: number | undefined;
+                        pageToken?: string | undefined;
+                        readMask?: string | undefined;
+                        requestSyncToken?: boolean | undefined;
+                        sources?:
+                            | Array<
+                                | "READ_SOURCE_TYPE_UNSPECIFIED"
+                                | "READ_SOURCE_TYPE_PROFILE"
+                                | "READ_SOURCE_TYPE_CONTACT"
+                                | "READ_SOURCE_TYPE_DOMAIN_CONTACT"
+                                | "READ_SOURCE_TYPE_OTHER_CONTACT"
+                            >
+                            | undefined;
+                        syncToken?: string | undefined;
+                    },
+                ): Schema.ListOtherContactsResponse;
+                search(
+                    args?: {
+                        pageSize?: number | undefined;
+                        query?: string | undefined;
+                        readMask?: string | undefined;
+                    },
+                ): Schema.SearchResponse;
             }
             interface PeopleCollection {
-                Connections: Collection.People.ConnectionsCollection;
-                // Create a batch of new contacts and return the PersonResponses for the
-                // newly Mutate requests for the same user should be sent sequentially
-                // to avoid increased latency and failures.
-                batchCreateContacts(resource: Schema.BatchCreateContactsRequest): Schema.BatchCreateContactsResponse;
-                // Delete a batch of contacts. Any non-contact data will not be deleted.
-                // Mutate requests for the same user should be sent sequentially to avoid
-                // increased latency and failures.
-                batchDeleteContacts(resource: Schema.BatchDeleteContactsRequest): Schema.Empty;
-                // Update a batch of contacts and return a map of resource names to
-                // PersonResponses for the updated contacts.
-                batchUpdateContacts(resource: Schema.BatchUpdateContactsRequest): Schema.BatchUpdateContactsResponse;
-                // Create a new contact and return the person resource for that contact.
-                createContact(resource: Schema.Person): Schema.Person;
-                // Create a new contact and return the person resource for that contact.
-                createContact(resource: Schema.Person, optionalArgs: object): Schema.Person;
-                // Delete a contact person. Any non-contact data will not be deleted.
-                deleteContact(resourceName: string): void;
-                // Delete a contact's photo. Mutate requests for the same user should
-                // be done sequentially to avoid // lock contention.
-                deleteContactPhoto(resourceName: string): Schema.DeleteContactPhotoResponse;
-                // Delete a contact's photo. Mutate requests for the same user should
-                // be done sequentially to avoid // lock contention.
-                deleteContactPhoto(resourceName: string, optionalArgs: object): Schema.DeleteContactPhotoResponse;
-                // Provides information about a person by specifying a resource name. Use
-                // `people/me` to indicate the authenticated user.
-                // <br>
-                // The request throws a 400 error if 'personFields' is not specified.
-                get(resourceName: string): Schema.Person;
-                // Provides information about a person by specifying a resource name. Use
-                // `people/me` to indicate the authenticated user.
-                // <br>
-                // The request throws a 400 error if 'personFields' is not specified.
-                get(resourceName: string, optionalArgs: object): Schema.Person;
-                // Provides information about a list of specific people by specifying a list
-                // of requested resource names. Use `people/me` to indicate the authenticated
-                // user.
-                // <br>
-                // The request throws a 400 error if 'personFields' is not specified.
-                getBatchGet(): Schema.GetPeopleResponse;
-                // Provides information about a list of specific people by specifying a list
-                // of requested resource names. Use `people/me` to indicate the authenticated
-                // user.
-                // <br>
-                // The request throws a 400 error if 'personFields' is not specified.
-                getBatchGet(optionalArgs: object): Schema.GetPeopleResponse;
-                // Provides a list of domain profiles and domain contacts in the authenticated
-                // user's domain directory.
-                listDirectoryPeople(): Schema.ListDirectoryPeopleResponse;
-                // Provides a list of domain profiles and domain contacts in the authenticated
-                // user's domain directory.
-                listDirectoryPeople(optionalArgs: object): Schema.ListDirectoryPeopleResponse;
-                // Provides a list of contacts in the authenticated user's grouped contacts
-                // that matches the search query.
-                searchContacts(): Schema.SearchResponse;
-                // Provides a list of contacts in the authenticated user's grouped contacts
-                // that matches the search query.
-                searchContacts(optionalArgs: object): Schema.SearchResponse;
-                // Provides a list of domain profiles and domain contacts in the
-                // authenticated user's domain directory that match the search query.
-                searchDirectoryPeople(): Schema.SearchDirectoryPeopleResponse;
-                // Provides a list of domain profiles and domain contacts in the
-                // authenticated user's domain directory that match the search query.
-                searchDirectoryPeople(optionalArgs: object): Schema.SearchDirectoryPeopleResponse;
-                // Update contact data for an existing contact person. Any non-contact data
-                // will not be modified.
-                // The request throws a 400 error if `updatePersonFields` is not specified.
-                // <br>
-                // The request throws a 400 error if `person.metadata.sources` is not
-                // specified for the contact to be updated.
-                // <br>
-                // The request throws a 412 error if `person.metadata.sources.etag` is
-                // different than the contact's etag, which indicates the contact has changed
-                // since its data was read. Clients should get the latest person and re-apply
-                // their updates to the latest person.
-                updateContact(resource: Schema.Person, resourceName: string): Schema.Person;
-                // Update contact data for an existing contact person. Any non-contact data
-                // will not be modified.
-                // The request throws a 400 error if `updatePersonFields` is not specified.
-                // <br>
-                // The request throws a 400 error if `person.metadata.sources` is not
-                // specified for the contact to be updated.
-                // <br>
-                // The request throws a 412 error if `person.metadata.sources.etag` is
-                // different than the contact's etag, which indicates the contact has changed
-                // since its data was read. Clients should get the latest person and re-apply
-                // their updates to the latest person.
-                updateContact(resource: Schema.Person, resourceName: string, optionalArgs: object): Schema.Person;
-                // Update a contact's photo. Mutate requests for the same user should be sent
-                // sequentially to avoid increased latency and failures.
+                Connections: People.ConnectionsCollection;
+                batchCreateContacts(
+                    $resource: Schema.BatchCreateContactsRequest,
+                ): Schema.BatchCreateContactsResponse;
+                batchDeleteContacts(
+                    $resource: Schema.BatchDeleteContactsRequest,
+                ): Schema.Empty;
+                batchUpdateContacts(
+                    $resource: Schema.BatchUpdateContactsRequest,
+                ): Schema.BatchUpdateContactsResponse;
+                createContact(
+                    $resource: Schema.Person,
+                    args?: {
+                        personFields?: string | undefined;
+                        sources?:
+                            | Array<
+                                | "READ_SOURCE_TYPE_UNSPECIFIED"
+                                | "READ_SOURCE_TYPE_PROFILE"
+                                | "READ_SOURCE_TYPE_CONTACT"
+                                | "READ_SOURCE_TYPE_DOMAIN_CONTACT"
+                                | "READ_SOURCE_TYPE_OTHER_CONTACT"
+                            >
+                            | undefined;
+                    },
+                ): Schema.Person;
+                deleteContact(
+                    resourceName: string,
+                ): Schema.Empty;
+                deleteContactPhoto(
+                    resourceName: string,
+                    args?: {
+                        personFields?: string | undefined;
+                        sources?:
+                            | Array<
+                                | "READ_SOURCE_TYPE_UNSPECIFIED"
+                                | "READ_SOURCE_TYPE_PROFILE"
+                                | "READ_SOURCE_TYPE_CONTACT"
+                                | "READ_SOURCE_TYPE_DOMAIN_CONTACT"
+                                | "READ_SOURCE_TYPE_OTHER_CONTACT"
+                            >
+                            | undefined;
+                    },
+                ): Schema.DeleteContactPhotoResponse;
+                get(
+                    resourceName: string,
+                    args?: {
+                        personFields?: string | undefined;
+                        "requestMask.includeField"?: string | undefined;
+                        sources?:
+                            | Array<
+                                | "READ_SOURCE_TYPE_UNSPECIFIED"
+                                | "READ_SOURCE_TYPE_PROFILE"
+                                | "READ_SOURCE_TYPE_CONTACT"
+                                | "READ_SOURCE_TYPE_DOMAIN_CONTACT"
+                                | "READ_SOURCE_TYPE_OTHER_CONTACT"
+                            >
+                            | undefined;
+                    },
+                ): Schema.Person;
+                getBatchGet(
+                    args?: {
+                        personFields?: string | undefined;
+                        "requestMask.includeField"?: string | undefined;
+                        resourceNames?: Array<string> | undefined;
+                        sources?:
+                            | Array<
+                                | "READ_SOURCE_TYPE_UNSPECIFIED"
+                                | "READ_SOURCE_TYPE_PROFILE"
+                                | "READ_SOURCE_TYPE_CONTACT"
+                                | "READ_SOURCE_TYPE_DOMAIN_CONTACT"
+                                | "READ_SOURCE_TYPE_OTHER_CONTACT"
+                            >
+                            | undefined;
+                    },
+                ): Schema.GetPeopleResponse;
+                listDirectoryPeople(
+                    args?: {
+                        mergeSources?:
+                            | Array<"DIRECTORY_MERGE_SOURCE_TYPE_UNSPECIFIED" | "DIRECTORY_MERGE_SOURCE_TYPE_CONTACT">
+                            | undefined;
+                        pageSize?: number | undefined;
+                        pageToken?: string | undefined;
+                        readMask?: string | undefined;
+                        requestSyncToken?: boolean | undefined;
+                        sources?:
+                            | Array<
+                                | "DIRECTORY_SOURCE_TYPE_UNSPECIFIED"
+                                | "DIRECTORY_SOURCE_TYPE_DOMAIN_CONTACT"
+                                | "DIRECTORY_SOURCE_TYPE_DOMAIN_PROFILE"
+                            >
+                            | undefined;
+                        syncToken?: string | undefined;
+                    },
+                ): Schema.ListDirectoryPeopleResponse;
+                searchContacts(
+                    args?: {
+                        pageSize?: number | undefined;
+                        query?: string | undefined;
+                        readMask?: string | undefined;
+                        sources?:
+                            | Array<
+                                | "READ_SOURCE_TYPE_UNSPECIFIED"
+                                | "READ_SOURCE_TYPE_PROFILE"
+                                | "READ_SOURCE_TYPE_CONTACT"
+                                | "READ_SOURCE_TYPE_DOMAIN_CONTACT"
+                                | "READ_SOURCE_TYPE_OTHER_CONTACT"
+                            >
+                            | undefined;
+                    },
+                ): Schema.SearchResponse;
+                searchDirectoryPeople(
+                    args?: {
+                        mergeSources?:
+                            | Array<"DIRECTORY_MERGE_SOURCE_TYPE_UNSPECIFIED" | "DIRECTORY_MERGE_SOURCE_TYPE_CONTACT">
+                            | undefined;
+                        pageSize?: number | undefined;
+                        pageToken?: string | undefined;
+                        query?: string | undefined;
+                        readMask?: string | undefined;
+                        sources?:
+                            | Array<
+                                | "DIRECTORY_SOURCE_TYPE_UNSPECIFIED"
+                                | "DIRECTORY_SOURCE_TYPE_DOMAIN_CONTACT"
+                                | "DIRECTORY_SOURCE_TYPE_DOMAIN_PROFILE"
+                            >
+                            | undefined;
+                    },
+                ): Schema.SearchDirectoryPeopleResponse;
+                updateContact(
+                    $resource: Schema.Person,
+                    resourceName: string,
+                    args?: {
+                        personFields?: string | undefined;
+                        sources?:
+                            | Array<
+                                | "READ_SOURCE_TYPE_UNSPECIFIED"
+                                | "READ_SOURCE_TYPE_PROFILE"
+                                | "READ_SOURCE_TYPE_CONTACT"
+                                | "READ_SOURCE_TYPE_DOMAIN_CONTACT"
+                                | "READ_SOURCE_TYPE_OTHER_CONTACT"
+                            >
+                            | undefined;
+                        updatePersonFields?: string | undefined;
+                    },
+                ): Schema.Person;
                 updateContactPhoto(
-                    resource: Schema.UpdateContactPhotoRequest,
+                    $resource: Schema.UpdateContactPhotoRequest,
                     resourceName: string,
                 ): Schema.UpdateContactPhotoResponse;
             }
@@ -192,34 +276,55 @@ declare namespace GoogleAppsScript {
                 type?: string | undefined;
             }
             interface AgeRangeType {
-                ageRange?: string | undefined;
+                ageRange?:
+                    | "AGE_RANGE_UNSPECIFIED"
+                    | "LESS_THAN_EIGHTEEN"
+                    | "EIGHTEEN_TO_TWENTY"
+                    | "TWENTY_ONE_OR_OLDER"
+                    | undefined;
                 metadata?: People.Schema.FieldMetadata | undefined;
             }
             interface BatchCreateContactsRequest {
                 contacts?: People.Schema.ContactToCreate[] | undefined;
                 readMask?: string | undefined;
-                sources?: string[] | undefined;
+                sources?:
+                    | Array<
+                        | "READ_SOURCE_TYPE_UNSPECIFIED"
+                        | "READ_SOURCE_TYPE_PROFILE"
+                        | "READ_SOURCE_TYPE_CONTACT"
+                        | "READ_SOURCE_TYPE_DOMAIN_CONTACT"
+                        | "READ_SOURCE_TYPE_OTHER_CONTACT"
+                    >
+                    | undefined;
             }
             interface BatchCreateContactsResponse {
                 createdPeople?: People.Schema.PersonResponse[] | undefined;
             }
             interface BatchDeleteContactsRequest {
-                resourceNames?: string[] | undefined;
+                resourceNames?: Array<string> | undefined;
             }
             interface BatchGetContactGroupsResponse {
                 responses?: People.Schema.ContactGroupResponse[] | undefined;
             }
             interface BatchUpdateContactsRequest {
-                contacts?: { [key: string]: People.Schema.Person } | undefined;
+                contacts?: Record<string, People.Schema.Person> | undefined;
                 readMask?: string | undefined;
-                sources?: string[] | undefined;
+                sources?:
+                    | Array<
+                        | "READ_SOURCE_TYPE_UNSPECIFIED"
+                        | "READ_SOURCE_TYPE_PROFILE"
+                        | "READ_SOURCE_TYPE_CONTACT"
+                        | "READ_SOURCE_TYPE_DOMAIN_CONTACT"
+                        | "READ_SOURCE_TYPE_OTHER_CONTACT"
+                    >
+                    | undefined;
                 updateMask?: string | undefined;
             }
             interface BatchUpdateContactsResponse {
-                updateResult?: { [key: string]: People.Schema.PersonResponse } | undefined;
+                updateResult?: Record<string, People.Schema.PersonResponse> | undefined;
             }
             interface Biography {
-                contentType?: string | undefined;
+                contentType?: "CONTENT_TYPE_UNSPECIFIED" | "TEXT_PLAIN" | "TEXT_HTML" | undefined;
                 metadata?: People.Schema.FieldMetadata | undefined;
                 value?: string | undefined;
             }
@@ -244,17 +349,19 @@ declare namespace GoogleAppsScript {
                 value?: string | undefined;
             }
             interface ContactGroup {
+                clientData?: People.Schema.GroupClientData[] | undefined;
                 etag?: string | undefined;
                 formattedName?: string | undefined;
-                groupType?: string | undefined;
+                groupType?: "GROUP_TYPE_UNSPECIFIED" | "USER_CONTACT_GROUP" | "SYSTEM_CONTACT_GROUP" | undefined;
                 memberCount?: number | undefined;
-                memberResourceNames?: string[] | undefined;
+                memberResourceNames?: Array<string> | undefined;
                 metadata?: People.Schema.ContactGroupMetadata | undefined;
                 name?: string | undefined;
                 resourceName?: string | undefined;
             }
             interface ContactGroupMembership {
                 contactGroupId?: string | undefined;
+                contactGroupResourceName?: string | undefined;
             }
             interface ContactGroupMetadata {
                 deleted?: boolean | undefined;
@@ -271,7 +378,15 @@ declare namespace GoogleAppsScript {
             interface CopyOtherContactToMyContactsGroupRequest {
                 copyMask?: string | undefined;
                 readMask?: string | undefined;
-                sources?: string[] | undefined;
+                sources?:
+                    | Array<
+                        | "READ_SOURCE_TYPE_UNSPECIFIED"
+                        | "READ_SOURCE_TYPE_PROFILE"
+                        | "READ_SOURCE_TYPE_CONTACT"
+                        | "READ_SOURCE_TYPE_DOMAIN_CONTACT"
+                        | "READ_SOURCE_TYPE_OTHER_CONTACT"
+                    >
+                    | undefined;
             }
             interface CoverPhoto {
                 default?: boolean | undefined;
@@ -280,6 +395,7 @@ declare namespace GoogleAppsScript {
             }
             interface CreateContactGroupRequest {
                 contactGroup?: People.Schema.ContactGroup | undefined;
+                readGroupFields?: string | undefined;
             }
             interface Date {
                 day?: number | undefined;
@@ -300,7 +416,8 @@ declare namespace GoogleAppsScript {
                 value?: string | undefined;
             }
             // eslint-disable-next-line @typescript-eslint/no-empty-interface
-            interface Empty {}
+            interface Empty {
+            }
             interface Event {
                 date?: People.Schema.Date | undefined;
                 formattedType?: string | undefined;
@@ -316,6 +433,7 @@ declare namespace GoogleAppsScript {
             interface FieldMetadata {
                 primary?: boolean | undefined;
                 source?: People.Schema.Source | undefined;
+                sourcePrimary?: boolean | undefined;
                 verified?: boolean | undefined;
             }
             interface FileAs {
@@ -323,6 +441,7 @@ declare namespace GoogleAppsScript {
                 value?: string | undefined;
             }
             interface Gender {
+                addressMeAs?: string | undefined;
                 formattedValue?: string | undefined;
                 metadata?: People.Schema.FieldMetadata | undefined;
                 value?: string | undefined;
@@ -392,15 +511,29 @@ declare namespace GoogleAppsScript {
             interface MiscKeyword {
                 formattedType?: string | undefined;
                 metadata?: People.Schema.FieldMetadata | undefined;
-                type?: string | undefined;
+                type?:
+                    | "TYPE_UNSPECIFIED"
+                    | "OUTLOOK_BILLING_INFORMATION"
+                    | "OUTLOOK_DIRECTORY_SERVER"
+                    | "OUTLOOK_KEYWORD"
+                    | "OUTLOOK_MILEAGE"
+                    | "OUTLOOK_PRIORITY"
+                    | "OUTLOOK_SENSITIVITY"
+                    | "OUTLOOK_SUBJECT"
+                    | "OUTLOOK_USER"
+                    | "HOME"
+                    | "WORK"
+                    | "OTHER"
+                    | undefined;
                 value?: string | undefined;
             }
             interface ModifyContactGroupMembersRequest {
-                resourceNamesToAdd?: string[] | undefined;
-                resourceNamesToRemove?: string[] | undefined;
+                resourceNamesToAdd?: Array<string> | undefined;
+                resourceNamesToRemove?: Array<string> | undefined;
             }
             interface ModifyContactGroupMembersResponse {
-                notFoundResourceNames?: string[] | undefined;
+                canNotRemoveLastContactGroupResourceNames?: Array<string> | undefined;
+                notFoundResourceNames?: Array<string> | undefined;
             }
             interface Name {
                 displayName?: string | undefined;
@@ -417,10 +550,19 @@ declare namespace GoogleAppsScript {
                 phoneticHonorificPrefix?: string | undefined;
                 phoneticHonorificSuffix?: string | undefined;
                 phoneticMiddleName?: string | undefined;
+                unstructuredName?: string | undefined;
             }
             interface Nickname {
                 metadata?: People.Schema.FieldMetadata | undefined;
-                type?: string | undefined;
+                type?:
+                    | "DEFAULT"
+                    | "MAIDEN_NAME"
+                    | "INITIALS"
+                    | "GPLUS"
+                    | "OTHER_NAME"
+                    | "ALTERNATE_NAME"
+                    | "SHORT_NAME"
+                    | undefined;
                 value?: string | undefined;
             }
             interface Occupation {
@@ -428,11 +570,13 @@ declare namespace GoogleAppsScript {
                 value?: string | undefined;
             }
             interface Organization {
+                costCenter?: string | undefined;
                 current?: boolean | undefined;
                 department?: string | undefined;
                 domain?: string | undefined;
                 endDate?: People.Schema.Date | undefined;
                 formattedType?: string | undefined;
+                fullTimeEquivalentMillipercent?: number | undefined;
                 jobDescription?: string | undefined;
                 location?: string | undefined;
                 metadata?: People.Schema.FieldMetadata | undefined;
@@ -445,21 +589,32 @@ declare namespace GoogleAppsScript {
             }
             interface Person {
                 addresses?: People.Schema.Address[] | undefined;
-                ageRange?: string | undefined;
+                ageRange?:
+                    | "AGE_RANGE_UNSPECIFIED"
+                    | "LESS_THAN_EIGHTEEN"
+                    | "EIGHTEEN_TO_TWENTY"
+                    | "TWENTY_ONE_OR_OLDER"
+                    | undefined;
                 ageRanges?: People.Schema.AgeRangeType[] | undefined;
                 biographies?: People.Schema.Biography[] | undefined;
                 birthdays?: People.Schema.Birthday[] | undefined;
                 braggingRights?: People.Schema.BraggingRights[] | undefined;
+                calendarUrls?: People.Schema.CalendarUrl[] | undefined;
+                clientData?: People.Schema.ClientData[] | undefined;
                 coverPhotos?: People.Schema.CoverPhoto[] | undefined;
                 emailAddresses?: People.Schema.EmailAddress[] | undefined;
                 etag?: string | undefined;
                 events?: People.Schema.Event[] | undefined;
+                externalIds?: People.Schema.ExternalId[] | undefined;
+                fileAses?: People.Schema.FileAs[] | undefined;
                 genders?: People.Schema.Gender[] | undefined;
                 imClients?: People.Schema.ImClient[] | undefined;
                 interests?: People.Schema.Interest[] | undefined;
                 locales?: People.Schema.Locale[] | undefined;
+                locations?: People.Schema.Location[] | undefined;
                 memberships?: People.Schema.Membership[] | undefined;
                 metadata?: People.Schema.PersonMetadata | undefined;
+                miscKeywords?: People.Schema.MiscKeyword[] | undefined;
                 names?: People.Schema.Name[] | undefined;
                 nicknames?: People.Schema.Nickname[] | undefined;
                 occupations?: People.Schema.Occupation[] | undefined;
@@ -479,9 +634,9 @@ declare namespace GoogleAppsScript {
             }
             interface PersonMetadata {
                 deleted?: boolean | undefined;
-                linkedPeopleResourceNames?: string[] | undefined;
-                objectType?: string | undefined;
-                previousResourceNames?: string[] | undefined;
+                linkedPeopleResourceNames?: Array<string> | undefined;
+                objectType?: "OBJECT_TYPE_UNSPECIFIED" | "PERSON" | "PAGE" | undefined;
+                previousResourceNames?: Array<string> | undefined;
                 sources?: People.Schema.Source[] | undefined;
             }
             interface PersonResponse {
@@ -503,8 +658,8 @@ declare namespace GoogleAppsScript {
                 url?: string | undefined;
             }
             interface ProfileMetadata {
-                objectType?: string | undefined;
-                userTypes?: string[] | undefined;
+                objectType?: "OBJECT_TYPE_UNSPECIFIED" | "PERSON" | "PAGE" | undefined;
+                userTypes?: Array<"USER_TYPE_UNKNOWN" | "GOOGLE_USER" | "GPLUS_USER" | "GOOGLE_APPS_USER"> | undefined;
             }
             interface Relation {
                 formattedType?: string | undefined;
@@ -552,12 +707,20 @@ declare namespace GoogleAppsScript {
                 etag?: string | undefined;
                 id?: string | undefined;
                 profileMetadata?: People.Schema.ProfileMetadata | undefined;
-                type?: string | undefined;
+                type?:
+                    | "SOURCE_TYPE_UNSPECIFIED"
+                    | "ACCOUNT"
+                    | "PROFILE"
+                    | "DOMAIN_PROFILE"
+                    | "CONTACT"
+                    | "OTHER_CONTACT"
+                    | "DOMAIN_CONTACT"
+                    | undefined;
                 updateTime?: string | undefined;
             }
             interface Status {
                 code?: number | undefined;
-                details?: object[] | undefined;
+                details?: Array<Record<string, any>> | undefined;
                 message?: string | undefined;
             }
             interface Tagline {
@@ -566,11 +729,21 @@ declare namespace GoogleAppsScript {
             }
             interface UpdateContactGroupRequest {
                 contactGroup?: People.Schema.ContactGroup | undefined;
+                readGroupFields?: string | undefined;
+                updateGroupFields?: string | undefined;
             }
             interface UpdateContactPhotoRequest {
                 personFields?: string | undefined;
                 photoBytes?: string | undefined;
-                sources?: string[] | undefined;
+                sources?:
+                    | Array<
+                        | "READ_SOURCE_TYPE_UNSPECIFIED"
+                        | "READ_SOURCE_TYPE_PROFILE"
+                        | "READ_SOURCE_TYPE_CONTACT"
+                        | "READ_SOURCE_TYPE_DOMAIN_CONTACT"
+                        | "READ_SOURCE_TYPE_OTHER_CONTACT"
+                    >
+                    | undefined;
             }
             interface UpdateContactPhotoResponse {
                 person?: People.Schema.Person | undefined;
