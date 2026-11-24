@@ -50,3 +50,13 @@ minimist<CustomArgs2>(["--a.b", "22"], { default: { "a.b": 11 }, alias: { "a.b":
 const obj = minimist<CustomArgs>(["--a.b", "22"], opts);
 obj._.length; // $ExpectType number
 obj["foo"]; // $ExpectType boolean
+
+// readonly / as const args and options tests
+const readonlyArgs = ["--foo", "bar", "--verbose"] as const;
+minimist(readonlyArgs);
+minimist(readonlyArgs, {
+    string: ["foo"] as const,
+    boolean: ["verbose"] as const,
+    alias: { v: ["verbose"] as const },
+});
+
