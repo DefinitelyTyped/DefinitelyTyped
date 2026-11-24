@@ -23,3 +23,15 @@ const types = accept.types();
 const typeFromEmpty = accept.type();
 const typeFromParams = accept.type("json", "text");
 const typeFromArray = accept.type(["json", "text"]);
+
+// as const readonly arrays
+const readonlyTypes = ["json", "html"] as const;
+accept.type(readonlyTypes);
+accept.types(readonlyTypes);
+
+const readonlyLangs = ["en", "tr"] as const;
+accept.languages(readonlyLangs);
+
+// plain object with headers
+accepts({ headers: { accept: "application/json" } });
+
