@@ -1,4 +1,5 @@
 /// <reference types="node" />
+import * as fs from "fs";
 import * as http from "http";
 import { HttpError } from "http-errors";
 
@@ -35,7 +36,7 @@ declare namespace serveStatic {
          * 'deny' Send a 403 for any request for a dotfile
          * 'ignore' Pretend like the dotfile does not exist and call next()
          */
-        dotfiles?: string | undefined;
+        dotfiles?: "allow" | "deny" | "ignore" | undefined;
 
         /**
          * Enable or disable etag generation, defaults to true.
@@ -47,7 +48,7 @@ declare namespace serveStatic {
          * The first that exists will be served. Example: ['html', 'htm'].
          * The default value is false.
          */
-        extensions?: string[] | false | undefined;
+        extensions?: string[] | string | boolean | undefined;
 
         /**
          * Set the middleware to have client errors fall-through as just unhandled requests,
@@ -101,7 +102,7 @@ declare namespace serveStatic {
          * path the file path that is being sent
          * stat the stat object of the file that is being sent
          */
-        setHeaders?: ((res: R, path: string, stat: any) => any) | undefined;
+        setHeaders?: ((res: R, path: string, stat: fs.Stats) => any) | undefined;
     }
 
     interface RequestHandler<R extends http.ServerResponse> {

@@ -46,3 +46,14 @@ app.use(serveStatic("/infers-express-response-when-passed-to-express-use", {
         res.set("foo", "bar");
     },
 }));
+
+app.use(serveStatic("/options-test", {
+    dotfiles: "deny",
+    extensions: "html",
+    setHeaders: (res, path, stat) => {
+        if (stat.isFile()) {
+            res.setHeader("X-File-Size", String(stat.size));
+        }
+    },
+}));
+
