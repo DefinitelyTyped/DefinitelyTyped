@@ -15,3 +15,8 @@ if ("filename" in parameters) {
     // $ExpectType string
     parameters["filename"];
 }
+
+// test inline and custom string disposition types
+contentDisposition("preview.pdf", { type: "inline" });
+contentDisposition("custom.dat", { type: "form-data" });
+
