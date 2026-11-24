@@ -4,6 +4,6 @@ declare function fresh(reqHeaders: fresh.Headers, resHeaders: fresh.Headers): bo
 
 declare namespace fresh {
     interface Headers {
-        [header: string]: string | string[] | number | undefined;
+        [header: string]: string | string[] | readonly string[] | number | undefined;
     }
 }
