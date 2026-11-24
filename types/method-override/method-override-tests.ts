@@ -12,3 +12,11 @@ app.use(methodOverride((req: express.Request, res: express.Response) => {
         return method;
     }
 }));
+
+app.use(methodOverride());
+app.use(methodOverride({ methods: ["POST", "PATCH"] as const }));
+app.use(methodOverride("X-HTTP-Method-Override", {}));
+app.use(methodOverride((req: express.Request, res: express.Response) => {
+    return req.query._method ? String(req.query._method) : undefined;
+}));
+
