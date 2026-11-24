@@ -78,3 +78,21 @@ app.get("/events", (req, res) => {
         clearInterval(timer);
     });
 });
+
+// Support http.IncomingMessage / http.ServerResponse in filter and options
+import http = require("http");
+
+const customHttpFilter = (req: http.IncomingMessage, res: http.ServerResponse) => {
+    return req.method === "GET";
+};
+
+app.use(compression({
+    filter: customHttpFilter,
+    flush: zlib.constants.Z_SYNC_FLUSH,
+    finishFlush: zlib.constants.Z_FINISH,
+    dictionary: Buffer.from("test"),
+}));
+
+const customReq = {} as http.IncomingMessage;
+const customRes = {} as http.ServerResponse;
+const isCompressed: boolean = compression.filter(customReq, customRes);

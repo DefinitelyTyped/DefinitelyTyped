@@ -1,4 +1,5 @@
 import express = require("express");
+import * as http from "http";
 import * as zlib from "zlib";
 
 // This module adds a res.flush() method to force the partially-compressed response to be flushed to the client.
@@ -49,6 +50,7 @@ declare namespace compression {
      * @see {@link https://github.com/expressjs/compression#filter-1|`.filter` documentation}
      */
     function filter(req: express.Request, res: express.Response): boolean;
+    function filter(req: http.IncomingMessage, res: http.ServerResponse): boolean;
 
     /**
      * A function to decide if the response should be considered for compression.
@@ -80,12 +82,27 @@ declare namespace compression {
          * @see {@link https://github.com/expressjs/compression#filter|`filter` documentation}
          * @see {@link https://www.npmjs.com/package/compressible|compressible module}
          */
-        filter?: CompressionFilter | undefined;
+        filter?: CompressionFilter | ((req: http.IncomingMessage, res: http.ServerResponse) => boolean) | undefined;
 
         /**
          * Options for brotli compression.
          */
         brotli?: zlib.BrotliOptions | undefined;
+
+        /**
+         * The default flush behavior when compressing, such as `zlib.constants.Z_NO_FLUSH` or `zlib.constants.Z_SYNC_FLUSH`.
+         */
+        flush?: number | undefined;
+
+        /**
+         * The flush behavior after ending the compression stream, such as `zlib.constants.Z_FINISH`.
+         */
+        finishFlush?: number | undefined;
+
+        /**
+         * A custom dictionary for zlib deflate/inflate algorithms.
+         */
+        dictionary?: Buffer | NodeJS.ArrayBufferView | ArrayBuffer | undefined;
 
         /**
          * This is the default encoding to use when the client does not specify an encoding in the request's Accept-Encoding header.
