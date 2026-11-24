@@ -14,6 +14,11 @@ http.createServer((req, res) => {
     // $ExpectType string | false | null
     typeis(req, ...["html", "json"]);
 
+    // as const readonly arrays
+    const readonlyTypes = ["json", "html"] as const;
+    // $ExpectType string | false | null
+    typeis(req, readonlyTypes);
+
     // $ExpectType boolean
     typeis.hasBody(req);
     if (typeis.hasBody(req)) {
@@ -30,7 +35,22 @@ http.createServer((req, res) => {
     typeis.is(mediaType, ["html", "json"]);
     // $ExpectType string | false
     typeis.is(mediaType, ...["html", "json"]);
+    // $ExpectType string | false
+    typeis.is(mediaType, readonlyTypes);
 });
+
+// plain object with headers
+const customReq = {
+    headers: {
+        "content-type": "application/json",
+        "content-length": "100",
+    },
+};
+// $ExpectType string | false | null
+typeis(customReq, ["json"]);
+typeis(customReq, ["application/*"] as const);
+// $ExpectType boolean
+typeis.hasBody(customReq);
 
 import express = require("express");
 const app = express();
