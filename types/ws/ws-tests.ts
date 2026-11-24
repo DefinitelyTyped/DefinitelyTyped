@@ -96,6 +96,8 @@ import * as wslib from "ws";
         perMessageDeflate: true,
         maxBufferedChunks: 4096,
         maxFragments: 1024,
+        closeTimeout: 30000,
+        maxPendingAutoPongs: 10,
     });
 
     wsv.on("connection", function connection(ws) {
@@ -165,6 +167,9 @@ import * as wslib from "ws";
         maxPayload: 10 * 1024 * 1024,
         maxBufferedChunks: 4096,
         maxFragments: 1024,
+        closeTimeout: 30000,
+        maxPendingAutoPongs: 10,
+        protocols: ["chat", "superchat"],
     });
     ws.on("open", () => ws.send("something assume to be really long"));
 }

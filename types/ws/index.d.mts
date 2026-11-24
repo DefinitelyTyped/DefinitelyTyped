@@ -241,6 +241,7 @@ declare namespace WebSocket {
 
     interface ClientOptions extends SecureContextOptions {
         protocol?: string | undefined;
+        protocols?: string | readonly string[] | undefined;
         followRedirects?: boolean | undefined;
         generateMask?(mask: Buffer): void;
         handshakeTimeout?: number | undefined;
@@ -257,6 +258,8 @@ declare namespace WebSocket {
         rejectUnauthorized?: boolean | undefined;
         allowSynchronousEvents?: boolean | undefined;
         autoPong?: boolean | undefined;
+        closeTimeout?: number | undefined;
+        maxPendingAutoPongs?: number | undefined;
         maxPayload?: number | undefined;
         maxBufferedChunks?: number | undefined;
         maxFragments?: number | undefined;
@@ -342,6 +345,8 @@ declare namespace WebSocket {
         noServer?: boolean | undefined;
         allowSynchronousEvents?: boolean | undefined;
         autoPong?: boolean | undefined;
+        closeTimeout?: number | undefined;
+        maxPendingAutoPongs?: number | undefined;
         clientTracking?: boolean | undefined;
         perMessageDeflate?: boolean | PerMessageDeflateOptions | undefined;
         maxPayload?: number | undefined;
