@@ -12,11 +12,12 @@ declare namespace morgan {
     type FormatFn<
         Request extends http.IncomingMessage = http.IncomingMessage,
         Response extends http.ServerResponse = http.ServerResponse,
+        Return = string | undefined | null,
     > = (
         tokens: TokenIndexer<Request, Response>,
         req: Request,
         res: Response,
-    ) => string | undefined | null;
+    ) => Return;
 
     type TokenCallbackFn<
         Request extends http.IncomingMessage = http.IncomingMessage,
@@ -93,7 +94,10 @@ declare namespace morgan {
          * @param format
          * @param options
          */
-        (format: FormatFn<Request, Response>, options?: Options<Request, Response>): Handler<Request, Response>;
+        <Return extends string | undefined | null | object = string | undefined | null | object>(
+            format: FormatFn<Request, Response, Return>,
+            options?: Options<Request, Response>,
+        ): Handler<Request, Response>;
 
         /**
          * Define a custom token which can be used in custom morgan logging
@@ -109,7 +113,10 @@ declare namespace morgan {
         /**
          * Define a named custom format by specifying a format function.
          */
-        format(name: string, fmt: FormatFn<Request, Response>): Morgan<Request, Response>;
+        format<Return extends string | undefined | null | object = string | undefined | null | object>(
+            name: string,
+            fmt: FormatFn<Request, Response, Return>,
+        ): Morgan<Request, Response>;
 
         /**
          * Compile a format string in token notation into a format function.
@@ -145,9 +152,10 @@ declare namespace morgan {
     function format<
         Request extends http.IncomingMessage = http.IncomingMessage,
         Response extends http.ServerResponse = http.ServerResponse,
+        Return extends string | undefined | null | object = string | undefined | null | object,
     >(
         name: string,
-        fmt: FormatFn<Request, Response>,
+        fmt: FormatFn<Request, Response, Return>,
     ): Morgan<Request, Response>;
 
     /**
@@ -162,9 +170,14 @@ declare namespace morgan {
 
     interface StreamOptions {
         /**
-         * Output stream for writing log lines.
+         * Output stream for writing log lines or objects.
          */
-        write(str: string): void;
+        write(data: any): void;
+
+        /**
+         * Indicates whether the stream accepts objects instead of strings (objectMode).
+         */
+        writableObjectMode?: boolean | undefined;
     }
 
     /***
@@ -296,8 +309,9 @@ declare function morgan<
 declare function morgan<
     Request extends http.IncomingMessage = http.IncomingMessage,
     Response extends http.ServerResponse = http.ServerResponse,
+    Return extends string | undefined | null | object = string | undefined | null | object,
 >(
-    format: morgan.FormatFn<Request, Response>,
+    format: morgan.FormatFn<Request, Response, Return>,
     options?: morgan.Options<Request, Response>,
 ): Handler<Request, Response>;
 

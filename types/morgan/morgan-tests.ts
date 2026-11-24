@@ -113,3 +113,28 @@ http.createServer((req, res) => {
         res.end("hello, world!");
     });
 });
+
+// built-in :pid and :total-time tokens
+morgan(":method :url :status :pid :total-time[3] ms");
+
+// objectMode format function returning structured object
+morgan(
+    (tokens, req, res) => ({
+        method: tokens.method(req, res),
+        url: tokens.url(req, res),
+        status: Number(tokens.status(req, res)),
+        contentLength: tokens.res(req, res, "content-length"),
+        responseTime: Number(tokens["response-time"](req, res)),
+        totalTime: Number(tokens["total-time"](req, res)),
+        pid: tokens.pid(req, res),
+    }),
+    {
+        stream: {
+            writableObjectMode: true,
+            write: (logObj: Record<string, unknown>) => {
+                console.log(logObj);
+            },
+        },
+    },
+);
+
