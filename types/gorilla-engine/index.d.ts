@@ -143,6 +143,18 @@ declare namespace GorillaEngine {
         tickAbsolute: string;
     }
 
+    /** Metadata for a parameter at an instrument path. */
+    interface ParameterInfo {
+        name: string;
+        units: string;
+        minValue: number;
+        maxValue: number;
+        defaultValue: number;
+        type: string;
+        display: string;
+        propType: string;
+    }
+
     /**
      * Instrument
      */
@@ -183,7 +195,14 @@ declare namespace GorillaEngine {
          * @param module The serialised module to replace as a string
          */
         replaceModuleAtPath(path: string, module: string): boolean;
-
+        /**
+         * Retrieves parameter metadata at the given instrument path.
+         *
+         * @param path The path to the parameter.
+         * @returns The parameter metadata, or `false` if it could not be retrieved.
+         * @throws If exactly one string path is not provided, or the instrument has been disposed.
+         */
+        getInfoAtPath(path: string): ParameterInfo | false;
         /**
          * Method used to determine if a value from the Gorilla Engine is a module.
          *
