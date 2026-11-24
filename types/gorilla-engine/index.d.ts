@@ -69,6 +69,21 @@ declare namespace GorillaEngine {
      */
     interface InstrumentProperty {
         /**
+         * Converts a display value to a normalized value using this parameter's scale.
+         * @param value The display value to normalize.
+         * @returns The normalized value.
+         * @throws If exactly one number is not provided, or the parameter has been disposed.
+         */
+        normalizeValue(value: number): number;
+        /**
+         * Converts a normalized value to a display value using this parameter's scale.
+         * @param value The normalized value to denormalize.
+         * @returns The display value.
+         * @throws If exactly one number is not provided, or the parameter has been disposed.
+         */
+        denormalizeValue(value: number): number;
+
+        /**
          * A normalised representation of its value.
          */
         normValue: number;
