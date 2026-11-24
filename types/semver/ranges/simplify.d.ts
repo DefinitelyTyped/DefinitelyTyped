@@ -9,6 +9,10 @@ import semver = require("../index");
  * to provide the user with something a bit more ergonomic.
  * If the provided range is shorter in string-length than the generated range, then that is returned.
  */
-declare function simplify(ranges: string[], range: string | Range, options?: semver.Options): string | Range;
+declare function simplify(
+    ranges: readonly string[],
+    range: string | Range,
+    options?: semver.RangeOptions,
+): string | Range;
 
 export = simplify;

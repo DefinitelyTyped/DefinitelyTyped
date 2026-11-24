@@ -8,7 +8,7 @@ declare class Range {
     range: string;
     raw: string;
     loose: boolean;
-    options: semver.Options;
+    options: semver.RangeOptions;
     includePrerelease: boolean;
     format(): string;
     inspect(): string;
@@ -16,6 +16,6 @@ declare class Range {
     set: ReadonlyArray<readonly Comparator[]>;
     parseRange(range: string): readonly Comparator[];
     test(version: string | SemVer): boolean;
-    intersects(range: Range, optionsOrLoose?: boolean | semver.Options): boolean;
+    intersects(range: Range, optionsOrLoose?: boolean | semver.RangeOptions): boolean;
 }
 export = Range;

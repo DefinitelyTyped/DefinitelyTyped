@@ -84,7 +84,6 @@ semverLt("1.2.3", "9.8.7"); // $ExpectType boolean
 semverMinVersion(">=1.0.0"); // $ExpectType SemVer | null
 semverMinVersion(">=1.0.0", true); // $ExpectType SemVer | null
 semverMinVersion(">=1.0.0", { loose: false }); // $ExpectType SemVer | null
-// @ts-expect-error
 semverMinVersion(">=1.0.0", { includePrerelease: false }); // $ExpectType SemVer | null
 semverValid(semverCoerce("v2")); // $ExpectType string | null
 semverValid(semverCoerce("42.6.7.9.3-alpha")); // $ExpectType string | null
@@ -419,3 +418,11 @@ const lims: readonly semver.Comparator[] = range.parseRange(str);
 function isRelativeVersionKeyword(val: string): val is semver.ReleaseType {
     return semver.RELEASE_TYPES.indexOf(val as semver.ReleaseType) > -1;
 }
+
+// Tests for readonly string arrays in simplifyRange and RangeOptions in minVersion / range.intersects
+const readonlyRanges = ["1.0.0", "1.2.0", "1.3.0"] as const;
+const simplifiedRange: string | semver.Range = semver.simplifyRange(readonlyRanges, "^1.0.0", { includePrerelease: true });
+const minVerWithRangeOpts: semver.SemVer | null = semver.minVersion(">=1.0.0", { includePrerelease: true });
+const rangeWithOpts = new semver.Range(">=1.0.0", { includePrerelease: true });
+const rangeIncludesPrerelease: boolean | undefined = rangeWithOpts.options.includePrerelease;
+const intersectsWithRangeOpts: boolean = rangeWithOpts.intersects(new semver.Range("^1.2.0"), { includePrerelease: true });
