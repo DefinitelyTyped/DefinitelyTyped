@@ -200,7 +200,12 @@ declare namespace GoogleAppsScript {
         interface Geocoder {
             geocode(address: string): any;
             reverseGeocode(latitude: number, longitude: number): any;
-            reverseGeocode(swLatitude: number, swLongitude: number, neLatitude: number, neLongitude: number): any;
+            /** @deprecated DO NOT USE */ reverseGeocode(
+                swLatitude: number,
+                swLongitude: number,
+                neLatitude: number,
+                neLongitude: number,
+            ): any;
             setBounds(swLatitude: number, swLongitude: number, neLatitude: number, neLongitude: number): Geocoder;
             setLanguage(language: string): Geocoder;
             setRegion(region: string): Geocoder;
@@ -218,7 +223,10 @@ declare namespace GoogleAppsScript {
             newElevationSampler(): ElevationSampler;
             newGeocoder(): Geocoder;
             newStaticMap(): StaticMap;
-            setAuthentication(clientId: string, signingKey: string): void;
+            resetAuthenticationApiKey(): void;
+            /** @deprecated DO NOT USE */ setAuthentication(clientId: string, signingKey: string): void;
+            setAuthenticationByApiKey(apiKey: string): void;
+            setAuthenticationByApiKey(apiKey: string, signingKey: string): void;
         }
         /**
          * An enum representing the size of a marker added to a map.
