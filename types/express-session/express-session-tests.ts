@@ -38,6 +38,12 @@ app.use(
 app.use(
     session({
         secret: "keyboard cat",
+        cookie: { sameSite: "auto" },
+    }),
+);
+app.use(
+    session({
+        secret: "keyboard cat",
         cookie: { sameSite: "strict", partitioned: true },
     }),
 );
@@ -106,6 +112,9 @@ declare module "express-session" {
 
 app.use((req, res, next) => {
     const sess = req.session;
+    sess.cookie.sameSite; // $ExpectType boolean | "lax" | "strict" | "none" | "auto" | undefined
+    sess.cookie.partitioned; // $ExpectType boolean | undefined
+    sess.cookie.priority; // $ExpectType "low" | "medium" | "high" | undefined
     if (!!sess.views) {
         sess.views++;
         res.setHeader("Content-Type", "text/html");

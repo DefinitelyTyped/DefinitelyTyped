@@ -311,13 +311,14 @@ declare namespace session {
          * - `lax` will set the `SameSite` attribute to `Lax` for lax same site enforcement.
          * - `none` will set the `SameSite` attribute to `None` for an explicit cross-site cookie.
          * - `strict` will set the `SameSite` attribute to `Strict` for strict same site enforcement.
+         * - `auto` will automatically set `SameSite=None` for HTTPS and `SameSite=Lax` for HTTP connections.
          *
          * More information about the different enforcement levels can be found in the specification.
          *
          * **Note:** This is an attribute that has not yet been fully standardized, and may change in the future.
          * This also means many clients may ignore this attribute until they understand it.
          */
-        sameSite?: boolean | "lax" | "strict" | "none" | undefined;
+        sameSite?: boolean | "lax" | "strict" | "none" | "auto" | undefined;
     }
 
     class Cookie implements CookieOptions {
@@ -331,7 +332,9 @@ declare namespace session {
         path?: string | undefined;
         domain?: string | undefined;
         secure?: boolean | "auto" | undefined;
-        sameSite?: boolean | "lax" | "strict" | "none" | undefined;
+        sameSite?: boolean | "lax" | "strict" | "none" | "auto" | undefined;
+        partitioned?: boolean | undefined;
+        priority?: "low" | "medium" | "high" | undefined;
     }
 
     abstract class Store extends EventEmitter {
