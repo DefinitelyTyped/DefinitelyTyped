@@ -28,11 +28,22 @@ declare module "connect-timeout" {
              */
             respond?: boolean | undefined;
         }
+
+        /**
+         * @summary Error forwarded when a request times out.
+         */
+        interface TimeoutError extends Error {
+            code: "ETIMEDOUT";
+            status: number;
+            statusCode: number;
+            timeout: number;
+        }
     }
 
     /**
      * @summary Returns middleware that times out in time milliseconds. time can also be a string accepted by the ms module. On timeout, req will emit "timeout".
      */
-    function e(time: number | string, options?: e.TimeoutOptions): express.RequestHandler;
+    function e(options?: e.TimeoutOptions): express.RequestHandler;
+    function e(time?: number | string, options?: e.TimeoutOptions): express.RequestHandler;
     export = e;
 }

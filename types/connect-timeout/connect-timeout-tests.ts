@@ -31,3 +31,14 @@ app2.use(cookieParser());
 app2.use(haltOnTimedout);
 
 app2.listen(3001);
+
+var app3 = express();
+app3.use(timeout());
+app3.use(timeout({ respond: false }));
+app3.use((err: timeout.TimeoutError, req: express.Request, res: express.Response, next: express.NextFunction) => {
+    if (err.code === "ETIMEDOUT") {
+        console.log("Timed out after ms:", err.timeout, err.status, err.statusCode);
+    }
+    next(err);
+});
+
