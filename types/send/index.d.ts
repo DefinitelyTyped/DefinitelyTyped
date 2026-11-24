@@ -52,7 +52,7 @@ declare namespace send {
          * An example value that will serve extension-less HTML files: ['html', 'htm'].
          * This is skipped if the requested file already has an extension.
          */
-        extensions?: string[] | string | boolean | undefined;
+        extensions?: readonly string[] | string | boolean | undefined;
 
         /**
          * Enable or disable the immutable directive in the Cache-Control response header, defaults to false.
@@ -65,7 +65,7 @@ declare namespace send {
         /**
          * By default send supports "index.html" files, to disable this set false or to supply a new index pass a string or an array in preferred order.
          */
-        index?: string[] | string | boolean | undefined;
+        index?: readonly string[] | string | boolean | undefined;
 
         /**
          * Enable or disable Last-Modified header, defaults to true.
@@ -155,7 +155,7 @@ declare namespace send {
         /**
          * Transfer `path`.
          */
-        send(path: string, stat?: fs.Stats): void;
+        send(path: string, stat?: fs.Stats | fs.BigIntStats): void;
 
         /**
          * Transfer file for `path`.
@@ -180,7 +180,7 @@ declare namespace send {
         /**
          * Set response header fields, most fields may be pre-defined.
          */
-        setHeader(path: string, stat: fs.Stats): void;
+        setHeader(path: string, stat: fs.Stats | fs.BigIntStats): void;
     }
 }
 

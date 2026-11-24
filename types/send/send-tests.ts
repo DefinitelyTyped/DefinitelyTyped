@@ -27,3 +27,15 @@ app.get("/test.html", (req, res) => {
         })
         .pipe(res);
 });
+
+// Test readonly array options (e.g. from 'as const')
+const readonlyExts = ["html", "htm"] as const;
+const readonlyIndex = ["index.html", "index.htm"] as const;
+
+app.get("/readonly-options", (req, res) => {
+    const s = send(req, "/test.html", {
+        extensions: readonlyExts,
+        index: readonlyIndex,
+    });
+    s.pipe(res);
+});
