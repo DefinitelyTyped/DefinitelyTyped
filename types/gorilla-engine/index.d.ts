@@ -211,6 +211,15 @@ declare namespace GorillaEngine {
          */
         replaceModuleAtPath(path: string, module: string): boolean;
         /**
+         * Retrieves the index of the parameter at the given instrument path.
+         *
+         * @param path The path to the parameter.
+         * @returns The parameter index, `-1` if the path does not resolve to a parameter,
+         * or `false` if the path argument is missing or is not a string.
+         * @throws If the instrument has been disposed.
+         */
+        getParamIndexAtPath(path: string): number | false;
+        /**
          * Retrieves parameter metadata at the given instrument path.
          *
          * @param path The path to the parameter.
