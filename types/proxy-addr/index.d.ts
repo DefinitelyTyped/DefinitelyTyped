@@ -5,12 +5,15 @@ export = proxyAddr;
 
 declare function proxyAddr(
     req: IncomingMessage,
-    trust: proxyAddr.Address | proxyAddr.Address[] | ((addr: string, i: number) => boolean),
+    trust: proxyAddr.Address | readonly proxyAddr.Address[] | ((addr: string, i: number) => boolean),
 ): string;
 
 declare namespace proxyAddr {
-    function all(req: IncomingMessage, trust?: Address | Address[] | ((addr: string, i: number) => boolean)): string[];
-    function compile(val: Address | Address[]): (addr: string, i: number) => boolean;
+    function all(
+        req: IncomingMessage,
+        trust?: Address | readonly Address[] | ((addr: string, i: number) => boolean),
+    ): string[];
+    function compile(val: Address | readonly Address[]): (addr: string, i: number) => boolean;
 
     type Address = "loopback" | "linklocal" | "uniquelocal" | string;
 }
