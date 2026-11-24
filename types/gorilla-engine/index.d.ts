@@ -522,6 +522,12 @@ declare namespace GorillaEngine {
      * The returned blob can be used to enumerate and load its instruments. Blob exports
      * with separate headers must be loaded by passing the path to the first blob part.
      *
+     * If no `_part2.blob` is found with the same filename as a `_part1.blob` file, but
+     * the folder contains another `_part2.blob` file with the same UUID as the part1,
+     * then that part2 file is loaded. This allows multiple part1 files to be used without
+     * multiple copies of the larger part2 file, so long as the sample data in the part2
+     * file has not changed.
+     *
      * @param blobPath Absolute path to the blob file or the first part of a split blob.
      * @param encryptionKey Encryption key used to decrypt the blob, when required.
      * @returns The loaded blob.
