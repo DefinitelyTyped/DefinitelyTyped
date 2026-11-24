@@ -34,3 +34,24 @@ if (typeof res3 === "string") {
 
 const res4 = cookieParser.signedCookies({ foo: "bar" }, "keyboard cat");
 const signedCookieRes: { foo?: string | false | undefined } = res4;
+
+// readonly array of secrets
+const readonlySecrets = ["secret1", "secret2"] as const;
+app.use(cookieParser(readonlySecrets));
+const res5 = cookieParser.signedCookie("s:cookie", readonlySecrets);
+const res6 = cookieParser.signedCookies({ foo: "bar" }, readonlySecrets);
+
+// generic JSONCookie / JSONCookies
+interface CustomCookieData {
+    theme: string;
+    count: number;
+}
+const typedJson = cookieParser.JSONCookie<CustomCookieData>("j:{\"theme\":\"dark\",\"count\":1}");
+if (typedJson) {
+    const theme: string = typedJson.theme;
+    const count: number = typedJson.count;
+}
+
+const typedJsonCookies = cookieParser.JSONCookies<{ item: string }, CustomCookieData>({ item: "j:{}" });
+const itemData: CustomCookieData | undefined = typedJsonCookies.item;
+

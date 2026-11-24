@@ -17,7 +17,7 @@ declare module "express" {
 }
 
 declare function cookieParser(
-    secret?: string | string[],
+    secret?: string | readonly string[] | undefined,
     options?: cookieParser.CookieParseOptions,
 ): express.RequestHandler;
 
@@ -26,15 +26,17 @@ declare namespace cookieParser {
         decode?(val: string): string;
     }
 
-    function JSONCookie(jsonCookie: string): object | undefined;
+    function JSONCookie<T = object>(jsonCookie: string): T | undefined;
 
-    function JSONCookies<T extends { [key: string]: string }>(jsonCookies: T): { [P in keyof T]: object | undefined };
+    function JSONCookies<T extends { [key: string]: string }, R = object>(
+        jsonCookies: T,
+    ): { [P in keyof T]: R | undefined };
 
-    function signedCookie(cookie: string, secret: string | string[]): string | false;
+    function signedCookie(cookie: string, secret: string | readonly string[]): string | false;
 
     function signedCookies<T extends { [key: string]: string }>(
         cookies: T,
-        secret: string | string[],
+        secret: string | readonly string[],
     ): { [P in keyof T]?: string | false };
 }
 
