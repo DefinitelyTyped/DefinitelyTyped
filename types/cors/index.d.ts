@@ -2,7 +2,7 @@
 
 import { IncomingHttpHeaders } from "http";
 
-type StaticOrigin = boolean | string | RegExp | Array<boolean | string | RegExp>;
+type StaticOrigin = boolean | string | RegExp | ReadonlyArray<boolean | string | RegExp>;
 
 type CustomOrigin = (
     requestOrigin: string | undefined,
@@ -22,9 +22,9 @@ declare namespace e {
         /**
          * @default 'GET,HEAD,PUT,PATCH,POST,DELETE'
          */
-        methods?: string | string[] | undefined;
-        allowedHeaders?: string | string[] | undefined;
-        exposedHeaders?: string | string[] | undefined;
+        methods?: string | readonly string[] | undefined;
+        allowedHeaders?: string | readonly string[] | undefined;
+        exposedHeaders?: string | readonly string[] | undefined;
         credentials?: boolean | undefined;
         maxAge?: number | undefined;
         /**
@@ -48,7 +48,7 @@ declare function e<T extends e.CorsRequest = e.CorsRequest>(
     req: T,
     res: {
         statusCode?: number | undefined;
-        setHeader(key: string, value: string): any;
+        setHeader(key: string, value: any): any;
         end(): any;
     },
     next: (err?: any) => any,

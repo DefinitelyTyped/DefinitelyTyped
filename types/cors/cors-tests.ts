@@ -126,3 +126,13 @@ app.use(cors((req, cb) => {
 app.use(cors({
     preflightContinue: true,
 }));
+
+// const / readonly array configurations
+const readonlyCorsOptions = {
+    origin: ["http://example.com", "http://fakeurl.com"] as const,
+    methods: ["GET", "POST", "PUT"] as const,
+    allowedHeaders: ["Content-Type", "Authorization"] as const,
+    exposedHeaders: ["Content-Range", "X-Content-Range"] as const,
+};
+app.use(cors(readonlyCorsOptions));
+
