@@ -15,7 +15,7 @@ declare namespace CookieSessionInterfaces {
         /**
          * The list of keys to use to sign & verify cookie values. Set cookies are always signed with keys[0], while the other keys are valid for verification, allowing for key rotation.
          */
-        keys?: string[] | import("keygrip") | undefined;
+        keys?: readonly string[] | string[] | import("keygrip") | undefined;
 
         /**
          * A string which will be used as single key if keys is not provided.
@@ -78,6 +78,11 @@ declare namespace CookieSessionInterfaces {
          * level site from which it was created.
          */
         partitioned?: boolean | undefined;
+
+        /**
+         * a string indicating the cookie priority ('low', 'medium', or 'high').
+         */
+        priority?: "low" | "medium" | "high" | undefined;
     }
 
     interface CookieSessionObject {

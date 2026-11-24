@@ -45,3 +45,13 @@ app3.use(cookieSession({
     name: "session",
     keys: Keygrip(["key1", "key2"]),
 }));
+
+var app4 = express();
+const readonlyKeys = ["key1", "key2"] as const;
+app4.use(cookieSession({
+    name: "session",
+    keys: readonlyKeys,
+    priority: "high",
+    partitioned: true,
+}));
+
