@@ -1,5 +1,5 @@
 import { Request, RequestHandler } from "express";
-import { Readable } from "stream";
+import { Readable, Writable } from "stream";
 
 declare global {
     namespace Express {
@@ -133,7 +133,7 @@ declare namespace multer {
      * files will be stored in the system's temporary directory with random 32
      * character filenames.
      */
-    function diskStorage(options: DiskStorageOptions): StorageEngine;
+    function diskStorage(options?: DiskStorageOptions): StorageEngine;
 
     /**
      * Returns a `StorageEngine` implementation configured to store files in
@@ -152,7 +152,7 @@ declare namespace multer {
         | "MISSING_FIELD_NAME";
 
     class MulterError extends Error {
-        constructor(code: ErrorCode, field?: string);
+        constructor(code: ErrorCode, field?: string, filename?: string);
         /** Name of the MulterError constructor. */
         name: string;
         /** Identifying error code. */
@@ -161,6 +161,8 @@ declare namespace multer {
         message: string;
         /** Name of the multipart form field associated with this error. */
         field?: string | undefined;
+        /** Name of the file associated with this error, if applicable. */
+        filename?: string | undefined;
     }
 
     /**
@@ -217,10 +219,29 @@ declare namespace multer {
         preservePath?: boolean | undefined;
         /**
          * For multipart forms, the default character set to use for values of
+         * form fields. (Default: utf8)
+         */
+        defCharset?: string | undefined;
+        /**
+         * For multipart forms, the default character set to use for values of
          * part header parameters (e.g. filename) that are not extended
          * parameters (that contain an explicit charset). (Default: latin1)
          */
         defParamCharset?: string | undefined;
+        /**
+         * Maximum number of bytes to buffer before writing to the output stream.
+         */
+        highWaterMark?: number | undefined;
+        /**
+         * Maximum number of bytes to buffer per file before writing to the output stream.
+         */
+        fileHwm?: number | undefined;
+        /**
+         * Optional function to handle feeding the parser from the incoming request.
+         * Useful for environments (like Google Cloud Functions or Firebase) where the
+         * request body is consumed before Multer runs.
+         */
+        streamHandler?: ((req: Request, busboy: Writable) => void) | undefined;
         /**
          * Optional function to control which files are uploaded. This is called
          * for every file that is processed.
@@ -310,6 +331,11 @@ declare namespace multer {
             file: Express.Multer.File,
             callback: (error: Error | null, filename: string) => void,
         ): void;
+        /**
+         * When true, calls `fs.fsync` on the file descriptor before completing the upload.
+         * (Default: false)
+         */
+        flush?: boolean | undefined;
     }
 
     /**

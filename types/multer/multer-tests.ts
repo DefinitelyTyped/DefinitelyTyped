@@ -28,6 +28,19 @@ const upload_with_defParamCharset = multer({
 upload_with_defParamCharset; // $ExpectType Multer
 assert.strictEqual(upload_with_defParamCharset.constructor.name, "Multer");
 
+const upload_with_stream_handler = multer({
+    dest: "uploads/",
+    defCharset: "utf8",
+    defParamCharset: "utf8",
+    highWaterMark: 16384,
+    fileHwm: 16384,
+    streamHandler: (req, busboy) => {
+        req.pipe(busboy);
+    },
+});
+upload_with_stream_handler; // $ExpectType Multer
+assert.strictEqual(upload_with_stream_handler.constructor.name, "Multer");
+
 const upload_with_limits = multer({
     dest: "uploads/",
     limits: {
@@ -74,10 +87,13 @@ app.post(
     upload.none(),
     (err: any, req: express.Request, res: express.Response, next: express.NextFunction) => {
         if (err instanceof multer.MulterError) {
+            err.filename; // $ExpectType string | undefined
             next(new Error(err.code));
         }
     },
 );
+
+const diskStorageWithoutOptions = multer.diskStorage();
 
 const diskStorage = multer.diskStorage({
     destination(req, file, cb) {
@@ -86,6 +102,7 @@ const diskStorage = multer.diskStorage({
     filename(req, file, cb) {
         cb(null, `${file.fieldname}-${Date.now()}`);
     },
+    flush: true,
 });
 
 const diskUpload: Multer = multer({ storage: diskStorage });
