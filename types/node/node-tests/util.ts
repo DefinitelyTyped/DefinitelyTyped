@@ -561,3 +561,63 @@ util.setTraceSigInt(true);
     // @ts-expect-error
     util.convertProcessSignalToExitCode("INVALID");
 }
+
+{
+    const fn = (x: number, y: string): number => x + y.length;
+    const debounced = util.debounce(fn, 100);
+
+    // $ExpectType Promise<number>
+    debounced(42, "hello");
+    debounced.cancel();
+    debounced.cancel("reason");
+    debounced.flush();
+    debounced.ref();
+    debounced.unref();
+    // $ExpectType Promise<number> | null
+    const pending = debounced.pending;
+    // $ExpectType number
+    const count = debounced.pendingCount;
+
+    const debouncedWithOptions = util.debounce(fn, 50, {
+        leading: true,
+        rejectOnCancel: true,
+        signal: new AbortController().signal,
+    });
+
+    // @ts-expect-error
+    util.debounce(fn, "invalid");
+    // @ts-expect-error
+    debounced("wrong-type", "hello");
+}
+
+{
+    const fn = (x: number): string => `result: ${x}`;
+    const throttled = util.throttle(fn, 5, 1000);
+
+    // $ExpectType Promise<string>
+    throttled(10);
+    throttled.cancel();
+    throttled.ref();
+    throttled.unref();
+    // $ExpectType boolean
+    const hasCapacity = throttled.hasImmediateCapacity();
+    // $ExpectType Promise<string> | null
+    const pending = throttled.pending;
+    // $ExpectType number
+    const pCount = throttled.pendingCount;
+    // $ExpectType number
+    const aCount = throttled.activeCount;
+
+    const throttledWithOptions = util.throttle(fn, 10, 500, {
+        concurrency: 2,
+        maxPending: 50,
+        overflow: "drop",
+        strict: true,
+        signal: new AbortController().signal,
+    });
+
+    // @ts-expect-error
+    util.throttle(fn, "invalid", 1000);
+    // @ts-expect-error
+    throttled("wrong-type");
+}

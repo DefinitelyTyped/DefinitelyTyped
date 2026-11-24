@@ -216,6 +216,141 @@ declare module "node:util" {
      * * Index 1: `string` The value associated with the operation
      */
     export function diff(actual: string | readonly string[], expected: string | readonly string[]): DiffEntry[];
+    export interface DebounceOptions {
+        /**
+         * Specify invoking on the leading edge of the timeout.
+         * @default false
+         */
+        leading?: boolean | undefined;
+        /**
+         * When `true`, cancelled calls will reject with an `AbortError`.
+         * @default false
+         */
+        rejectOnCancel?: boolean | undefined;
+        /**
+         * An optional signal to abort the debounced function.
+         */
+        signal?: AbortSignal | undefined;
+    }
+
+    export interface DebouncedFunction<T extends (...args: any[]) => any> {
+        (...args: Parameters<T>): Promise<Awaited<ReturnType<T>>>;
+        /**
+         * Cancels any pending debounced invocation.
+         * @param reason Optional error reason to reject pending calls with.
+         */
+        cancel(reason?: unknown): void;
+        /**
+         * Immediately invokes any pending debounced call.
+         */
+        flush(): void;
+        /**
+         * Retains the internal timer in the Node.js event loop.
+         */
+        ref(): this;
+        /**
+         * Drops the internal timer from holding the Node.js event loop active.
+         */
+        unref(): this;
+        /**
+         * The promise corresponding to the latest pending debounced call, or `null` if none.
+         */
+        readonly pending: Promise<Awaited<ReturnType<T>>> | null;
+        /**
+         * The number of pending calls.
+         */
+        readonly pendingCount: number;
+    }
+
+    /**
+     * Creates a debounced function that delays invoking `fn` until after `wait` milliseconds
+     * have elapsed since the last time the debounced function was invoked.
+     * @since v24.0.0
+     * @param fn The function to debounce.
+     * @param wait The number of milliseconds to delay.
+     * @param options Optional configuration options.
+     */
+    export function debounce<T extends (...args: any[]) => any>(
+        fn: T,
+        wait: number,
+        options?: DebounceOptions,
+    ): DebouncedFunction<T>;
+
+    export interface ThrottleOptions {
+        /**
+         * Maximum number of concurrent executions.
+         * @default Infinity
+         */
+        concurrency?: number | undefined;
+        /**
+         * Maximum number of pending calls queued.
+         * @default Infinity
+         */
+        maxPending?: number | undefined;
+        /**
+         * Behavior when `maxPending` is reached.
+         * @default 'queue'
+         */
+        overflow?: "queue" | "drop" | undefined;
+        /**
+         * An optional signal to abort the throttled function.
+         */
+        signal?: AbortSignal | undefined;
+        /**
+         * When `true`, enforces strict sliding-window throttling.
+         * @default false
+         */
+        strict?: boolean | undefined;
+    }
+
+    export interface ThrottledFunction<T extends (...args: any[]) => any> {
+        (...args: Parameters<T>): Promise<Awaited<ReturnType<T>>>;
+        /**
+         * Cancels any pending throttled invocation.
+         * @param reason Optional error reason to reject pending calls with.
+         */
+        cancel(reason?: unknown): void;
+        /**
+         * Returns `true` if there is immediate capacity to invoke without delay.
+         */
+        hasImmediateCapacity(): boolean;
+        /**
+         * Retains the internal timer in the Node.js event loop.
+         */
+        ref(): this;
+        /**
+         * Drops the internal timer from holding the Node.js event loop active.
+         */
+        unref(): this;
+        /**
+         * The promise corresponding to the latest pending throttled call, or `null` if none.
+         */
+        readonly pending: Promise<Awaited<ReturnType<T>>> | null;
+        /**
+         * The number of pending calls.
+         */
+        readonly pendingCount: number;
+        /**
+         * The number of currently executing calls.
+         */
+        readonly activeCount: number;
+    }
+
+    /**
+     * Creates a throttled function that limits invoking `fn` to at most `limit` times
+     * within any `interval` milliseconds window.
+     * @since v24.0.0
+     * @param fn The function to throttle.
+     * @param limit Maximum number of invocations within `interval`.
+     * @param interval Duration of the throttle window in milliseconds.
+     * @param options Optional configuration options.
+     */
+    export function throttle<T extends (...args: any[]) => any>(
+        fn: T,
+        limit: number,
+        interval: number,
+        options?: ThrottleOptions,
+    ): ThrottledFunction<T>;
     /**
      * The `util.format()` method returns a formatted string using the first argument
      * as a `printf`-like format string which can contain zero or more format
