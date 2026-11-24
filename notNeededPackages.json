@@ -5521,6 +5521,10 @@
             "libraryName": "openapi-factory",
             "asOfVersion": "5.2.31"
         },
+        "opencc-js": {
+            "libraryName": "opencc-js",
+            "asOfVersion": "1.4.2"
+        },
         "openid-client": {
             "libraryName": "openid-client",
             "asOfVersion": "3.7.0"
