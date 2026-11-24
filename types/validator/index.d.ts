@@ -605,10 +605,17 @@ declare namespace validator {
      */
     export function isHexadecimal(str: string): boolean;
 
+    export interface IsHexColorOptions {
+        /**
+         * If set to true, the hexadecimal color string must start with a `#` prefix. (defaults to false)
+         */
+        require_hashtag?: boolean | undefined;
+    }
+
     /**
      * Check if the string is a hexadecimal color.
      */
-    export function isHexColor(str: string): boolean;
+    export function isHexColor(str: string, options?: IsHexColorOptions): boolean;
 
     /**
      * Check if the string is an HSL (hue, saturation, lightness, optional alpha) color based on CSS Colors Level 4 specification.
@@ -758,12 +765,17 @@ declare namespace validator {
      */
     export function isISO15924(str: string): boolean;
 
+    export type IsISO31661Alpha2Options = _isISO31661Alpha2.IsISO31661Alpha2Options;
     export const isISO31661Alpha2: typeof _isISO31661Alpha2.default;
+
+    export interface IsISO31661Alpha3Options {
+        userAssignedCodes?: readonly string[] | undefined;
+    }
 
     /**
      * Check if the string is a valid [ISO 3166-1 alpha-3](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-3) officially assigned country code.
      */
-    export function isISO31661Alpha3(str: string): boolean;
+    export function isISO31661Alpha3(str: string, options?: IsISO31661Alpha3Options): boolean;
 
     /**
      * Check if the string is a valid [ISO 3166-1 numeric](https://en.wikipedia.org/wiki/ISO_3166-1_numeric) officially assigned country code.
@@ -1082,6 +1094,7 @@ declare namespace validator {
         | "fr-BJ"
         | "fr-CD"
         | "fr-CM"
+        | "fr-DJ"
         | "fr-FR"
         | "fr-GF"
         | "fr-GP"
@@ -1255,6 +1268,7 @@ declare namespace validator {
         | "LU"
         | "LV"
         | "LK"
+        | "MC"
         | "MG"
         | "MX"
         | "MT"

@@ -240,8 +240,8 @@ import whitelistFunc from "validator/lib/whitelist";
     let _isISO8601 = validator.isISO8601;
     _isISO8601 = isISO8601Func;
 
-    validator.isISO31661Alpha2; // $ExpectType (str: string) => boolean
-    isISO31661Alpha2Func; // $ExpectType (str: string) => boolean
+    validator.isISO31661Alpha2; // $ExpectType (str: string, options?: IsISO31661Alpha2Options | undefined) => boolean
+    isISO31661Alpha2Func; // $ExpectType (str: string, options?: IsISO31661Alpha2Options | undefined) => boolean
 
     let _isISO31661Alpha3 = validator.isISO31661Alpha3;
     _isISO31661Alpha3 = isISO31661Alpha3Func;
@@ -915,6 +915,8 @@ const any: any = null;
     result = validator.isHash("sample", "crc32b");
 
     result = validator.isHexColor("sample");
+    result = validator.isHexColor("sample", { require_hashtag: true });
+    result = validator.isHexColor("sample", {});
 
     result = validator.isHSL("sample");
 
@@ -983,7 +985,9 @@ const any: any = null;
     result = validator.isISO8601("sample", isISO8601Options);
 
     result = validator.isISO31661Alpha2("sample");
+    result = validator.isISO31661Alpha2("sample", { userAssignedCodes: ["XK"] });
     result = validator.isISO31661Alpha3("sample");
+    result = validator.isISO31661Alpha3("sample", { userAssignedCodes: ["XXK"] });
     result = validator.isISO31661Numeric("sample");
 
     result = validator.isISO6391("sample");
@@ -1157,6 +1161,7 @@ const any: any = null;
     result = validator.isMobilePhone("sample", "fr-BJ");
     result = validator.isMobilePhone("sample", "fr-CD");
     result = validator.isMobilePhone("sample", "fr-CM");
+    result = validator.isMobilePhone("sample", "fr-DJ");
     result = validator.isMobilePhone("sample", "fr-FR");
     result = validator.isMobilePhone("sample", "fr-GF");
     result = validator.isMobilePhone("sample", "fr-GP");
@@ -1287,6 +1292,7 @@ const any: any = null;
     result = validator.isPostalCode("sample", "LU");
     result = validator.isPostalCode("sample", "LV");
     result = validator.isPostalCode("sample", "LK");
+    result = validator.isPostalCode("sample", "MC");
     result = validator.isPostalCode("sample", "MG");
     result = validator.isPostalCode("sample", "MX");
     result = validator.isPostalCode("sample", "MT");

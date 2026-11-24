@@ -1,7 +1,11 @@
+export interface IsISO31661Alpha2Options {
+    userAssignedCodes?: readonly string[] | undefined;
+}
+
 /**
  * Check if the string is a valid [ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) officially assigned country code.
  */
-export default function isISO31661Alpha2(str: string): boolean;
+export default function isISO31661Alpha2(str: string, options?: IsISO31661Alpha2Options): boolean;
 
 export const CountryCodes: Set<
     | "AD"
