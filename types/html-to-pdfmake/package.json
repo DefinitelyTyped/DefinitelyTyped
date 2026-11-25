@@ -1,16 +1,16 @@
 {
     "private": true,
     "name": "@types/html-to-pdfmake",
-    "version": "2.4.9999",
+    "version": "2.5.9999",
     "projects": [
         "https://github.com/Aymkdn/html-to-pdfmake#readme"
     ],
     "dependencies": {
-        "@types/jsdom": "*",
-        "@types/pdfmake": "^0.2.0"
+        "@types/pdfmake": "*"
     },
     "devDependencies": {
-        "@types/html-to-pdfmake": "workspace:."
+        "@types/html-to-pdfmake": "workspace:.",
+        "@types/jsdom": "*"
     },
     "owners": [
         {
