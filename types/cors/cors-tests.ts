@@ -19,6 +19,20 @@ app.use(cors({
     exposedHeaders: ["Content-Range", "X-Content-Range"],
     allowedHeaders: ["Content-Type", "Authorization"],
 }));
+
+// as const readonly arrays
+const readonlyMethods = ["GET", "POST", "PUT"] as const;
+const readonlyAllowedHeaders = ["Content-Type", "Authorization"] as const;
+const readonlyExposedHeaders = ["X-Total-Count"] as const;
+const readonlyOrigins = ["http://example.com", "http://fakeurl.com"] as const;
+
+app.use(cors({
+    methods: readonlyMethods,
+    allowedHeaders: readonlyAllowedHeaders,
+    exposedHeaders: readonlyExposedHeaders,
+    origin: readonlyOrigins,
+}));
+
 app.use(cors({
     origin: true,
 }));
