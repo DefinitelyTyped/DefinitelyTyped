@@ -67,4 +67,4 @@ export const locales: PassportNumberLocale[];
  *
  * @param countryCode - Country code
  */
-export default function isPassportNumber(str: string, countryCode: PassportNumberLocale): boolean;
+export default function isPassportNumber(str: string, countryCode: PassportNumberLocale | (string & {})): boolean;

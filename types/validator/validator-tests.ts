@@ -1249,8 +1249,9 @@ const any: any = null;
     result = validator.isOctal("076543210");
 
     result = validator.isPassportNumber("sample", "US");
-    // @ts-expect-error
-    result = validator.isPassportNumber("sample", "XX");
+    const countryCode: string = "XX";
+    result = validator.isPassportNumber("sample", countryCode);
+    null! as Parameters<typeof validator.isPassportNumber>[1]; // $ExpectType PassportNumberLocale | (string & {})
     // @ts-expect-error
     result = validator.isPassportNumber("sample");
 
