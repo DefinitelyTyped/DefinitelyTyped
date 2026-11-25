@@ -1,4 +1,4 @@
-import { convertArrayToCSV } from "convert-array-to-csv";
+import convertArrayToCSVDefault, { convertArrayToCSV } from "convert-array-to-csv";
 
 const header = ["number", "first", "last", "handle"];
 const dataArrays = [
@@ -40,3 +40,7 @@ const csvFromArrayOfArrays = convertArrayToCSV(dataArrays, {
 // When the param is incorrect
 // @ts-expect-error
 const csvFromString = convertArrayToCSV("1, Mark, Otto, @mdo");
+
+// Default export is the same function
+// $ExpectType string
+const csvFromDefaultExport = convertArrayToCSVDefault(dataObjects, { separator: ";" });

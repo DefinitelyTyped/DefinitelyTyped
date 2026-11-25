@@ -5,3 +5,5 @@ export function convertArrayToCSV(
         separator?: string;
     },
 ): string;
+
+export default convertArrayToCSV;
