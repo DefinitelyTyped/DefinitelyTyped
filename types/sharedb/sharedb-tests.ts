@@ -539,6 +539,9 @@ class SocketLike {
 const socketLike = new SocketLike();
 new ShareDBClient.Connection(socketLike);
 
+declare const browserSocket: globalThis.WebSocket;
+new ShareDBClient.Connection(browserSocket);
+
 const handWrittenMessage = {
     a: ShareDB.MESSAGE_ACTIONS.bulkFetch,
 };
