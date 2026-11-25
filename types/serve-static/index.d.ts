@@ -47,7 +47,7 @@ declare namespace serveStatic {
          * The first that exists will be served. Example: ['html', 'htm'].
          * The default value is false.
          */
-        extensions?: string[] | false | undefined;
+        extensions?: readonly string[] | false | undefined;
 
         /**
          * Set the middleware to have client errors fall-through as just unhandled requests,
@@ -77,7 +77,7 @@ declare namespace serveStatic {
          * By default this module will send "index.html" files in response to a request on a directory.
          * To disable this set false or to supply a new index pass a string or an array in preferred order.
          */
-        index?: boolean | string | string[] | undefined;
+        index?: boolean | string | readonly string[] | undefined;
 
         /**
          * Enable or disable Last-Modified header, defaults to true. Uses the file system's last modified value.

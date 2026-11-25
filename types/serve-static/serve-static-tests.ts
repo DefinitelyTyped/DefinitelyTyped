@@ -5,44 +5,37 @@ import { HttpError } from "http-errors";
 var app = express();
 
 app.use(serveStatic("/1"));
-app.use(serveStatic("/2", {}));
-app.use(serveStatic("/3", {
+app.use(serveStatic("/2", {
     acceptRanges: true,
-    dotfiles: "ignore",
+    cacheControl: true,
+    dotfiles: "allow",
     etag: true,
-    extensions: ["html"],
+    extensions: ["html", "htm"],
     fallthrough: true,
-    index: true,
+    immutable: true,
+    index: "index.html",
     lastModified: true,
     maxAge: 0,
     redirect: true,
-    setHeaders: function(res, path: string, stat: any) {
-        // $ExpectType Response<any, Record<string, any>, number>
-        res;
-        res.setHeader("Server", "server-static middleware");
+    setHeaders: (res: express.Response, path: string, stat: any) => {
+        res.header("Custom-Header", "value");
     },
 }));
+app.use(serveStatic("/3", {
+    index: ["index.html", "index.htm"],
+}));
 app.use(serveStatic("/4", {
+    index: false,
+}));
+app.use(serveStatic("/5", {
     extensions: false,
 }));
 
-serveStatic("/does-not-assume-express", {
-    setHeaders: function(res) {
-        // ServerResponse
-        res;
-        // @ts-expect-error
-        res.set("foo", "bar");
-    },
-});
+// as const readonly arrays
+const readonlyExtensions = ["html", "htm"] as const;
+const readonlyIndex = ["index.html", "index.htm"] as const;
 
-http.createServer((req, res) => {
-    serveStatic("/works-with-node-server")(req, res, (err?: HttpError) => {});
-});
-
-app.use(serveStatic("/infers-express-response-when-passed-to-express-use", {
-    setHeaders: function(res) {
-        // $ExpectType Response<any, Record<string, any>, number>
-        res;
-        res.set("foo", "bar");
-    },
+app.use(serveStatic("/6", {
+    extensions: readonlyExtensions,
+    index: readonlyIndex,
 }));
