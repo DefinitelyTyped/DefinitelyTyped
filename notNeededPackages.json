@@ -8947,6 +8947,10 @@
             "libraryName": "@wordpress/blob",
             "asOfVersion": "2.8.0"
         },
+        "wordpress__block-editor": {
+            "libraryName": "@wordpress/block-editor",
+            "asOfVersion": "20.0.0"
+        },
         "wordpress__block-serialization-default-parser": {
             "libraryName": "@wordpress/block-serialization-default-parser",
             "asOfVersion": "4.17.0"
