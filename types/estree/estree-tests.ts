@@ -15,13 +15,23 @@ declare module "estree" {
         MDXParagraph: MDXParagraph;
         MDXTable: MDXTable;
     }
+
+    interface SourceTypeMap {
+        CommonJS: "commonjs";
+    }
 }
 
 declare var node: ESTree.Node;
 declare var program: ESTree.Program;
 declare var programBodyMap: ESTree.ProgramBodyMap;
 declare var programBody: ESTree.ProgramBody;
+declare var sourceType: ESTree.SourceType;
 declare var mdxParagraph: MDXParagraph;
+
+sourceType = "script";
+sourceType = "module";
+sourceType = "commonjs";
+program.sourceType = "commonjs";
 declare var mdxTable: MDXTable;
 declare var functionAst: ESTree.Function;
 declare var statement: ESTree.Statement;
