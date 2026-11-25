@@ -61,6 +61,8 @@ const testCases = [
     <input accept="video/*" capture="haha" />,
     <input accept="video/*" capture />,
     <input accept="audio/*" capture />,
+    <input webkitdirectory="" />,
+    <input webkitdirectory={true} />,
 
     <div role="dialog" />,
     <div role="none presentation" />,
