@@ -388,6 +388,10 @@
             "libraryName": "b4a",
             "asOfVersion": "1.9.0"
         },
+        "babar": {
+            "libraryName": "babar",
+            "asOfVersion": "1.0.0"
+        },
         "babel-plugin-tester": {
             "libraryName": "babel-plugin-tester",
             "asOfVersion": "11.0.0"
