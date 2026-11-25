@@ -24,7 +24,7 @@ declare function bytes(value: number, options?: bytes.BytesOptions): string | nu
 declare function bytes(value: string): number | null;
 
 declare namespace bytes {
-    type Unit = "b" | "gb" | "kb" | "mb" | "pb" | "tb" | "B" | "GB" | "KB" | "MB" | "PB" | "TB";
+    type Unit = `${"" | "k" | "K" | "m" | "M" | "g" | "G" | "t" | "T" | "p" | "P"}${"b" | "B"}`;
 
     interface BytesOptions {
         /**

@@ -50,6 +50,12 @@ const gb: Unit = "GB";
 bytes.format(1000, { unit: kb });
 
 // $ExpectType string | null
+bytes.format(1024, { unit: "kB" });
+
+// @ts-expect-error -- bytes does not support IEC unit names
+bytes.format(1024, { unit: "KiB" });
+
+// $ExpectType string | null
 bytes.format(1000, { unit: mb });
 
 // $ExpectType string | null
