@@ -69,6 +69,21 @@ declare namespace GorillaEngine {
      */
     interface InstrumentProperty {
         /**
+         * Converts a display value to a normalized value using this parameter's scale.
+         * @param value The display value to normalize.
+         * @returns The normalized value.
+         * @throws If exactly one number is not provided, or the parameter has been disposed.
+         */
+        normalizeValue(value: number): number;
+        /**
+         * Converts a normalized value to a display value using this parameter's scale.
+         * @param value The normalized value to denormalize.
+         * @returns The display value.
+         * @throws If exactly one number is not provided, or the parameter has been disposed.
+         */
+        denormalizeValue(value: number): number;
+
+        /**
          * A normalised representation of its value.
          */
         normValue: number;
@@ -143,6 +158,18 @@ declare namespace GorillaEngine {
         tickAbsolute: string;
     }
 
+    /** Metadata for a parameter at an instrument path. */
+    interface ParameterInfo {
+        name: string;
+        units: string;
+        minValue: number;
+        maxValue: number;
+        defaultValue: number;
+        type: string;
+        display: string;
+        propType: string;
+    }
+
     /**
      * Instrument
      */
@@ -183,7 +210,23 @@ declare namespace GorillaEngine {
          * @param module The serialised module to replace as a string
          */
         replaceModuleAtPath(path: string, module: string): boolean;
-
+        /**
+         * Retrieves the index of the parameter at the given instrument path.
+         *
+         * @param path The path to the parameter.
+         * @returns The parameter index, `-1` if the path does not resolve to a parameter,
+         * or `false` if the path argument is missing or is not a string.
+         * @throws If the instrument has been disposed.
+         */
+        getParamIndexAtPath(path: string): number | false;
+        /**
+         * Retrieves parameter metadata at the given instrument path.
+         *
+         * @param path The path to the parameter.
+         * @returns The parameter metadata, or `false` if it could not be retrieved.
+         * @throws If exactly one string path is not provided, or the instrument has been disposed.
+         */
+        getInfoAtPath(path: string): ParameterInfo | false;
         /**
          * Method used to determine if a value from the Gorilla Engine is a module.
          *
@@ -478,6 +521,12 @@ declare namespace GorillaEngine {
      *
      * The returned blob can be used to enumerate and load its instruments. Blob exports
      * with separate headers must be loaded by passing the path to the first blob part.
+     *
+     * If no `_part2.blob` is found with the same filename as a `_part1.blob` file, but
+     * the folder contains another `_part2.blob` file with the same UUID as the part1,
+     * then that part2 file is loaded. This allows multiple part1 files to be used without
+     * multiple copies of the larger part2 file, so long as the sample data in the part2
+     * file has not changed.
      *
      * @param blobPath Absolute path to the blob file or the first part of a split blob.
      * @param encryptionKey Encryption key used to decrypt the blob, when required.
