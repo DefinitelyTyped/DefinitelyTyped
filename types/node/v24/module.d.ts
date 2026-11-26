@@ -499,8 +499,8 @@ declare module "module" {
         interface SourceMapPayload {
             file: string;
             version: number;
-            sources: string[];
-            sourcesContent: string[];
+            sources: Array<string | null>;
+            sourcesContent: Array<string | null>;
             names: string[];
             mappings: string;
             sourceRoot: string;
