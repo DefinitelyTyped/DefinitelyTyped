@@ -108,6 +108,47 @@ function test_excel() {
     }).catch(console.log);
 }
 
+function test_excel_chart_label_overflow(label: Excel.ChartDataLabel, labels: Excel.ChartDataLabels) {
+    // $ExpectType boolean
+    label.allowTextToOverflow;
+    // $ExpectType boolean
+    labels.allowTextToOverflow;
+    label.allowTextToOverflow = true;
+    labels.allowTextToOverflow = false;
+
+    const labelUpdates: Excel.Interfaces.ChartDataLabelUpdateData[] = [{}, { allowTextToOverflow: false }];
+    const labelsUpdates: Excel.Interfaces.ChartDataLabelsUpdateData[] = [{}, { allowTextToOverflow: true }];
+    labelUpdates.forEach(update => label.set(update));
+    labelsUpdates.forEach(update => labels.set(update));
+
+    const labelLoadOptions: Excel.Interfaces.ChartDataLabelLoadOptions[] = [{}, { allowTextToOverflow: true }];
+    const labelsLoadOptions: Excel.Interfaces.ChartDataLabelsLoadOptions[] = [{}, { allowTextToOverflow: true }];
+    labelLoadOptions.forEach(options => {
+        // $ExpectType ChartDataLabel
+        label.load(options);
+    });
+    labelsLoadOptions.forEach(options => {
+        // $ExpectType ChartDataLabels
+        labels.load(options);
+    });
+
+    const labelData: Excel.Interfaces.ChartDataLabelData[] = [{}, { allowTextToOverflow: true }, label.toJSON()];
+    const labelsData: Excel.Interfaces.ChartDataLabelsData[] = [{}, { allowTextToOverflow: false }, labels.toJSON()];
+    labelData.forEach(data => {
+        // $ExpectType boolean
+        data.allowTextToOverflow;
+    });
+    labelsData.forEach(data => {
+        // $ExpectType boolean
+        data.allowTextToOverflow;
+    });
+
+    // @ts-expect-error
+    label.allowTextToOverflow = "true";
+    // @ts-expect-error
+    labels.allowTextToOverflow = 1;
+}
+
 function test_excel_chart_series_source_data(series: Excel.ChartSeries, range: Excel.Range) {
     // $ExpectType void
     series.setBubbleSizes(range);

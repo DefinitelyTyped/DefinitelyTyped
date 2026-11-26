@@ -404,3 +404,43 @@ session.view.snapshotCache.put(
     PageSnapshot.fromHTMLString("<html><body></body></html>"),
 );
 session.view.snapshotCache.clear();
+
+// Test PageSnapshot.element
+// $ExpectType HTMLElement
+PageSnapshot.fromElement(turboFrame).clone().element;
+// @ts-expect-error
+PageSnapshot.fromHTMLString().element = document.body;
+
+// Test session.visit
+session.visit("/messages");
+session.visit(new URL("https://example.com/messages"));
+session.visit("/messages", { action: "replace", frame: "messages" });
+const internalVisitOptions: VisitOptions = {
+    action: "advance",
+    response: { statusCode: 200, redirected: false, responseHTML: "<html></html>" },
+    snapshot: PageSnapshot.fromElement(turboFrame).clone(),
+    visitCachedSnapshot: ({ element }) => element.querySelector("turbo-frame"),
+    willRender: false,
+    updateHistory: false,
+    restorationIdentifier: "abc",
+};
+Turbo.session.visit("/messages", internalVisitOptions);
+session.visit("/messages", { refresh: { method: null, scroll: null } });
+session.visit("/messages", { refresh: { method: "morph", scroll: "preserve" } });
+// @ts-expect-error
+session.visit("/messages", { action: "fight" });
+// @ts-expect-error
+session.visit("/messages", { response: { statusCode: 200 } });
+// visit and Turbo.visit forward options to session.visit unchanged
+visit(new URL("https://example.com/messages"), internalVisitOptions);
+Turbo.visit("/messages", { snapshot: PageSnapshot.fromHTMLString() });
+// @ts-expect-error
+session.visit("/messages", { refresh: { method: "reload" } });
+
+// Test navigator.currentVisit
+// $ExpectType Visit | undefined
+navigator.currentVisit;
+// $ExpectType boolean | undefined
+Turbo.navigator.currentVisit?.willRender;
+// @ts-expect-error
+navigator.currentVisit = undefined;

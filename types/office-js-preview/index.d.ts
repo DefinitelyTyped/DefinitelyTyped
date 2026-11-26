@@ -48300,6 +48300,13 @@ declare namespace Excel {
          */
         readonly leaderLines: Excel.ChartLeaderLines;
         /**
+         * Specifies if the data label text is allowed to overflow the label box.
+         *
+         * @remarks
+         * [Api set: ExcelApi 1.20]
+         */
+        allowTextToOverflow: boolean;
+        /**
          * Specifies if data labels automatically generate appropriate text based on context.
          *
          * @remarks
@@ -48474,6 +48481,13 @@ declare namespace Excel {
          * [Api set: ExcelApi 1.8]
          */
         readonly format: Excel.ChartDataLabelFormat;
+        /**
+         * Specifies if the data label text is allowed to overflow the label box.
+         *
+         * @remarks
+         * [Api set: ExcelApi 1.20]
+         */
+        allowTextToOverflow: boolean;
         /**
          * Specifies if the data label automatically generates appropriate text based on context.
          *
@@ -74987,6 +75001,13 @@ declare namespace Excel {
             */
             leaderLines?: Excel.Interfaces.ChartLeaderLinesUpdateData;
             /**
+             * Specifies if the data label text is allowed to overflow the label box.
+             *
+             * @remarks
+             * [Api set: ExcelApi 1.20]
+             */
+            allowTextToOverflow?: boolean;
+            /**
              * Specifies if data labels automatically generate appropriate text based on context.
              *
              * @remarks
@@ -75111,6 +75132,13 @@ declare namespace Excel {
             * [Api set: ExcelApi 1.8]
             */
             format?: Excel.Interfaces.ChartDataLabelFormatUpdateData;
+            /**
+             * Specifies if the data label text is allowed to overflow the label box.
+             *
+             * @remarks
+             * [Api set: ExcelApi 1.20]
+             */
+            allowTextToOverflow?: boolean;
             /**
              * Specifies if the data label automatically generates appropriate text based on context.
              *
@@ -81599,6 +81627,13 @@ declare namespace Excel {
             */
             leaderLines?: Excel.Interfaces.ChartLeaderLinesData;
             /**
+             * Specifies if the data label text is allowed to overflow the label box.
+             *
+             * @remarks
+             * [Api set: ExcelApi 1.20]
+             */
+            allowTextToOverflow?: boolean;
+            /**
              * Specifies if data labels automatically generate appropriate text based on context.
              *
              * @remarks
@@ -81732,6 +81767,13 @@ declare namespace Excel {
             * [Api set: ExcelApi 1.8]
             */
             format?: Excel.Interfaces.ChartDataLabelFormatData;
+            /**
+             * Specifies if the data label text is allowed to overflow the label box.
+             *
+             * @remarks
+             * [Api set: ExcelApi 1.20]
+             */
+            allowTextToOverflow?: boolean;
             /**
              * Specifies if the data label automatically generates appropriate text based on context.
              *
@@ -90933,6 +90975,13 @@ declare namespace Excel {
             */
             leaderLines?: Excel.Interfaces.ChartLeaderLinesLoadOptions;
             /**
+             * Specifies if the data label text is allowed to overflow the label box.
+             *
+             * @remarks
+             * [Api set: ExcelApi 1.20]
+             */
+            allowTextToOverflow?: boolean;
+            /**
              * Specifies if data labels automatically generate appropriate text based on context.
              *
              * @remarks
@@ -91075,6 +91124,13 @@ declare namespace Excel {
             * [Api set: ExcelApi 1.8]
             */
             format?: Excel.Interfaces.ChartDataLabelFormatLoadOptions;
+            /**
+             * Specifies if the data label text is allowed to overflow the label box.
+             *
+             * @remarks
+             * [Api set: ExcelApi 1.20]
+             */
+            allowTextToOverflow?: boolean;
             /**
              * Specifies if the data label automatically generates appropriate text based on context.
              *
@@ -99894,7 +99950,7 @@ declare namespace Word {
          */
         getContentControls(options?: Word.ContentControlOptions): Word.ContentControlCollection;
         /**
-         * Gets an HTML representation of the `Body` object. When rendered in a web page or HTML viewer, the formatting will be a close, but not exact, match for of the formatting of the document. This method doesn't return the exact same HTML for the same document on different platforms (Windows, Mac, Word on the web, etc.). If you need exact fidelity, or consistency across platforms, use `Body.getOoxml()` and convert the returned XML to HTML.
+         * Gets an HTML representation of the `Body` object. When rendered in a web page or HTML viewer, the formatting will be a close, but not exact, match for the formatting of the document. This method doesn't return the exact same HTML for the same document on different platforms (Windows, Mac, Word on the web, etc.). If you need exact fidelity, or consistency across platforms, use `Body.getOoxml()` and convert the returned XML to HTML.
          *
          * @remarks
          * [Api set: WordApi 1.1]
@@ -103768,7 +103824,7 @@ declare namespace Word {
          */
         getContentControls(options?: Word.ContentControlOptions): Word.ContentControlCollection;
         /**
-         * Gets an HTML representation of the `ContentControl` object. When rendered in a web page or HTML viewer, the formatting will be a close, but not exact, match for of the formatting of the document. This method doesn't return the exact same HTML for the same document on different platforms (Windows, Mac, Word on the web, etc.). If you need exact fidelity, or consistency across platforms, use `ContentControl.getOoxml()` and convert the returned XML to HTML.
+         * Gets an HTML representation of the `ContentControl` object. When rendered in a web page or HTML viewer, the formatting will be a close, but not exact, match for the formatting of the document. This method doesn't return the exact same HTML for the same document on different platforms (Windows, Mac, Word on the web, etc.). If you need exact fidelity, or consistency across platforms, use `ContentControl.getOoxml()` and convert the returned XML to HTML.
          *
          * @remarks
          * [Api set: WordApi 1.1]
@@ -103857,7 +103913,7 @@ declare namespace Word {
          * @remarks
          * [Api set: WordApi 1.1]
          *
-         * @param html The HTML to be inserted in to the content control.
+         * @param html The HTML to be inserted into the content control.
          * @param insertLocation The value must be `replace`, `start`, or `end`. `replace` cannot be used with `richTextTable` and `richTextTableRow` content controls.
          */
         insertHtml(html: string, insertLocation: Word.InsertLocation.replace | Word.InsertLocation.start | Word.InsertLocation.end | "Replace" | "Start" | "End"): Word.Range;
@@ -103879,7 +103935,7 @@ declare namespace Word {
          *
          * Insertion isn't supported if the content being inserted contains linked or external content. If it does, this method returns an `InvalidArgument` error.
          *
-         * @param ooxml The OOXML to be inserted in to the content control.
+         * @param ooxml The OOXML to be inserted into the content control.
          * @param insertLocation The value must be `replace`, `start`, or `end`. `replace` cannot be used with `richTextTable` and `richTextTableRow` content controls.
          */
         insertOoxml(ooxml: string, insertLocation: Word.InsertLocation.replace | Word.InsertLocation.start | Word.InsertLocation.end | "Replace" | "Start" | "End"): Word.Range;
@@ -103911,7 +103967,7 @@ declare namespace Word {
          * @remarks
          * [Api set: WordApi 1.1]
          *
-         * @param text The text to be inserted in to the content control.
+         * @param text The text to be inserted into the content control.
          * @param insertLocation The value must be `replace`, `start`, or `end`. `replace` cannot be used with `richTextTable` and `richTextTableRow` content controls.
          */
         insertText(text: string, insertLocation: Word.InsertLocation.replace | Word.InsertLocation.start | Word.InsertLocation.end | "Replace" | "Start" | "End"): Word.Range;
@@ -104716,7 +104772,7 @@ declare namespace Word {
          * "http:\/\/calendartypes.org\/xsds\/GregorianCalendar" in the namespaceMappings parameter.
          *
          * @param xpath Absolute path to the single element in XPath notation.
-         * @param namespaceMappings An object whose property values are namespace names and whose property names are aliases for the corresponding namespaces. For example, `{greg: "http://calendartypes.org/xsds/GregorianCalendar"}`. The property names (such as "greg") can be any string that doesn't used reserved XPath characters, such as the forward slash "/".
+         * @param namespaceMappings An object whose property values are namespace names and whose property names are aliases for the corresponding namespaces. For example, `{greg: "http://calendartypes.org/xsds/GregorianCalendar"}`. The property names (such as "greg") can be any string that doesn't use reserved XPath characters, such as the forward slash "/".
          * @param name Name of the attribute.
          */
         deleteAttribute(xpath: string, namespaceMappings: {
@@ -104744,7 +104800,7 @@ declare namespace Word {
          * "http:\/\/calendartypes.org\/xsds\/GregorianCalendar" in the namespaceMappings parameter.
          *
          * @param xpath Absolute path to the single element in XPath notation.
-         * @param namespaceMappings An object whose property values are namespace names and whose property names are aliases for the corresponding namespaces. For example, `{greg: "http://calendartypes.org/xsds/GregorianCalendar"}`. The property names (such as "greg") can be any string that doesn't used reserved XPath characters, such as the forward slash "/".
+         * @param namespaceMappings An object whose property values are namespace names and whose property names are aliases for the corresponding namespaces. For example, `{greg: "http://calendartypes.org/xsds/GregorianCalendar"}`. The property names (such as "greg") can be any string that doesn't use reserved XPath characters, such as the forward slash "/".
          */
         deleteElement(xpath: string, namespaceMappings: {
             [key: string]: string;
@@ -104778,7 +104834,7 @@ declare namespace Word {
          * "http:\/\/calendartypes.org\/xsds\/GregorianCalendar" in the namespaceMappings parameter.
          *
          * @param xpath Absolute path to the single element in XPath notation.
-         * @param namespaceMappings An object whose property values are namespace names and whose property names are aliases for the corresponding namespaces. For example, `{greg: "http://calendartypes.org/xsds/GregorianCalendar"}`. The property names (such as "greg") can be any string that doesn't used reserved XPath characters, such as the forward slash "/".
+         * @param namespaceMappings An object whose property values are namespace names and whose property names are aliases for the corresponding namespaces. For example, `{greg: "http://calendartypes.org/xsds/GregorianCalendar"}`. The property names (such as "greg") can be any string that doesn't use reserved XPath characters, such as the forward slash "/".
          * @param name Name of the attribute.
          * @param value Value of the attribute.
          */
@@ -104808,8 +104864,8 @@ declare namespace Word {
          *
          * @param xpath Absolute path to the single parent element in XPath notation.
          * @param xml XML content to be inserted.
-         * @param namespaceMappings An object whose property values are namespace names and whose property names are aliases for the corresponding namespaces. For example, `{greg: "http://calendartypes.org/xsds/GregorianCalendar"}`. The property names (such as "greg") can be any string that doesn't used reserved XPath characters, such as the forward slash "/".
-         * @param index Optional. Zero-based position at which the new XML to be inserted. If omitted, the XML will be appended as the last child of this parent.
+         * @param namespaceMappings An object whose property values are namespace names and whose property names are aliases for the corresponding namespaces. For example, `{greg: "http://calendartypes.org/xsds/GregorianCalendar"}`. The property names (such as "greg") can be any string that doesn't use reserved XPath characters, such as the forward slash "/".
+         * @param index Optional. Zero-based position at which the new XML is to be inserted. If omitted, the XML will be appended as the last child of this parent.
          */
         insertElement(xpath: string, xml: string, namespaceMappings: {
             [key: string]: string;
@@ -104845,7 +104901,7 @@ declare namespace Word {
          * "http:\/\/calendartypes.org\/xsds\/GregorianCalendar" in the namespaceMappings parameter.
          *
          * @param xpath An XPath query.
-         * @param namespaceMappings An object whose property values are namespace names and whose property names are aliases for the corresponding namespaces. For example, `{greg: "http://calendartypes.org/xsds/GregorianCalendar"}`. The property names (such as "greg") can be any string that doesn't used reserved XPath characters, such as the forward slash "/".
+         * @param namespaceMappings An object whose property values are namespace names and whose property names are aliases for the corresponding namespaces. For example, `{greg: "http://calendartypes.org/xsds/GregorianCalendar"}`. The property names (such as "greg") can be any string that doesn't use reserved XPath characters, such as the forward slash "/".
          * @returns An array where each item represents an entry matched by the XPath query.
          */
         query(xpath: string, namespaceMappings: {
@@ -104900,7 +104956,7 @@ declare namespace Word {
          * "http:\/\/calendartypes.org\/xsds\/GregorianCalendar" in the namespaceMappings parameter.
          *
          * @param xpath Absolute path to the single element in XPath notation.
-         * @param namespaceMappings An object whose property values are namespace names and whose property names are aliases for the corresponding namespaces. For example, `{greg: "http://calendartypes.org/xsds/GregorianCalendar"}`. The property names (such as "greg") can be any string that doesn't used reserved XPath characters, such as the forward slash "/".
+         * @param namespaceMappings An object whose property values are namespace names and whose property names are aliases for the corresponding namespaces. For example, `{greg: "http://calendartypes.org/xsds/GregorianCalendar"}`. The property names (such as "greg") can be any string that doesn't use reserved XPath characters, such as the forward slash "/".
          * @param name Name of the attribute.
          * @param value New value of the attribute.
          */
@@ -104930,7 +104986,7 @@ declare namespace Word {
          *
          * @param xpath Absolute path to the single element in XPath notation.
          * @param xml New XML content to be stored.
-         * @param namespaceMappings An object whose property values are namespace names and whose property names are aliases for the corresponding namespaces. For example, `{greg: "http://calendartypes.org/xsds/GregorianCalendar"}`. The property names (such as "greg") can be any string that doesn't used reserved XPath characters, such as the forward slash "/".
+         * @param namespaceMappings An object whose property values are namespace names and whose property names are aliases for the corresponding namespaces. For example, `{greg: "http://calendartypes.org/xsds/GregorianCalendar"}`. The property names (such as "greg") can be any string that doesn't use reserved XPath characters, such as the forward slash "/".
          */
         updateElement(xpath: string, xml: string, namespaceMappings: {
             [key: string]: string;
@@ -113010,7 +113066,7 @@ declare namespace Word {
          */
         getContentControls(options?: Word.ContentControlOptions): Word.ContentControlCollection;
         /**
-         * Gets an HTML representation of the `Range` object. When rendered in a web page or HTML viewer, the formatting will be a close, but not exact, match for of the formatting of the document. This method doesn't return the exact same HTML for the same document on different platforms (Windows, Mac, Word on the web, etc.). If you need exact fidelity, or consistency across platforms, use `Range.getOoxml()` and convert the returned XML to HTML.
+         * Gets an HTML representation of the `Range` object. When rendered in a web page or HTML viewer, the formatting will be a close, but not exact, match for the formatting of the document. This method doesn't return the exact same HTML for the same document on different platforms (Windows, Mac, Word on the web, etc.). If you need exact fidelity, or consistency across platforms, use `Range.getOoxml()` and convert the returned XML to HTML.
          *
          * @remarks
          * [Api set: WordApi 1.1]
@@ -115801,7 +115857,7 @@ declare namespace Word {
          */
         columnStripe: number;
         /**
-         * Specifies whether Microsoft Word allows to break the specified table across pages.
+         * Specifies whether Microsoft Word allows the specified table to break across pages.
          *
          * @remarks
          * [Api set: WordApiDesktop 1.4]
@@ -135268,7 +135324,7 @@ declare namespace Word {
          */
         readonly listType: Word.ListType | "ListNoNumbering" | "ListListNumOnly" | "ListBullet" | "ListSimpleNumbering" | "ListOutlineNumbering" | "ListMixedNumbering" | "ListPictureBullet";
         /**
-         * Gets the numeric value of the the first paragraph in the range for the `ListFormat` object.
+         * Gets the numeric value of the first paragraph in the range for the `ListFormat` object.
          *
          * @remarks
          * [Api set: WordApiDesktop 1.3]
@@ -143997,7 +144053,7 @@ declare namespace Word {
          */
         comment = "Comment",
         /**
-         * Moves to a endnote.
+         * Moves to an endnote.
          * @remarks
          * [Api set: WordApiDesktop 1.4]
          */
@@ -149969,7 +150025,7 @@ declare namespace Word {
              */
             columnStripe?: number;
             /**
-             * Specifies whether Microsoft Word allows to break the specified table across pages.
+             * Specifies whether Microsoft Word allows the specified table to break across pages.
              *
              * @remarks
              * [Api set: WordApiDesktop 1.4]
@@ -157607,7 +157663,7 @@ declare namespace Word {
              */
             columnStripe?: number;
             /**
-             * Specifies whether Microsoft Word allows to break the specified table across pages.
+             * Specifies whether Microsoft Word allows the specified table to break across pages.
              *
              * @remarks
              * [Api set: WordApiDesktop 1.4]
@@ -160185,7 +160241,7 @@ declare namespace Word {
              */
             listType?: Word.ListType | "ListNoNumbering" | "ListListNumOnly" | "ListBullet" | "ListSimpleNumbering" | "ListOutlineNumbering" | "ListMixedNumbering" | "ListPictureBullet";
             /**
-             * Gets the numeric value of the the first paragraph in the range for the `ListFormat` object.
+             * Gets the numeric value of the first paragraph in the range for the `ListFormat` object.
              *
              * @remarks
              * [Api set: WordApiDesktop 1.3]
@@ -169394,7 +169450,7 @@ declare namespace Word {
              */
             columnStripe?: boolean;
             /**
-             * Specifies whether Microsoft Word allows to break the specified table across pages.
+             * Specifies whether Microsoft Word allows the specified table to break across pages.
              *
              * @remarks
              * [Api set: WordApiDesktop 1.4]
@@ -173958,7 +174014,7 @@ declare namespace Word {
              */
             listType?: boolean;
             /**
-             * Gets the numeric value of the the first paragraph in the range for the `ListFormat` object.
+             * Gets the numeric value of the first paragraph in the range for the `ListFormat` object.
              *
              * @remarks
              * [Api set: WordApiDesktop 1.3]

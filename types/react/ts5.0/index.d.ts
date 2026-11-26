@@ -114,7 +114,7 @@ declare namespace React {
      * Represents any user-defined component, either as a function or a class.
      *
      * Similar to {@link JSXElementConstructor}, but with extra properties like
-     * {@link FunctionComponent.defaultProps defaultProps }.
+     * {@link FunctionComponent.displayName displayName}.
      *
      * @template P The props the component accepts.
      *
@@ -127,7 +127,7 @@ declare namespace React {
      * Represents any user-defined component, either as a function or a class.
      *
      * Similar to {@link ComponentType}, but without extra properties like
-     * {@link FunctionComponent.defaultProps defaultProps }.
+     * {@link FunctionComponent.displayName displayName}.
      *
      * @template P The props the component accepts.
      */
@@ -1178,7 +1178,7 @@ declare namespace React {
     }
 
     /**
-     * Used in {@link createElement} and {@link createFactory} to represent
+     * Used in {@link createElement} to represent
      * a class.
      *
      * An intersection type is used to infer multiple type parameters from
@@ -4208,7 +4208,7 @@ declare namespace React {
     interface TouchList {
         [index: number]: Touch;
         length: number;
-        item(index: number): Touch;
+        item(index: number): Touch | null;
         identifiedTouch(identifier: number): Touch;
     }
 

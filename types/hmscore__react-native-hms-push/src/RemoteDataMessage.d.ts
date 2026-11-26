@@ -64,4 +64,12 @@ export interface RemoteDataMessageWithExtras {
     remoteMessage: RemoteDataMessageObject["msg"];
 }
 
+/**
+ * Data of the notification that opened the app.
+ * `getInitialNotification` resolves to an empty object if the app was not opened from a notification.
+ */
+export interface NotificationOpenedData extends Partial<RemoteDataMessageWithExtras> {
+    uriPage?: string;
+}
+
 export type BackgroundRemoteMessage = RemoteDataMessageObject["msg"];

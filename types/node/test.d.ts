@@ -1017,6 +1017,10 @@ declare module "node:test" {
                      */
                     cancelled: number;
                     /**
+                     * The total number of failed tests.
+                     */
+                    failed: number;
+                    /**
                      * The total number of passed tests.
                      */
                     passed: number;

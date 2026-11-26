@@ -18,6 +18,18 @@ export default function googlePay () {
     currency: 'USD',
     country: 'US',
     total: '1.00',
+    billingAddressRequired: true,
+    form: document.forms[0],
+    billingContactSelectionOrder: [
+      window.recurly.GooglePay.FormBillingContact,
+      window.recurly.GooglePay.WalletBillingContact,
+    ],
+  });
+
+  window.recurly.GooglePay({
+    currency: 'USD',
+    country: 'US',
+    total: '1.00',
     requireBillingAddress: true,
     paymentDataRequest: {
       emailRequired: true,

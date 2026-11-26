@@ -151,10 +151,29 @@ export interface TFontDictionary {
 }
 
 /**
- * Dictionary of a virtual file system, mapping file paths to base64 file contents.
+ * Dictionary of a virtual file system, mapping file paths to file contents.
+ *
+ * A file's content is either a Base64-encoded string or a {@link TVirtualFile}.
  */
 export interface TVirtualFileSystem {
-    [filePath: string]: string;
+    [filePath: string]: string | TVirtualFile;
+}
+
+/**
+ * Content of a file in a virtual file system.
+ */
+export interface TVirtualFile {
+    /**
+     * Binary content, or content as a string in the given {@link encoding}.
+     */
+    data: string | Uint8Array;
+
+    /**
+     * Encoding of {@link data} if it is a string.
+     *
+     * Defaults to `base64`.
+     */
+    encoding?: BufferEncoding | undefined;
 }
 
 /**
@@ -625,6 +644,11 @@ export type PredefinedTableLayout = "noBorders" | "headerLineOnly" | "lightHoriz
  * - a custom table layout object
  */
 export type TableLayout = string | PredefinedTableLayout | CustomTableLayout;
+
+/**
+ * Horizontal alignment of a table.
+ */
+export type TableAlignment = "left" | "center" | "right";
 
 /**
  * Style definition.
@@ -1286,6 +1310,13 @@ export interface ContentTable extends ContentBase, ForbidOtherElementProperties<
      * Defaults to a layout with black borders.
      */
     layout?: TableLayout | undefined;
+
+    /**
+     * Horizontal alignment of the table.
+     *
+     * Defaults to `left`.
+     */
+    tableAlignment?: TableAlignment | undefined;
 }
 
 /**

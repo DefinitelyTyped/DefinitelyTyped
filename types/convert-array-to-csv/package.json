@@ -8,10 +8,5 @@
     "devDependencies": {
         "@types/convert-array-to-csv": "workspace:."
     },
-    "owners": [
-        {
-            "name": "Qiming-Liu",
-            "githubUsername": "Qiming-Liu"
-        }
-    ]
+    "owners": []
 }

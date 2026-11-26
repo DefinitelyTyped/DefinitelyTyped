@@ -5,6 +5,21 @@
         "jsdoc/check-tag-names": [
             "error",
             {
+                "inlineTags": [
+                    "link",
+                    "linkcode",
+                    "linkplain",
+                    "tutorial",
+                    "inheritDoc",
+                    "label",
+                    "include",
+                    "includeCode",
+                    "code",
+                    "see",
+                    "type",
+                    "deprecated",
+                    "i18n>..."
+                ],
                 "definedTags": [
                     "ui5-protected",
                     "experimental"

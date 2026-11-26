@@ -351,10 +351,10 @@ export interface Socket {
     close(reason?: number): void;
     send(data: any): void;
 
-    onmessage: (event: any) => void;
-    onclose: (event: any) => void;
-    onerror: (event: any) => void;
-    onopen: (event: any) => void;
+    onmessage: ((event: any) => void) | null;
+    onclose: ((event: any) => void) | null;
+    onerror: ((event: any) => void) | null;
+    onopen: ((event: any) => void) | null;
 }
 
 /**

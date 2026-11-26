@@ -26,6 +26,24 @@ const params = {
 };
 const response = client.invoke("main.RouteGuide/GetFeature", req, params);
 response.error;
+if (response.error === null) {
+    response.error; // $ExpectType null
+} else {
+    response.error.code; // $ExpectType number
+    response.error.message; // $ExpectType string
+    response.error.details; // $ExpectType ResponseStatusDetail[]
+    const details: grpc.ResponseStatusDetail[] = response.error.details;
+    const first = details[0];
+    if (first) {
+        first["@type"]; // $ExpectType string
+        const customField: unknown = first["customField"];
+        if (typeof customField === "string") {
+            customField; // $ExpectType string
+        }
+    }
+    const emptyDetails: grpc.ResponseStatusDetail[] = [];
+    emptyDetails; // $ExpectType ResponseStatusDetail[]
+}
 response.headers;
 response.message; // $ExpectType object
 response.status;
@@ -33,6 +51,13 @@ response.trailers;
 
 // $ExpectType Promise<Response>
 client.asyncInvoke("main.RouteGuide/GetFeature", req, params);
+client.asyncInvoke("main.RouteGuide/GetFeature", req, params).then(asyncResponse => {
+    if (asyncResponse.error) {
+        asyncResponse.error.code; // $ExpectType number
+        asyncResponse.error.message; // $ExpectType string
+        asyncResponse.error.details; // $ExpectType ResponseStatusDetail[]
+    }
+});
 
 const params_with_string_timeout = {
     metadata: { "x-my-header": "k6test" },

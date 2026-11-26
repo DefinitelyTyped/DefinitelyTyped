@@ -11,13 +11,25 @@ const ossOptions: OSS.Options = {
 const client = new OSS(ossOptions);
 
 client.deleteMulti(["file.png"]).then(result => {
-    // $ExpectType { Key: string; }[] | undefined
+    // $ExpectType DeleteMultiResultObject[] | undefined
     result.deleted;
     result.deleted?.forEach(object => {
         // $ExpectType string
         object.Key;
+        // $ExpectType string | undefined
+        object.VersionId;
+        // $ExpectType string | undefined
+        object.DeleteMarker;
+        // $ExpectType string | undefined
+        object.DeleteMarkerVersionId;
     });
 });
+
+async function deleteMultiFiles(removingFiles: string[]) {
+    const deleteResult = await client.deleteMulti(removingFiles);
+    // $ExpectType DeleteMultiResultObject[] | undefined
+    deleteResult.deleted;
+}
 
 client.putSymlink("newfile.png", "sourcefile.png");
 client.putSymlink("newfile.png", "sourcefile.png", {
@@ -102,7 +114,7 @@ const clusterClient = new OSS.ClusterClient(clusterOptions);
 clusterClient.deleteMulti(["cluster"], { quiet: true });
 
 clusterClient.deleteMulti(["cluster"]).then(result => {
-    // $ExpectType { Key: string; }[] | undefined
+    // $ExpectType DeleteMultiResultObject[] | undefined
     result.deleted;
     result.deleted?.forEach(object => {
         // $ExpectType string

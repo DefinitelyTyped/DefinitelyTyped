@@ -282,7 +282,7 @@ declare namespace Remarkable {
      * Renderer rules.
      */
     interface Rules {
-        [name: string]: Rule | { [name: string]: Rule<ContentToken> };
+        [name: string]: Rule<any> | { [name: string]: Rule<any> };
         "blockquote_open": Rule<BlockquoteOpenToken>;
         "blockquote_close": Rule<BlockquoteCloseToken>;
         "code": Rule<CodeToken>;

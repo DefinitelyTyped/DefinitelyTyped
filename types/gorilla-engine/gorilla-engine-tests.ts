@@ -35,5 +35,16 @@ parameter.text = "some parameter text";
 // $ExpectType string
 parameter.text;
 
+const normalized: number = parameter.normalizeValue(42);
+const display: number = parameter.denormalizeValue(normalized);
+
+const parameterIndex: number | false = instrument.getParamIndexAtPath("/Volume");
+
+const info = instrument.getInfoAtPath("/Volume");
+if (info !== false) {
+    const name: string = info.name;
+    const minValue: number = info.minValue;
+}
+
 GorillaEngine.loadBlob("/tmp/Test_part1.blob", "0123456789ABCDEF0123456789ABCDEF");
 GorillaEngine.setActiveInstrument(instrument, 2, true);

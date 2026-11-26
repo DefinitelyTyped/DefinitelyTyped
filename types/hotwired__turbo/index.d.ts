@@ -124,6 +124,11 @@ export class FetchResponse {
 export interface Visit {
     readonly action: Action;
     readonly location: URL;
+    /**
+     * Whether the visit renders a new page. `false` when Turbo promotes a
+     * frame navigation to a page visit, which only updates history.
+     */
+    readonly willRender: boolean;
     hasCachedSnapshot(): boolean;
     complete(): void;
     cancel(): void;
@@ -182,6 +187,8 @@ export interface NavigatorDelegate {
 export interface Navigator {
     /** The delegate for this navigator (the active Turbo session). */
     delegate: NavigatorDelegate;
+    /** The visit in progress, if any. Cleared when the navigator stops. */
+    readonly currentVisit?: Visit;
     /**
      * Submits a form programmatically through Turbo Drive.
      *
@@ -297,6 +304,8 @@ export class PageSnapshot {
     static fromElement(element: Element): PageSnapshot;
     static fromDocument(document: Pick<Document, "documentElement" | "body" | "head">): PageSnapshot;
 
+    /** The snapshot's `<body>` element. */
+    readonly element: HTMLElement;
     readonly headElement: HTMLHeadElement;
     readonly isCacheable: boolean;
     readonly isPreviewable: boolean;
@@ -354,6 +363,12 @@ export interface TurboSession {
     drive: boolean;
     readonly location: URL;
     readonly restorationIdentifier: string;
+
+    /**
+     * Visits a location. When `options.frame` names a `<turbo-frame>`, the
+     * frame navigates instead.
+     */
+    visit(location: string | URL, options?: VisitOptions): void;
 }
 
 /**
@@ -371,11 +386,41 @@ export type TurboStreamActions = Record<string, TurboStreamAction>;
 export const StreamActions: TurboStreamActions;
 
 export type Action = "advance" | "replace" | "restore";
+/**
+ * Options for a visit. `action` and `frame` are documented; Turbo also
+ * passes the remaining keys through `visit` itself, for example when it
+ * promotes a frame navigation to a page visit.
+ */
 export interface VisitOptions {
     action?: Action;
     frame?: string;
+    historyChanged?: boolean;
+    referrer?: URL;
+    snapshot?: PageSnapshot;
+    snapshotHTML?: string;
+    response?: VisitResponse;
+    visitCachedSnapshot?: (snapshot: PageSnapshot) => void;
+    willRender?: boolean;
+    updateHistory?: boolean;
+    shouldCacheSnapshot?: boolean;
+    acceptsStreamResponse?: boolean;
+    direction?: "forward" | "back" | "none";
+    refresh?: {
+        method?: "replace" | "morph" | null;
+        scroll?: "reset" | "preserve" | null;
+    };
+    restorationIdentifier?: string;
 }
-export function visit(location: string, options?: VisitOptions): void;
+export function visit(location: string | URL, options?: VisitOptions): void;
+
+/**
+ * The response a visit renders instead of fetching the location itself.
+ */
+export interface VisitResponse {
+    statusCode: number;
+    redirected: boolean;
+    responseHTML?: string;
+}
 
 /**
  * Starts the main Turbo session.
@@ -503,7 +548,7 @@ export interface TurboGlobal {
      */
     registerAdapter(adapter: unknown): void;
 
-    visit(location: string, options?: { action?: Action; frame?: string }): void;
+    visit(location: string | URL, options?: VisitOptions): void;
 
     /**
      * Starts the main Turbo session.

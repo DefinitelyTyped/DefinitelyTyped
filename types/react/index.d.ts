@@ -114,7 +114,7 @@ declare namespace React {
      * Represents any user-defined component, either as a function or a class.
      *
      * Similar to {@link JSXElementConstructor}, but with extra properties like
-     * {@link FunctionComponent.defaultProps defaultProps }.
+     * {@link FunctionComponent.displayName displayName}.
      *
      * @template P The props the component accepts.
      *
@@ -127,7 +127,7 @@ declare namespace React {
      * Represents any user-defined component, either as a function or a class.
      *
      * Similar to {@link ComponentType}, but without extra properties like
-     * {@link FunctionComponent.defaultProps defaultProps }.
+     * {@link FunctionComponent.displayName displayName}.
      *
      * @template P The props the component accepts.
      */
@@ -1179,7 +1179,7 @@ declare namespace React {
     }
 
     /**
-     * Used in {@link createElement} and {@link createFactory} to represent
+     * Used in {@link createElement} to represent
      * a class.
      *
      * An intersection type is used to infer multiple type parameters from
@@ -3404,6 +3404,14 @@ declare namespace React {
         step?: number | string | undefined;
         type?: HTMLInputTypeAttribute | undefined;
         value?: string | readonly string[] | number | undefined;
+        /**
+         * Non-standard, supported by Chrome and Safari: lets the user pick a
+         * directory instead of a file. The idiomatic JSX value is an empty
+         * string; a boolean is accepted for parity with `HTMLInputElement`.
+         *
+         * @see https://developer.mozilla.org/docs/Web/API/HTMLInputElement/webkitdirectory
+         */
+        webkitdirectory?: boolean | string | undefined;
         width?: number | string | undefined;
 
         // No other element dispatching change events can be nested in a <input>
@@ -4209,7 +4217,7 @@ declare namespace React {
     interface TouchList {
         [index: number]: Touch;
         length: number;
-        item(index: number): Touch;
+        item(index: number): Touch | null;
         identifiedTouch(identifier: number): Touch;
     }
 

@@ -15,6 +15,13 @@ const DB_PATH = "data.db";
 
 type Database = SqlJsDatabase;
 
+initSqlJs();
+initSqlJs({});
+initSqlJs({ TOTAL_STACK: 1_000_000 });
+initSqlJs({ useOldExtensionFunctions: false });
+// @ts-expect-error
+initSqlJs({ fooBar: 42 });
+
 initSqlJs().then(SqlJs => {
     function createFile(path: string): void {
         const fd = fs.openSync(path, "a");

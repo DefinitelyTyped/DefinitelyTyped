@@ -19,11 +19,31 @@ export default function configure () {
     timeout: 60000
   });
 
+  window.recurly.configure({
+    publicKey: 'my-public-key',
+    required: ['cvv'],
+    risk: {
+      threeDSecure: {
+        preflightDeviceDataCollector: {
+          enabled: true,
+          billingInfoId: 'my-billing-info-id'
+        },
+        proactive: {
+          enabled: true,
+          gatewayCode: 'my-gateway-code',
+          amount: 10,
+          currency: 'USD'
+        }
+      }
+    }
+  });
+
   const elementOptions = {
     selector: 'my-selector',
     format: true,
     inputType: 'text',
     tabIndex: '1',
+    coBadgeSelector: true,
     style: {
       invalid: {
         fontSize: '16px'
@@ -48,6 +68,7 @@ export default function configure () {
         selector: 'my-card-element-selector',
         inputType: 'mobileSelect',
         displayIcon: true,
+        coBadgeSelector: true,
         style: {
           fontSize: '1em',
           placeholder: {

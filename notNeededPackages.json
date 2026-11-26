@@ -144,6 +144,10 @@
             "libraryName": "amqp-connection-manager",
             "asOfVersion": "3.4.0"
         },
+        "amqplib": {
+            "libraryName": "amqplib",
+            "asOfVersion": "2.2.1"
+        },
         "angular-dynamic-locale": {
             "libraryName": "angular-dynamic-locale",
             "asOfVersion": "0.1.35"
@@ -292,6 +296,10 @@
             "libraryName": "astring",
             "asOfVersion": "1.7.0"
         },
+        "async-csv": {
+            "libraryName": "async-csv",
+            "asOfVersion": "3.0.0"
+        },
         "async-redis": {
             "libraryName": "async-redis",
             "asOfVersion": "2.0.0"
@@ -384,9 +392,17 @@
             "libraryName": "b4a",
             "asOfVersion": "1.9.0"
         },
+        "babar": {
+            "libraryName": "babar",
+            "asOfVersion": "1.0.0"
+        },
         "babel-plugin-tester": {
             "libraryName": "babel-plugin-tester",
             "asOfVersion": "11.0.0"
+        },
+        "babel__helper-module-imports": {
+            "libraryName": "@babel/helper-module-imports",
+            "asOfVersion": "8.0.0"
         },
         "babel__parser": {
             "libraryName": "@babel/parser",
@@ -527,6 +543,10 @@
         "binary-parser": {
             "libraryName": "binary-parser",
             "asOfVersion": "1.8.0"
+        },
+        "binary-split": {
+            "libraryName": "binary-split",
+            "asOfVersion": "2.0.0"
         },
         "binaryextensions": {
             "libraryName": "binaryextensions",
@@ -723,6 +743,10 @@
         "canvaskit-wasm": {
             "libraryName": "canvaskit-wasm",
             "asOfVersion": "0.18.1"
+        },
+        "carbon__elements": {
+            "libraryName": "@carbon/elements",
+            "asOfVersion": "11.100.0"
         },
         "carbon__feature-flags": {
             "libraryName": "@carbon/feature-flags",
@@ -1215,6 +1239,10 @@
         "colors": {
             "libraryName": "colors",
             "asOfVersion": "1.2.1"
+        },
+        "colorthief": {
+            "libraryName": "colorthief",
+            "asOfVersion": "3.5.0"
         },
         "cometd": {
             "libraryName": "cometd",
@@ -1809,6 +1837,10 @@
             "libraryName": "device-uuid",
             "asOfVersion": "3.0.6"
         },
+        "devicefarmer__stf-syrup": {
+            "libraryName": "@devicefarmer/stf-syrup",
+            "asOfVersion": "2.0.0"
+        },
         "devtools-detect": {
             "libraryName": "devtools-detect",
             "asOfVersion": "3.0.0"
@@ -1936,6 +1968,10 @@
         "drivelist": {
             "libraryName": "drivelist",
             "asOfVersion": "12.0.2"
+        },
+        "dropzone": {
+            "libraryName": "dropzone",
+            "asOfVersion": "6.3.0"
         },
         "drupal-attribute": {
             "libraryName": "drupal-attribute",
@@ -2093,6 +2129,10 @@
             "libraryName": "element-ready",
             "asOfVersion": "3.1.0"
         },
+        "ellipsize": {
+            "libraryName": "ellipsize",
+            "asOfVersion": "0.6.0"
+        },
         "email-addresses": {
             "libraryName": "email-addresses",
             "asOfVersion": "3.0.0"
@@ -2104,6 +2144,10 @@
         "email-validator": {
             "libraryName": "email-validator",
             "asOfVersion": "1.0.6"
+        },
+        "ember-data": {
+            "libraryName": "ember-data",
+            "asOfVersion": "5.9.1"
         },
         "ember-qunit": {
             "libraryName": "ember-qunit",
@@ -2220,6 +2264,10 @@
         "eslint-plugin-mocha": {
             "libraryName": "eslint-plugin-mocha",
             "asOfVersion": "11.1.0"
+        },
+        "eslint-plugin-security": {
+            "libraryName": "eslint-plugin-security",
+            "asOfVersion": "4.2.1"
         },
         "eslint-scope": {
             "libraryName": "eslint-scope",
@@ -2981,6 +3029,10 @@
             "libraryName": "glur",
             "asOfVersion": "2.0.0"
         },
+        "google-cloud__kms": {
+            "libraryName": "@google-cloud/kms",
+            "asOfVersion": "6.3.0"
+        },
         "google-cloud__pubsub": {
             "libraryName": "@google-cloud/pubsub",
             "asOfVersion": "0.26.0"
@@ -3080,6 +3132,10 @@
         "gulp-shell": {
             "libraryName": "gulp-shell",
             "asOfVersion": "0.7.0"
+        },
+        "gulp-tar": {
+            "libraryName": "gulp-tar",
+            "asOfVersion": "5.0.0"
         },
         "gulp-tslint": {
             "libraryName": "gulp-tslint",
@@ -3341,6 +3397,10 @@
             "libraryName": "html2canvas",
             "asOfVersion": "1.0.0"
         },
+        "html2pdf.js": {
+            "libraryName": "html2pdf.js",
+            "asOfVersion": "0.14.0"
+        },
         "htmlparser2": {
             "libraryName": "htmlparser2",
             "asOfVersion": "4.1.0"
@@ -3548,6 +3608,10 @@
         "into-stream": {
             "libraryName": "into-stream",
             "asOfVersion": "5.0.0"
+        },
+        "intro.js": {
+            "libraryName": "intro.js",
+            "asOfVersion": "7.1.0"
         },
         "inversify": {
             "libraryName": "inversify",
@@ -3885,6 +3949,10 @@
             "libraryName": "jest-validate",
             "asOfVersion": "25.1.0"
         },
+        "jest-when": {
+            "libraryName": "jest-when",
+            "asOfVersion": "4.0.0"
+        },
         "jimp": {
             "libraryName": "jimp",
             "asOfVersion": "0.2.28"
@@ -3929,6 +3997,10 @@
             "libraryName": "js-combinatorics",
             "asOfVersion": "1.2.0"
         },
+        "js-crc": {
+            "libraryName": "js-crc",
+            "asOfVersion": "0.3.1"
+        },
         "js-data": {
             "libraryName": "js-data",
             "asOfVersion": "3.0.0"
@@ -3944,6 +4016,10 @@
         "js-types": {
             "libraryName": "js-types",
             "asOfVersion": "2.1.0"
+        },
+        "jsbarcode": {
+            "libraryName": "jsbarcode",
+            "asOfVersion": "3.12.3"
         },
         "jsnlog": {
             "libraryName": "jsnlog",
@@ -4109,6 +4185,10 @@
             "libraryName": "karma-viewport",
             "asOfVersion": "1.0.0"
         },
+        "kdbush": {
+            "libraryName": "kdbush",
+            "asOfVersion": "4.1.0"
+        },
         "kdbxweb": {
             "libraryName": "kdbxweb",
             "asOfVersion": "2.0.0"
@@ -4196,6 +4276,10 @@
         "koa-jwt": {
             "libraryName": "koa-jwt",
             "asOfVersion": "3.3.0"
+        },
+        "koa-override": {
+            "libraryName": "koa-override",
+            "asOfVersion": "4.0.0"
         },
         "koa-proxies": {
             "libraryName": "koa-proxies",
@@ -5285,6 +5369,10 @@
             "libraryName": "node-emoji",
             "asOfVersion": "2.1.0"
         },
+        "node-fetch-cache": {
+            "libraryName": "node-fetch-cache",
+            "asOfVersion": "5.1.1"
+        },
         "node-hid": {
             "libraryName": "node-hid",
             "asOfVersion": "3.0.0"
@@ -5296,6 +5384,10 @@
         "node-mailjet": {
             "libraryName": "node-mailjet",
             "asOfVersion": "4.0.0"
+        },
+        "node-microphone": {
+            "libraryName": "node-microphone",
+            "asOfVersion": "0.2.0"
         },
         "node-osc": {
             "libraryName": "node-osc",
@@ -5320,6 +5412,10 @@
         "node-ssh": {
             "libraryName": "node-ssh",
             "asOfVersion": "11.0.0"
+        },
+        "node-telegram-bot-api": {
+            "libraryName": "node-telegram-bot-api",
+            "asOfVersion": "2.2.0"
         },
         "node-vault": {
             "libraryName": "node-vault",
@@ -5468,6 +5564,10 @@
         "openapi-factory": {
             "libraryName": "openapi-factory",
             "asOfVersion": "5.2.31"
+        },
+        "opencc-js": {
+            "libraryName": "opencc-js",
+            "asOfVersion": "1.4.2"
         },
         "openid-client": {
             "libraryName": "openid-client",
@@ -6943,6 +7043,10 @@
             "libraryName": "react-native-webrtc",
             "asOfVersion": "1.100.0"
         },
+        "react-native-zeroconf": {
+            "libraryName": "react-native-zeroconf",
+            "asOfVersion": "0.17.7"
+        },
         "react-navigation": {
             "libraryName": "react-navigation",
             "asOfVersion": "3.4.0"
@@ -7494,6 +7598,10 @@
         "screenfull": {
             "libraryName": "screenfull",
             "asOfVersion": "4.1.0"
+        },
+        "scrivito": {
+            "libraryName": "scrivito",
+            "asOfVersion": "1.25.0"
         },
         "scrypt-js": {
             "libraryName": "scrypt-js",
@@ -8351,6 +8459,10 @@
             "libraryName": "truncate-middle",
             "asOfVersion": "2.0.0"
         },
+        "try-to-catch": {
+            "libraryName": "try-to-catch",
+            "asOfVersion": "4.1.0"
+        },
         "ts3-nodejs-library": {
             "libraryName": "ts3-nodejs-library",
             "asOfVersion": "2.0.0"
@@ -8574,6 +8686,10 @@
         "velocity-animate": {
             "libraryName": "velocity-animate",
             "asOfVersion": "2.0.1"
+        },
+        "verovio": {
+            "libraryName": "verovio",
+            "asOfVersion": "6.4.0"
         },
         "vexdb": {
             "libraryName": "vexdb",
@@ -8858,6 +8974,10 @@
         "wordpress__blob": {
             "libraryName": "@wordpress/blob",
             "asOfVersion": "2.8.0"
+        },
+        "wordpress__block-editor": {
+            "libraryName": "@wordpress/block-editor",
+            "asOfVersion": "20.0.0"
         },
         "wordpress__block-serialization-default-parser": {
             "libraryName": "@wordpress/block-serialization-default-parser",
