@@ -14,6 +14,9 @@
     },
     "files": [
         "index.d.ts",
-        "nunjucks-tests.ts"
+        "nunjucks-tests.ts",
+        "nodes-tests.ts",
+        "parser-tests.ts",
+        "integration-tests.ts"
     ]
 }
