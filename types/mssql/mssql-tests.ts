@@ -503,6 +503,6 @@ function test_set_request_options() {
 
 function test_value_handler() {
     sql.valueHandler.set(sql.TYPES.Int, value => value + 1);
-    sql.valueHandler.set(sql.TYPES.Date, (value: Date) => value.toISOString().slice(0, 10));
+    sql.valueHandler.set(sql.TYPES.Date, (value: Date | null) => value && value.toISOString().slice(0, 10));
     sql.valueHandler; // $ExpectType Map<ISqlTypeFactory, (value: any) => unknown>
 }
