@@ -133,6 +133,9 @@ interface IMap extends Array<{ js: any; sql: any }> {
 
 export declare var map: IMap;
 
+/** Per-type handlers that transform result values. Handlers receive `null` for SQL `NULL` values. */
+export declare const valueHandler: Map<ISqlTypeFactory, (value: any) => unknown>;
+
 export declare var DRIVERS: string[];
 export interface IColumnMetadata {
     [name: string]: {

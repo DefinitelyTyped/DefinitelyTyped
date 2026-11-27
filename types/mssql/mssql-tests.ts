@@ -500,3 +500,9 @@ function test_set_request_options() {
     request.query("select 'asdf' as name, 'qwerty' as other_name, 'jkl' as name");
     request.on("recordset", recordset => console.log(recordset));
 }
+
+function test_value_handler() {
+    sql.valueHandler.set(sql.TYPES.Int, value => value + 1);
+    sql.valueHandler.set(sql.TYPES.Date, (value: Date | null) => value && value.toISOString().slice(0, 10));
+    sql.valueHandler; // $ExpectType Map<ISqlTypeFactory, (value: any) => unknown>
+}
