@@ -412,6 +412,8 @@ import whitelistFunc from "validator/lib/whitelist";
     _isSlug = isSlugFunc;
 }
 
+import validatorEs from "validator/es";
+
 /************************************************
  *                                               *
  *                  ES IMPORT TESTS              *
@@ -528,6 +530,8 @@ import whitelistFuncEs from "validator/es/lib/whitelist";
  *                  API TESTS                    *
  *                                               *
  ************************************************/
+
+function apiTests(validator) {
 const any: any = null;
 
 // **************
@@ -1551,3 +1555,9 @@ const any: any = null;
 {
     validator.isISO8601("sample", { strict: true, strictSeparator: true });
 }
+
+    
+}
+
+apiTests(validator);
+apiTests(validatorEs);
