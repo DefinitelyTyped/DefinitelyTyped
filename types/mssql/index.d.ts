@@ -133,6 +133,8 @@ interface IMap extends Array<{ js: any; sql: any }> {
 
 export declare var map: IMap;
 
+export declare const valueHandler: Map<ISqlTypeFactory, (value: any) => unknown>;
+
 export declare var DRIVERS: string[];
 export interface IColumnMetadata {
     [name: string]: {
