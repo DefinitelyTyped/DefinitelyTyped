@@ -1991,6 +1991,22 @@ declare namespace ComponentFramework {
      * Helper of Utils API interface
      */
     namespace UtilityApi {
+
+        /**
+         * Used to filter the results displayed by the LookupOption control
+         */        
+        interface LookupOptionFilter {        
+            /**
+             * The table type to which to apply this filter.
+             */
+            entityLogicalName: string;
+
+            /**
+             * The FetchXML filter element to apply.
+             */            
+            filterXml: string;            
+        }
+        
         /**
          * Options used when opening a lookup dialog.
          */
@@ -2006,6 +2022,12 @@ declare namespace ComponentFramework {
             defaultEntityType?: string;
 
             /**
+             * Decides whether to display the most recently used(MRU) item.
+             * NOTE:  Available only for Unified Interface.
+             */            
+            disableMru?: boolean;
+
+            /**
              * The default view to use.
              */
             defaultViewId?: string;
@@ -2014,6 +2036,11 @@ declare namespace ComponentFramework {
              * The entity types to display.
              */
             entityTypes: string[];
+
+            /**
+             * 	Used to filter the results. Each object in the array contains the following values:
+             */
+            filters?: LookupOptionFilter[];
 
             /**
              * The views to be available in the view picker. Only System views are supported (not user views).
