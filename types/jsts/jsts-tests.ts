@@ -156,6 +156,7 @@ g = g.symDifference(g);
 str = g.toString();
 bool = g.touches(g);
 g = g.union(g);
+geomCollection = geomCollection.union();
 bool = g.within(g);
 n = g.hashCode();
 
