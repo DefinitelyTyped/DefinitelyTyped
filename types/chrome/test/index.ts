@@ -5843,6 +5843,7 @@ function testFontSettings() {
 
     chrome.fontSettings.ScriptCode.AFAK === "Afak";
     chrome.fontSettings.ScriptCode.ARAB === "Arab";
+    chrome.fontSettings.ScriptCode.ARAN === "Aran";
     chrome.fontSettings.ScriptCode.ARMI === "Armi";
     chrome.fontSettings.ScriptCode.ARMN === "Armn";
     chrome.fontSettings.ScriptCode.AVST === "Avst";
