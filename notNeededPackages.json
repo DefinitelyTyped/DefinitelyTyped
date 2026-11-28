@@ -1641,6 +1641,10 @@
             "libraryName": "cytoscape",
             "asOfVersion": "3.31.0"
         },
+        "cytoscape-dagre": {
+            "libraryName": "cytoscape-dagre",
+            "asOfVersion": "4.0.1"
+        },
         "cytoscape-popper": {
             "libraryName": "cytoscape-popper",
             "asOfVersion": "4.0.0"
