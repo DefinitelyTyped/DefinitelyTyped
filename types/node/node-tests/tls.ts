@@ -312,6 +312,30 @@ import {
 }
 
 {
+    const options: ConnectionOptions = {
+        host: "example.com",
+        port: 443,
+        localAddress: "127.0.0.1",
+        localPort: 0,
+        hints: 0,
+    };
+    connect(options);
+
+    connect({
+        host: "example.com",
+        port: 443,
+        family: 4,
+    });
+
+    connect({
+        host: "example.com",
+        port: 443,
+        autoSelectFamily: true,
+        autoSelectFamilyAttemptTimeout: 250,
+    });
+}
+
+{
     const duplex = new stream.PassThrough();
     const connOpts: ConnectionOptions = {
         socket: duplex,
