@@ -1985,6 +1985,10 @@
             "libraryName": "dva",
             "asOfVersion": "1.1.0"
         },
+        "dwt": {
+            "libraryName": "dwt",
+            "asOfVersion": "19.5.0"
+        },
         "earcut": {
             "libraryName": "earcut",
             "asOfVersion": "3.2.4"
