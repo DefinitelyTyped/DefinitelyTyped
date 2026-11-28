@@ -43,7 +43,6 @@
 /// <reference path="apis/bigquery_v2.d.ts"/>
 /// <reference path="apis/calendar_v3.d.ts"/>
 /// <reference path="apis/classroom_v1.d.ts"/>
-/// <reference path="apis/content_v2_1.d.ts"/>
 /// <reference path="apis/dfareporting_v3_5.d.ts"/>
 /// <reference path="apis/directory_v1.d.ts"/>
 /// <reference path="apis/docs_v1.d.ts"/>
