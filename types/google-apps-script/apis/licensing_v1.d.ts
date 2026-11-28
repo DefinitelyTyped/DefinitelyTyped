@@ -2,47 +2,46 @@ declare namespace GoogleAppsScript {
     namespace AdminLicenseManager {
         namespace Collection {
             interface LicenseAssignmentsCollection {
-                // Get license assignment of a particular product and sku for a user
-                get(productId: string, skuId: string, userId: string): AdminLicenseManager.Schema.LicenseAssignment;
-                // Assign License.
-                insert(
-                    resource: Schema.LicenseAssignmentInsert,
-                    productId: string,
-                    skuId: string,
-                ): AdminLicenseManager.Schema.LicenseAssignment;
-                // List license assignments for given product of the customer.
-                listForProduct(productId: string, customerId: string): AdminLicenseManager.Schema.LicenseAssignmentList;
-                // List license assignments for given product of the customer.
-                listForProduct(
-                    productId: string,
-                    customerId: string,
-                    optionalArgs: object,
-                ): AdminLicenseManager.Schema.LicenseAssignmentList;
-                // List license assignments for given product and sku of the customer.
-                listForProductAndSku(
-                    productId: string,
-                    skuId: string,
-                    customerId: string,
-                ): AdminLicenseManager.Schema.LicenseAssignmentList;
-                // List license assignments for given product and sku of the customer.
-                listForProductAndSku(
-                    productId: string,
-                    skuId: string,
-                    customerId: string,
-                    optionalArgs: object,
-                ): AdminLicenseManager.Schema.LicenseAssignmentList;
-                // Assign License. This method supports patch semantics.
-                patch(
-                    resource: Schema.LicenseAssignment,
+                get(
                     productId: string,
                     skuId: string,
                     userId: string,
                 ): AdminLicenseManager.Schema.LicenseAssignment;
-                // Revoke License.
-                remove(productId: string, skuId: string, userId: string): void;
-                // Assign License.
+                insert(
+                    $resource: AdminLicenseManager.Schema.LicenseAssignmentInsert,
+                    productId: string,
+                    skuId: string,
+                ): AdminLicenseManager.Schema.LicenseAssignment;
+                listForProduct(
+                    productId: string,
+                    customerId: string,
+                    args?: {
+                        maxResults?: number | undefined;
+                        pageToken?: string | undefined;
+                    },
+                ): AdminLicenseManager.Schema.LicenseAssignmentList;
+                listForProductAndSku(
+                    productId: string,
+                    skuId: string,
+                    customerId: string,
+                    args?: {
+                        maxResults?: number | undefined;
+                        pageToken?: string | undefined;
+                    },
+                ): AdminLicenseManager.Schema.LicenseAssignmentList;
+                patch(
+                    $resource: AdminLicenseManager.Schema.LicenseAssignment,
+                    productId: string,
+                    skuId: string,
+                    userId: string,
+                ): AdminLicenseManager.Schema.LicenseAssignment;
+                remove(
+                    productId: string,
+                    skuId: string,
+                    userId: string,
+                ): AdminLicenseManager.Schema.Empty;
                 update(
-                    resource: Schema.LicenseAssignment,
+                    $resource: AdminLicenseManager.Schema.LicenseAssignment,
                     productId: string,
                     skuId: string,
                     userId: string,
@@ -50,6 +49,9 @@ declare namespace GoogleAppsScript {
             }
         }
         namespace Schema {
+            // eslint-disable-next-line @typescript-eslint/no-empty-interface
+            interface Empty {
+            }
             interface LicenseAssignment {
                 etags?: string | undefined;
                 kind?: string | undefined;
