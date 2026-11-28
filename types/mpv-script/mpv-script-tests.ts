@@ -46,9 +46,39 @@ mp.command_native({
     text: "foo",
 }, "def");
 
+mp.command_native({
+    _name: "set",
+    name: "fullscreen",
+    value: "yes",
+});
+
+mp.command_native({
+    name: "seek",
+    target: 30,
+});
+
+// @ts-expect-error
+mp.command_native({
+    // @ts-expect-error
+    name: "run",
+});
+
+// @ts-expect-error
+mp.command_native({
+    // @ts-expect-error
+    _name: "run",
+});
+
 // $ExpectType SubprocessResultWithStderr
 mp.command_native({
     name: "subprocess",
+    args: ["echo", "test"],
+    capture_stderr: true,
+});
+
+// $ExpectType SubprocessResultWithStderr
+mp.command_native({
+    _name: "subprocess",
     args: ["echo", "test"],
     capture_stderr: true,
 });
