@@ -204,8 +204,468 @@ function testGmail() {
     const gmail = Gmail;
     // $ExpectType UsersCollection
     const users = gmail.Users;
+
+    // $ExpectType AutoForwarding
+    const autoForwarding = gmail.newAutoForwarding();
+    // $ExpectType BatchDeleteMessagesRequest
+    const batchDeleteMessagesRequest = gmail.newBatchDeleteMessagesRequest();
+    // $ExpectType BatchModifyMessagesRequest
+    const batchModifyMessagesRequest = gmail.newBatchModifyMessagesRequest();
+    // $ExpectType ClassificationLabelFieldValue
+    const classificationLabelFieldValue = gmail.newClassificationLabelFieldValue();
+    // $ExpectType ClassificationLabelValue
+    const classificationLabelValue = gmail.newClassificationLabelValue();
+    // $ExpectType CseIdentity
+    const cseIdentity = gmail.newCseIdentity();
+    // $ExpectType CseKeyPair
+    const cseKeyPair = gmail.newCseKeyPair();
+    // $ExpectType CsePrivateKeyMetadata
+    const csePrivateKeyMetadata = gmail.newCsePrivateKeyMetadata();
+    // $ExpectType Delegate
+    const delegate = gmail.newDelegate();
+    // $ExpectType DisableCseKeyPairRequest
+    const disableCseKeyPairRequest = gmail.newDisableCseKeyPairRequest();
+    // $ExpectType Draft
+    const draft = gmail.newDraft();
+    // $ExpectType EnableCseKeyPairRequest
+    const enableCseKeyPairRequest = gmail.newEnableCseKeyPairRequest();
+    // $ExpectType Filter
+    const filter = gmail.newFilter();
+    // $ExpectType FilterAction
+    const filterAction = gmail.newFilterAction();
+    // $ExpectType FilterCriteria
+    const filterCriteria = gmail.newFilterCriteria();
+    // $ExpectType ForwardingAddress
+    const forwardingAddress = gmail.newForwardingAddress();
+    // $ExpectType HardwareKeyMetadata
+    const hardwareKeyMetadata = gmail.newHardwareKeyMetadata();
+    // $ExpectType ImapSettings
+    const imapSettings = gmail.newImapSettings();
+    // $ExpectType KaclsKeyMetadata
+    const kaclsKeyMetadata = gmail.newKaclsKeyMetadata();
+    // $ExpectType Label
+    const label = gmail.newLabel();
+    // $ExpectType LabelColor
+    const labelColor = gmail.newLabelColor();
+    // $ExpectType LanguageSettings
+    const languageSettings = gmail.newLanguageSettings();
+    // $ExpectType Message
+    const message = gmail.newMessage();
+    // $ExpectType MessagePart
+    const messagePart = gmail.newMessagePart();
+    // $ExpectType MessagePartBody
+    const messagePartBody = gmail.newMessagePartBody();
+    // $ExpectType MessagePartHeader
+    const messagePartHeader = gmail.newMessagePartHeader();
+    // $ExpectType ModifyMessageRequest
+    const modifyMessageRequest = gmail.newModifyMessageRequest();
+    // $ExpectType ModifyThreadRequest
+    const modifyThreadRequest = gmail.newModifyThreadRequest();
+    // $ExpectType ObliterateCseKeyPairRequest
+    const obliterateCseKeyPairRequest = gmail.newObliterateCseKeyPairRequest();
+    // $ExpectType PopSettings
+    const popSettings = gmail.newPopSettings();
+    // $ExpectType SendAs
+    const sendAs = gmail.newSendAs();
+    // $ExpectType SignAndEncryptKeyPairs
+    const signAndEncryptKeyPairs = gmail.newSignAndEncryptKeyPairs();
+    // $ExpectType SmimeInfo
+    const smimeInfo = gmail.newSmimeInfo();
+    // $ExpectType SmtpMsa
+    const smtpMsa = gmail.newSmtpMsa();
+    // $ExpectType VacationSettings
+    const vacationSettings = gmail.newVacationSettings();
+    // $ExpectType WatchRequest
+    const watchRequest = gmail.newWatchRequest();
+
+    const messageFixture: GoogleAppsScript.Gmail.Schema.Message = {
+        classificationLabelValues: [{
+            fields: [{ fieldId: "field-id", selection: "selection" }],
+            labelId: "label-id",
+        }],
+        historyId: "history-id",
+        id: "message-id",
+        internalDate: "1704067200000",
+        labelIds: ["INBOX", "UNREAD"],
+        payload: {
+            body: { attachmentId: "attachment-id", data: "body-data", size: 100 },
+            filename: "",
+            headers: [{ name: "Subject", value: "Test" }, { name: "From", value: "sender@example.com" }],
+            mimeType: "text/plain",
+            partId: "0",
+            parts: [{ mimeType: "text/plain", body: { data: "plain-body", size: 10 } }],
+        },
+        raw: "base64-raw-message",
+        sizeEstimate: 100,
+        snippet: "Test",
+        threadId: "thread-id",
+    };
+    const draftFixture: GoogleAppsScript.Gmail.Schema.Draft = { id: "draft-id", message: messageFixture };
+    const threadFixture: GoogleAppsScript.Gmail.Schema.Thread = {
+        historyId: "history-id",
+        id: "thread-id",
+        messages: [messageFixture],
+        snippet: "Test",
+    };
+    const mediaData = new Blob(["test"], { type: "text/plain" });
+
     // $ExpectType Profile
     const profile = users.getProfile("me");
+    // $ExpectType void
+    const stop = users.stop("me");
+    // $ExpectType WatchResponse
+    const watch = users.watch({
+        labelFilterAction: "include",
+        labelFilterBehavior: "include",
+        labelIds: ["INBOX"],
+        topicName: "projects/project/topics/gmail",
+    }, "me");
+
+    // $ExpectType DraftsCollection
+    const drafts = users.Drafts;
+    // $ExpectType Draft
+    const createDraft = drafts.create(draftFixture, "me");
+    // $ExpectType Draft
+    const createDraftWithMedia = drafts.create(draftFixture, "me", mediaData);
+    // $ExpectType Draft
+    const getDraft = drafts.get("me", "draft-id");
+    // $ExpectType Draft
+    const getDraftWithArgs = drafts.get("me", "draft-id", { format: "full" });
+    // $ExpectType ListDraftsResponse
+    const listDrafts = drafts.list("me");
+    // $ExpectType ListDraftsResponse
+    const listDraftsWithArgs = drafts.list("me", {
+        includeSpamTrash: true,
+        maxResults: 100,
+        pageToken: "page-token",
+        q: "is:unread",
+    });
+    // $ExpectType void
+    const removeDraft = drafts.remove("me", "draft-id");
+    // $ExpectType Message
+    const sendDraft = drafts.send(draftFixture, "me");
+    // $ExpectType Message
+    const sendDraftWithMedia = drafts.send(draftFixture, "me", mediaData);
+    // $ExpectType Draft
+    const updateDraft = drafts.update(draftFixture, "me", "draft-id");
+    // $ExpectType Draft
+    const updateDraftWithMedia = drafts.update(draftFixture, "me", "draft-id", mediaData);
+
+    // $ExpectType HistoryCollection
+    const history = users.History;
+    // $ExpectType ListHistoryResponse
+    const listHistory = history.list("me");
+    // $ExpectType ListHistoryResponse
+    const listHistoryWithArgs = history.list("me", {
+        historyTypes: ["messageAdded"],
+        labelId: "INBOX",
+        maxResults: 100,
+        pageToken: "page-token",
+        startHistoryId: "123",
+    });
+
+    // $ExpectType LabelsCollection
+    const labels = users.Labels;
+    // $ExpectType Label
+    const createLabel = labels.create({
+        color: { backgroundColor: "#ffffff", textColor: "#000000" },
+        labelListVisibility: "labelShow",
+        messageListVisibility: "show",
+        name: "Test",
+        type: "user",
+    }, "me");
+    // $ExpectType Label
+    const getLabel = labels.get("me", "Label_1");
+    // $ExpectType ListLabelsResponse
+    const listLabels = labels.list("me");
+    // $ExpectType Label
+    const patchLabel = labels.patch({ name: "Renamed" }, "me", "Label_1");
+    // $ExpectType void
+    const removeLabel = labels.remove("me", "Label_1");
+    // $ExpectType Label
+    const updateLabel = labels.update({ name: "Updated" }, "me", "Label_1");
+
+    // $ExpectType MessagesCollection
+    const messages = users.Messages;
+    // $ExpectType AttachmentsCollection
+    const attachments = messages.Attachments;
+    // $ExpectType MessagePartBody
+    const getAttachment = attachments.get("me", "message-id", "attachment-id");
+    // $ExpectType void
+    const batchDeleteMessages = messages.batchDelete({ ids: ["message-id"] }, "me");
+    // $ExpectType void
+    const batchModifyMessages = messages.batchModify({
+        addClassificationLabels: [{ fields: [{ fieldId: "field-id", selection: "selection" }], labelId: "label-id" }],
+        addLabelIds: ["STARRED"],
+        ids: ["message-id"],
+        removeClassificationLabelIds: ["label-id"],
+        removeLabelIds: ["UNREAD"],
+    }, "me");
+    // $ExpectType Message
+    const getMessage = messages.get("me", "message-id");
+    // $ExpectType Message
+    const getMessageWithArgs = messages.get("me", "message-id", { format: "full", metadataHeaders: ["Subject"] });
+    // $ExpectType Message
+    const importMessage = messages.import(messageFixture, "me");
+    // $ExpectType Message
+    const importMessageWithMedia = messages.import(messageFixture, "me", mediaData);
+    // $ExpectType Message
+    const importMessageWithArgs = messages.import(messageFixture, "me", mediaData, {
+        deleted: false,
+        internalDateSource: "receivedTime",
+        neverMarkSpam: true,
+        processForCalendar: true,
+    });
+    // $ExpectType Message
+    const insertMessage = messages.insert(messageFixture, "me");
+    // $ExpectType Message
+    const insertMessageWithMedia = messages.insert(messageFixture, "me", mediaData);
+    // $ExpectType Message
+    const insertMessageWithArgs = messages.insert(messageFixture, "me", mediaData, {
+        deleted: false,
+        internalDateSource: "receivedTime",
+    });
+    // $ExpectType ListMessagesResponse
+    const listMessages = messages.list("me");
+    // $ExpectType ListMessagesResponse
+    const listMessagesWithArgs = messages.list("me", {
+        includeSpamTrash: true,
+        labelIds: ["INBOX"],
+        maxResults: 100,
+        pageToken: "page-token",
+        q: "from:sender@example.com",
+    });
+    // $ExpectType Message
+    const modifyMessage = messages.modify(
+        {
+            addClassificationLabels: [{
+                fields: [{ fieldId: "field-id", selection: "selection" }],
+                labelId: "label-id",
+            }],
+            addLabelIds: ["STARRED"],
+            removeClassificationLabelIds: ["label-id"],
+            removeLabelIds: ["UNREAD"],
+        },
+        "me",
+        "message-id",
+    );
+    // $ExpectType void
+    const removeMessage = messages.remove("me", "message-id");
+    // $ExpectType Message
+    const sendMessage = messages.send(messageFixture, "me");
+    // $ExpectType Message
+    const sendMessageWithMedia = messages.send(messageFixture, "me", mediaData);
+    // $ExpectType Message
+    const trashMessage = messages.trash("me", "message-id");
+    // $ExpectType Message
+    const untrashMessage = messages.untrash("me", "message-id");
+
+    // $ExpectType SettingsCollection
+    const settings = users.Settings;
+    // $ExpectType CseCollection
+    const cse = settings.Cse;
+    // $ExpectType IdentitiesCollection
+    const cseIdentities = cse.Identities;
+    // $ExpectType CseIdentity
+    const createCseIdentity = cseIdentities.create({
+        emailAddress: "alias@example.com",
+        primaryKeyPairId: "keypair-id",
+        signAndEncryptKeyPairs: { encryptionKeyPairId: "encrypt-id", signingKeyPairId: "sign-id" },
+    }, "me");
+    // $ExpectType CseIdentity
+    const getCseIdentity = cseIdentities.get("me", "alias@example.com");
+    // $ExpectType ListCseIdentitiesResponse
+    const listCseIdentities = cseIdentities.list("me");
+    // $ExpectType ListCseIdentitiesResponse
+    const listCseIdentitiesWithArgs = cseIdentities.list("me", { pageSize: 100, pageToken: "page-token" });
+    // $ExpectType CseIdentity
+    const patchCseIdentity = cseIdentities.patch({ primaryKeyPairId: "new-keypair-id" }, "me", "alias@example.com");
+    // $ExpectType void
+    const removeCseIdentity = cseIdentities.remove("me", "alias@example.com");
+
+    // $ExpectType KeypairsCollection
+    const cseKeypairs = cse.Keypairs;
+    // $ExpectType CseKeyPair
+    const createCseKeypair = cseKeypairs.create({
+        pem: "pem",
+        pkcs7: "pkcs7",
+        subjectEmailAddresses: ["alias@example.com"],
+    }, "me");
+    // $ExpectType CseKeyPair
+    const createCseKeypairWithArgs = cseKeypairs.create({ pem: "pem", pkcs7: "pkcs7" }, "me", {
+        chainValidation: "all",
+    });
+    // $ExpectType CseKeyPair
+    const disableCseKeypair = cseKeypairs.disable({}, "me", "keypair-id");
+    // $ExpectType CseKeyPair
+    const enableCseKeypair = cseKeypairs.enable({}, "me", "keypair-id");
+    // $ExpectType CseKeyPair
+    const getCseKeypair = cseKeypairs.get("me", "keypair-id");
+    // $ExpectType ListCseKeyPairsResponse
+    const listCseKeypairs = cseKeypairs.list("me");
+    // $ExpectType ListCseKeyPairsResponse
+    const listCseKeypairsWithArgs = cseKeypairs.list("me", { pageSize: 100, pageToken: "page-token" });
+    // $ExpectType void
+    const obliterateCseKeypair = cseKeypairs.obliterate({}, "me", "keypair-id");
+
+    // $ExpectType DelegatesCollection
+    const delegates = settings.Delegates;
+    // $ExpectType Delegate
+    const createDelegate = delegates.create(
+        { delegateEmail: "delegate@example.com", verificationStatus: "accepted" },
+        "me",
+    );
+    // $ExpectType Delegate
+    const getDelegate = delegates.get("me", "delegate@example.com");
+    // $ExpectType ListDelegatesResponse
+    const listDelegates = delegates.list("me");
+    // $ExpectType void
+    const removeDelegate = delegates.remove("me", "delegate@example.com");
+
+    // $ExpectType FiltersCollection
+    const filters = settings.Filters;
+    // $ExpectType Filter
+    const createFilter = filters.create({
+        action: { addLabelIds: ["INBOX"], forward: "forward@example.com", removeLabelIds: ["UNREAD"] },
+        criteria: {
+            excludeChats: false,
+            from: "sender@example.com",
+            hasAttachment: true,
+            query: "subject:test",
+            size: 100,
+            sizeComparison: "larger",
+            subject: "Test",
+            to: "me@example.com",
+        },
+    }, "me");
+    // $ExpectType Filter
+    const getFilter = filters.get("me", "filter-id");
+    // $ExpectType ListFiltersResponse
+    const listFilters = filters.list("me");
+    // $ExpectType void
+    const removeFilter = filters.remove("me", "filter-id");
+
+    // $ExpectType ForwardingAddressesCollection
+    const forwardingAddresses = settings.ForwardingAddresses;
+    // $ExpectType ForwardingAddress
+    const createForwardingAddress = forwardingAddresses.create({
+        forwardingEmail: "forward@example.com",
+        verificationStatus: "accepted",
+    }, "me");
+    // $ExpectType ForwardingAddress
+    const getForwardingAddress = forwardingAddresses.get("me", "forward@example.com");
+    // $ExpectType ListForwardingAddressesResponse
+    const listForwardingAddresses = forwardingAddresses.list("me");
+    // $ExpectType void
+    const removeForwardingAddress = forwardingAddresses.remove("me", "forward@example.com");
+
+    // $ExpectType SendAsCollection
+    const sendAsCollection = settings.SendAs;
+    // $ExpectType SendAs
+    const createSendAs = sendAsCollection.create({
+        displayName: "Example",
+        isDefault: false,
+        isPrimary: false,
+        replyToAddress: "reply@example.com",
+        sendAsEmail: "alias@example.com",
+        signature: "Example",
+        smtpMsa: { host: "smtp.example.com", port: 465, securityMode: "ssl", username: "alias@example.com" },
+        treatAsAlias: true,
+        verificationStatus: "accepted",
+    }, "me");
+    // $ExpectType SendAs
+    const getSendAs = sendAsCollection.get("me", "alias@example.com");
+    // $ExpectType ListSendAsResponse
+    const listSendAs = sendAsCollection.list("me");
+    // $ExpectType SendAs
+    const patchSendAs = sendAsCollection.patch({ signature: "Updated" }, "me", "alias@example.com");
+    // $ExpectType void
+    const removeSendAs = sendAsCollection.remove("me", "alias@example.com");
+    // $ExpectType SendAs
+    const updateSendAs = sendAsCollection.update({ signature: "Updated" }, "me", "alias@example.com");
+    // $ExpectType void
+    const verifySendAs = sendAsCollection.verify("me", "alias@example.com");
+
+    // $ExpectType SmimeInfoCollection
+    const smimeInfoCollection = sendAsCollection.SmimeInfo;
+    // $ExpectType SmimeInfo
+    const getSmimeInfo = smimeInfoCollection.get("me", "alias@example.com", "smime-id");
+    // $ExpectType SmimeInfo
+    const insertSmimeInfo = smimeInfoCollection.insert(
+        { pkcs12: "base64-pkcs12", isDefault: false },
+        "me",
+        "alias@example.com",
+    );
+    // $ExpectType ListSmimeInfoResponse
+    const listSmimeInfo = smimeInfoCollection.list("me", "alias@example.com");
+    // $ExpectType void
+    const removeSmimeInfo = smimeInfoCollection.remove("me", "alias@example.com", "smime-id");
+    // $ExpectType void
+    const setDefaultSmimeInfo = smimeInfoCollection.setDefault("me", "alias@example.com", "smime-id");
+
+    // $ExpectType AutoForwarding
+    const getAutoForwarding = settings.getAutoForwarding("me");
+    // $ExpectType ImapSettings
+    const getImap = settings.getImap("me");
+    // $ExpectType LanguageSettings
+    const getLanguage = settings.getLanguage("me");
+    // $ExpectType PopSettings
+    const getPop = settings.getPop("me");
+    // $ExpectType VacationSettings
+    const getVacation = settings.getVacation("me");
+    // $ExpectType AutoForwarding
+    const updateAutoForwarding = settings.updateAutoForwarding({
+        disposition: "archive",
+        emailAddress: "forward@example.com",
+        enabled: true,
+    }, "me");
+    // $ExpectType ImapSettings
+    const updateImap = settings.updateImap({
+        autoExpunge: true,
+        enabled: true,
+        expungeBehavior: "archive",
+        maxFolderSize: 100,
+    }, "me");
+    // $ExpectType LanguageSettings
+    const updateLanguage = settings.updateLanguage({ displayLanguage: "en" }, "me");
+    // $ExpectType PopSettings
+    const updatePop = settings.updatePop({ accessWindow: "allMail", disposition: "archive" }, "me");
+    // $ExpectType VacationSettings
+    const updateVacation = settings.updateVacation({
+        enableAutoReply: true,
+        endTime: "1704067200000",
+        responseBodyHtml: "<p>Out of office</p>",
+        responseBodyPlainText: "Out of office",
+        responseSubject: "Out of office",
+        restrictToContacts: true,
+        restrictToDomain: false,
+        startTime: "1703980800000",
+    }, "me");
+
+    // $ExpectType ThreadsCollection
+    const threads = users.Threads;
+    // $ExpectType Thread
+    const getThread = threads.get("me", "thread-id");
+    // $ExpectType Thread
+    const getThreadWithArgs = threads.get("me", "thread-id", { format: "full", metadataHeaders: ["Subject"] });
+    // $ExpectType ListThreadsResponse
+    const listThreads = threads.list("me");
+    // $ExpectType ListThreadsResponse
+    const listThreadsWithArgs = threads.list("me", {
+        includeSpamTrash: true,
+        labelIds: ["INBOX"],
+        maxResults: 100,
+        pageToken: "page-token",
+        q: "is:unread",
+    });
+    // $ExpectType Thread
+    const modifyThread = threads.modify({ addLabelIds: ["STARRED"], removeLabelIds: ["UNREAD"] }, "me", "thread-id");
+    // $ExpectType void
+    const removeThread = threads.remove("me", "thread-id");
+    // $ExpectType Thread
+    const trashThread = threads.trash("me", "thread-id");
+    // $ExpectType Thread
+    const untrashThread = threads.untrash("me", "thread-id");
 }
 
 function testTasks() {
