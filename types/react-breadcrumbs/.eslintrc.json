@@ -1,6 +1,0 @@
-{
-    "rules": {
-        "@definitelytyped/no-declare-current-package": "off",
-        "@typescript-eslint/no-empty-interface": "off"
-    }
-}
