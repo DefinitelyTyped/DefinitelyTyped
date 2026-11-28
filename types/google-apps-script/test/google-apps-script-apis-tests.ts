@@ -211,10 +211,24 @@ function testGmail() {
     const batchDeleteMessagesRequest = gmail.newBatchDeleteMessagesRequest();
     // $ExpectType BatchModifyMessagesRequest
     const batchModifyMessagesRequest = gmail.newBatchModifyMessagesRequest();
+    // $ExpectType ClassificationLabelFieldValue
+    const classificationLabelFieldValue = gmail.newClassificationLabelFieldValue();
+    // $ExpectType ClassificationLabelValue
+    const classificationLabelValue = gmail.newClassificationLabelValue();
+    // $ExpectType CseIdentity
+    const cseIdentity = gmail.newCseIdentity();
+    // $ExpectType CseKeyPair
+    const cseKeyPair = gmail.newCseKeyPair();
+    // $ExpectType CsePrivateKeyMetadata
+    const csePrivateKeyMetadata = gmail.newCsePrivateKeyMetadata();
     // $ExpectType Delegate
     const delegate = gmail.newDelegate();
+    // $ExpectType DisableCseKeyPairRequest
+    const disableCseKeyPairRequest = gmail.newDisableCseKeyPairRequest();
     // $ExpectType Draft
     const draft = gmail.newDraft();
+    // $ExpectType EnableCseKeyPairRequest
+    const enableCseKeyPairRequest = gmail.newEnableCseKeyPairRequest();
     // $ExpectType Filter
     const filter = gmail.newFilter();
     // $ExpectType FilterAction
@@ -223,12 +237,18 @@ function testGmail() {
     const filterCriteria = gmail.newFilterCriteria();
     // $ExpectType ForwardingAddress
     const forwardingAddress = gmail.newForwardingAddress();
+    // $ExpectType HardwareKeyMetadata
+    const hardwareKeyMetadata = gmail.newHardwareKeyMetadata();
     // $ExpectType ImapSettings
     const imapSettings = gmail.newImapSettings();
+    // $ExpectType KaclsKeyMetadata
+    const kaclsKeyMetadata = gmail.newKaclsKeyMetadata();
     // $ExpectType Label
     const label = gmail.newLabel();
     // $ExpectType LabelColor
     const labelColor = gmail.newLabelColor();
+    // $ExpectType LanguageSettings
+    const languageSettings = gmail.newLanguageSettings();
     // $ExpectType Message
     const message = gmail.newMessage();
     // $ExpectType MessagePart
@@ -241,10 +261,14 @@ function testGmail() {
     const modifyMessageRequest = gmail.newModifyMessageRequest();
     // $ExpectType ModifyThreadRequest
     const modifyThreadRequest = gmail.newModifyThreadRequest();
+    // $ExpectType ObliterateCseKeyPairRequest
+    const obliterateCseKeyPairRequest = gmail.newObliterateCseKeyPairRequest();
     // $ExpectType PopSettings
     const popSettings = gmail.newPopSettings();
     // $ExpectType SendAs
     const sendAs = gmail.newSendAs();
+    // $ExpectType SignAndEncryptKeyPairs
+    const signAndEncryptKeyPairs = gmail.newSignAndEncryptKeyPairs();
     // $ExpectType SmimeInfo
     const smimeInfo = gmail.newSmimeInfo();
     // $ExpectType SmtpMsa
@@ -255,6 +279,10 @@ function testGmail() {
     const watchRequest = gmail.newWatchRequest();
 
     const messageFixture: GoogleAppsScript.Gmail.Schema.Message = {
+        classificationLabelValues: [{
+            fields: [{ fieldId: "field-id", selection: "selection" }],
+            labelId: "label-id",
+        }],
         historyId: "history-id",
         id: "message-id",
         internalDate: "1704067200000",
@@ -288,6 +316,7 @@ function testGmail() {
     // $ExpectType WatchResponse
     const watch = users.watch({
         labelFilterAction: "include",
+        labelFilterBehavior: "include",
         labelIds: ["INBOX"],
         topicName: "projects/project/topics/gmail",
     }, "me");
@@ -328,7 +357,7 @@ function testGmail() {
     const listHistory = history.list("me");
     // $ExpectType ListHistoryResponse
     const listHistoryWithArgs = history.list("me", {
-        historyTypes: "messageAdded",
+        historyTypes: ["messageAdded"],
         labelId: "INBOX",
         maxResults: 100,
         pageToken: "page-token",
@@ -366,8 +395,10 @@ function testGmail() {
     const batchDeleteMessages = messages.batchDelete({ ids: ["message-id"] }, "me");
     // $ExpectType void
     const batchModifyMessages = messages.batchModify({
+        addClassificationLabels: [{ fields: [{ fieldId: "field-id", selection: "selection" }], labelId: "label-id" }],
         addLabelIds: ["STARRED"],
         ids: ["message-id"],
+        removeClassificationLabelIds: ["label-id"],
         removeLabelIds: ["UNREAD"],
     }, "me");
     // $ExpectType Message
@@ -407,7 +438,12 @@ function testGmail() {
     // $ExpectType Message
     const modifyMessage = messages.modify(
         {
+            addClassificationLabels: [{
+                fields: [{ fieldId: "field-id", selection: "selection" }],
+                labelId: "label-id",
+            }],
             addLabelIds: ["STARRED"],
+            removeClassificationLabelIds: ["label-id"],
             removeLabelIds: ["UNREAD"],
         },
         "me",
@@ -426,6 +462,52 @@ function testGmail() {
 
     // $ExpectType SettingsCollection
     const settings = users.Settings;
+    // $ExpectType CseCollection
+    const cse = settings.Cse;
+    // $ExpectType IdentitiesCollection
+    const cseIdentities = cse.Identities;
+    // $ExpectType CseIdentity
+    const createCseIdentity = cseIdentities.create({
+        emailAddress: "alias@example.com",
+        primaryKeyPairId: "keypair-id",
+        signAndEncryptKeyPairs: { encryptionKeyPairId: "encrypt-id", signingKeyPairId: "sign-id" },
+    }, "me");
+    // $ExpectType CseIdentity
+    const getCseIdentity = cseIdentities.get("me", "alias@example.com");
+    // $ExpectType ListCseIdentitiesResponse
+    const listCseIdentities = cseIdentities.list("me");
+    // $ExpectType ListCseIdentitiesResponse
+    const listCseIdentitiesWithArgs = cseIdentities.list("me", { pageSize: 100, pageToken: "page-token" });
+    // $ExpectType CseIdentity
+    const patchCseIdentity = cseIdentities.patch({ primaryKeyPairId: "new-keypair-id" }, "me", "alias@example.com");
+    // $ExpectType void
+    const removeCseIdentity = cseIdentities.remove("me", "alias@example.com");
+
+    // $ExpectType KeypairsCollection
+    const cseKeypairs = cse.Keypairs;
+    // $ExpectType CseKeyPair
+    const createCseKeypair = cseKeypairs.create({
+        pem: "pem",
+        pkcs7: "pkcs7",
+        subjectEmailAddresses: ["alias@example.com"],
+    }, "me");
+    // $ExpectType CseKeyPair
+    const createCseKeypairWithArgs = cseKeypairs.create({ pem: "pem", pkcs7: "pkcs7" }, "me", {
+        chainValidation: "all",
+    });
+    // $ExpectType CseKeyPair
+    const disableCseKeypair = cseKeypairs.disable({}, "me", "keypair-id");
+    // $ExpectType CseKeyPair
+    const enableCseKeypair = cseKeypairs.enable({}, "me", "keypair-id");
+    // $ExpectType CseKeyPair
+    const getCseKeypair = cseKeypairs.get("me", "keypair-id");
+    // $ExpectType ListCseKeyPairsResponse
+    const listCseKeypairs = cseKeypairs.list("me");
+    // $ExpectType ListCseKeyPairsResponse
+    const listCseKeypairsWithArgs = cseKeypairs.list("me", { pageSize: 100, pageToken: "page-token" });
+    // $ExpectType void
+    const obliterateCseKeypair = cseKeypairs.obliterate({}, "me", "keypair-id");
+
     // $ExpectType DelegatesCollection
     const delegates = settings.Delegates;
     // $ExpectType Delegate
@@ -525,6 +607,8 @@ function testGmail() {
     const getAutoForwarding = settings.getAutoForwarding("me");
     // $ExpectType ImapSettings
     const getImap = settings.getImap("me");
+    // $ExpectType LanguageSettings
+    const getLanguage = settings.getLanguage("me");
     // $ExpectType PopSettings
     const getPop = settings.getPop("me");
     // $ExpectType VacationSettings
@@ -542,6 +626,8 @@ function testGmail() {
         expungeBehavior: "archive",
         maxFolderSize: 100,
     }, "me");
+    // $ExpectType LanguageSettings
+    const updateLanguage = settings.updateLanguage({ displayLanguage: "en" }, "me");
     // $ExpectType PopSettings
     const updatePop = settings.updatePop({ accessWindow: "allMail", disposition: "archive" }, "me");
     // $ExpectType VacationSettings
