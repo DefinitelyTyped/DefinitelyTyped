@@ -8,7 +8,6 @@
     ],
     "failingPackages": [
         "af-utils__react-table",
-        "af-utils__react-virtual-headless",
         "af-utils__react-virtual-list",
         "ahoy.js",
         "alcides",
