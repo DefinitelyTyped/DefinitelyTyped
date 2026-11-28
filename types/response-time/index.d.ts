@@ -1,10 +1,3 @@
-/* =================== USAGE ===================
-
-    import responseTime = require('response-time');
-    app.use(responseTime());
-
- =============================================== */
-
 /// <reference types="node" />
 
 import http = require("http");
@@ -17,7 +10,7 @@ export = responseTime;
  * Returns middleware that adds a X-Response-Time header to responses.
  */
 declare function responseTime(
-    options?: responseTime.ResponseTimeOptions,
+    options?: responseTime.ResponseTimeOptions | number,
 ): (request: http.IncomingMessage, response: http.ServerResponse, callback: (err: any) => void) => any;
 declare function responseTime(
     fn: responseTime.ResponseTimeFunction,
