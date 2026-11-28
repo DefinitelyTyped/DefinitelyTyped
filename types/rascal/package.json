@@ -6,7 +6,7 @@
         "https://guidesmiths.github.io/rascal/"
     ],
     "dependencies": {
-        "@types/amqplib": "*",
+        "@types/amqplib": "<1",
         "@types/node": "*"
     },
     "devDependencies": {

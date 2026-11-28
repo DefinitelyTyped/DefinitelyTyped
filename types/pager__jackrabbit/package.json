@@ -6,7 +6,7 @@
         "https://github.com/pagerinc/jackrabbit"
     ],
     "dependencies": {
-        "@types/amqplib": "*"
+        "@types/amqplib": "<1"
     },
     "devDependencies": {
         "@types/node": "*",
