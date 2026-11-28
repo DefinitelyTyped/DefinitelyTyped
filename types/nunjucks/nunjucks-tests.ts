@@ -38,7 +38,7 @@ env.on("load", (name, source, loader) => {});
 let extension: nunjucks.Extension = {
     tags: ["glitter", "star wars", "Age of Empires"],
     parse(parser, nodes, lexer) {
-        return "The parser api is complicated";
+        return new nodes.NodeList();
     },
 };
 
