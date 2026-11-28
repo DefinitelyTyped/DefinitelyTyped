@@ -84,7 +84,7 @@ declare namespace Flickity {
          *
          * default: true
          */
-        draggable?: boolean | undefined;
+        draggable?: boolean | ">1" | undefined;
 
         /**
          * Enables content to be freely scrolled and flicked without aligning cells to an end position.
@@ -99,7 +99,7 @@ declare namespace Flickity {
          *
          * default: false
          */
-        wrapAround?: boolean | undefined;
+        wrapAround?: boolean | "fill" | undefined;
 
         /**
          * Groups cells together in slides. Flicking, page dots, and previous/next buttons are mapped to group slides, not individual cells.
@@ -219,9 +219,47 @@ declare namespace Flickity {
          * Bind events within Flickity's options by setting on to an Object. The object's keys should match the event names. on is useful for capturing events as Flickity is initialized, like ready
          */
         on?: EventBindings | undefined;
+
+        /** Whether jQuery-triggered events are prefixed with `flickity`. */
+        namespaceJQueryEvents?: boolean | undefined;
+    }
+
+    /** A measured carousel cell. */
+    interface Cell {
+        element: HTMLElement;
+        x: number;
+        size: { width: number; height: number; outerWidth: number; outerHeight: number };
+        getSize(): void;
+        select(): void;
+        unselect(): void;
+        remove(): void;
+    }
+
+    /** A slide containing one or more cells (depending on groupCells). */
+    interface Slide {
+        cells: Cell[];
+        outerWidth: number;
+        height: number;
+        target: number;
+        getCellElements(): HTMLElement[];
     }
 
     interface EventBindings {
+        /** Triggered when cell positions or dimensions change. */
+        cellChange?: ((changedCellIndex: number) => void) | undefined;
+
+        /** Triggered when the carousel is activated. */
+        activate?: (() => void) | undefined;
+
+        /** Triggered when the carousel is deactivated. */
+        deactivate?: (() => void) | undefined;
+
+        /** Triggered when the UI is interacted with. */
+        uiChange?: (() => void) | undefined;
+
+        /** Triggered after the carousel is resized. */
+        resize?: (() => void) | undefined;
+
         /**
          * Triggered after Flickity has been activated.
          */
@@ -378,23 +416,32 @@ declare class Flickity {
     /**
      * The selected cell element.
      */
-    selectedElement: Element;
+    selectedElement: HTMLElement;
 
     /**
      * The array of cells. Use cells.length for the total number of cells.
      */
-    cells: Element[];
+    cells: Flickity.Cell[];
 
     /**
      * The array of slides. Useful for groupCells. A slide contains multiple cells.
      * If groupCells is disabled, then each slide is a cell, so they are one in the same.
      */
-    slides: Element[];
+    slides: Flickity.Slide[];
 
     /**
      * An array of elements in the selected slide. Useful for groupCells.
      */
-    selectedElements: Element[];
+    selectedElements: HTMLElement[];
+
+    /** The selected slide and its cells. Available after selection. */
+    selectedSlide: Flickity.Slide;
+    selectedCells: Flickity.Cell[];
+    selectedCell: Flickity.Cell;
+
+    /** The carousel's container and viewport elements. */
+    element: HTMLElement;
+    viewport: HTMLElement;
 
     /**
      * The slider element
@@ -441,7 +488,7 @@ declare class Flickity {
      * @param isWrapped If true, the last slide will be selected if at the first slide.
      * @param isInstant If true, immediately view the selected slide without animation.
      */
-    selectCell(index: number | string, isWrapped?: boolean, isInstant?: boolean): void;
+    selectCell(index: number | string | Element, isWrapped?: boolean, isInstant?: boolean): void;
 
     /**
      * Resize the gallery and re-position cells.
@@ -517,7 +564,38 @@ declare class Flickity {
      * Get the elements of the cells.
      * @returns  Element[]
      */
-    getCellElements(): Element[];
+    getCellElements(): HTMLElement[];
+
+    /** Return the index of the slide containing the cell. */
+    getCellSlideIndex(cell: Flickity.Cell): number;
+
+    /** Find the cell corresponding to a cell element. */
+    getCell(element: Element): Flickity.Cell | undefined;
+
+    /** Find the cell containing an element, including nested descendants. */
+    getParentCell(element: Element): Flickity.Cell | undefined;
+
+    /** Find the cells corresponding to a collection of elements. */
+    getCells(elements: Element | ArrayLike<Element>): Flickity.Cell[];
+
+    /** Find a cell by index, selector, or element. */
+    queryCell(value: number | string | Element): Flickity.Cell | undefined;
+
+    /** Recalculate layout after a cell's dimensions change. */
+    cellSizeChange(element: Element): void;
+
+    /** Recalculate layout after a cell was added, removed, or resized. */
+    cellChange(changedCellIndex?: number): void;
+
+    /** Immediately position the slider at the currently selected slide. */
+    positionSliderAtSelected(): void;
+
+    /** Return the last cell or slide, if present. */
+    getLastCell(): Flickity.Cell | undefined;
+    getLastSlide(): Flickity.Slide | undefined;
+
+    /** Return elements belonging to slides adjacent to the selected slide. */
+    getAdjacentCellElements(adjacentCount: number, index?: number): HTMLElement[];
 
     // event listeners
 
