@@ -25,6 +25,10 @@ import { CopyOptions, CopySyncOptions, cp, cpSync, glob, globSync } from "node:f
     fs.write(1234, Buffer.from("test"), { offset: 10, length: 10, position: 10 }, () => {});
     fs.write(1234, Buffer.from("test"), { position: null }, () => {});
 
+    fs.writeSync(1234, Buffer.from("test")); // $ExpectType number
+    fs.writeSync(1234, Buffer.from("test"), { offset: 1, length: 2, position: 3 }); // $ExpectType number
+    fs.writeSync(1234, new Uint8Array(4), { position: null }); // $ExpectType number
+
     fs.writeFile("Harry Potter", "\"You be wizzing, Harry,\" jived Dumbledore.", {
         encoding: "ascii",
         signal: new AbortSignal(),
@@ -113,6 +117,10 @@ import { CopyOptions, CopySyncOptions, cp, cpSync, glob, globSync } from "node:f
     fs.readFile("testfile", { buffer: (size) => new Uint8Array(size) }, (err, data) => {
         data; // $ExpectType Buffer || Buffer<ArrayBuffer>
     });
+    fs.readFile("testfile", { encoding: "utf8", buffer: new Uint8Array(16) }, (err, data) => {
+        data; // $ExpectType string
+    });
+    fs.readFileSync("testfile", { encoding: "utf8", buffer: (size) => new Uint8Array(size) }); // $ExpectType string
 }
 
 {
@@ -537,6 +545,8 @@ async function testPromisify() {
             type: "text/ecmascript",
         });
     });
+    fs.openAsBlobSync("the.file.txt"); // $ExpectType Blob
+    fs.openAsBlobSync(Buffer.from("the.file.txt"), { type: "text/plain" }); // $ExpectType Blob
 }
 
 {
@@ -991,6 +1001,14 @@ async function testStat(
     fs.promises.stat(path, opts); // $ExpectType Promise<Stats | BigIntStats | undefined>
     fs.promises.lstat(path, opts); // $ExpectType Promise<Stats | BigIntStats>
     fh.stat(opts); // $ExpectType Promise<Stats | BigIntStats>
+
+    const { signal } = new AbortController();
+    fs.stat(path, { signal }, (err, st: fs.Stats) => {});
+    fs.lstat(path, { signal }, (err, st: fs.Stats) => {});
+    fs.fstat(fd, { signal }, (err, st: fs.Stats) => {});
+    fs.promises.stat(path, { signal }); // $ExpectType Promise<Stats>
+    fs.promises.lstat(path, { signal }); // $ExpectType Promise<Stats>
+    fh.stat({ signal }); // $ExpectType Promise<Stats>
 }
 
 {
@@ -1065,6 +1083,9 @@ const anyStatFs: fs.StatsFs | fs.BigIntStatsFs = fs.statfsSync(".", { bigint: Ma
     watchAsync("y33t", { encoding: "buffer", signal: new AbortSignal() });
     // $ExpectType AsyncIterator<FileChangeInfo<string>, undefined, any>
     watchAsync("test", { persistent: true, recursive: true, encoding: "utf-8", maxQueue: 2048, overflow: "ignore" });
+    watchAsync("test", { overflow: "error" });
+    // @ts-expect-error
+    watchAsync("test", { overflow: "throw" });
 }
 
 {
@@ -1134,6 +1155,9 @@ const anyStatFs: fs.StatsFs | fs.BigIntStatsFs = fs.statfsSync(".", { bigint: Ma
     }
     for await (const entry of globAsync("**/*.js", { withFileTypes: Math.random() > 0.5 })) {
         entry; // $ExpectType Dirent<string> | string
+    }
+    for await (const entry of globAsync("**/*.js", { maxDepth: 2 })) {
+        entry; // $ExpectType string
     }
 
     for await (
@@ -1226,6 +1250,7 @@ const anyStatFs: fs.StatsFs | fs.BigIntStatsFs = fs.statfsSync(".", { bigint: Ma
 
     globSync("**/*.js"); // $ExpectType string[]
     globSync("**/*.js", { cwd: "/", followSymlinks: true }); // $ExpectType string[]
+    globSync("**/*.js", { maxDepth: 0 }); // $ExpectType string[]
     globSync("**/*.js", { withFileTypes: true }); // $ExpectType Dirent<string>[]
     globSync("**/*.js", { withFileTypes: Math.random() > 0.5 }); // $ExpectType string[] | Dirent<string>[]
 
@@ -1272,6 +1297,8 @@ const anyStatFs: fs.StatsFs | fs.BigIntStatsFs = fs.statfsSync(".", { bigint: Ma
 
     await fd.readFile({ buffer: new Uint8Array(256) }); // $ExpectType Buffer || Buffer<ArrayBuffer>
     await fd.readFile({ buffer: (size) => new Uint8Array(size) }); // $ExpectType Buffer || Buffer<ArrayBuffer>
+    await fd.readFile({ encoding: "utf8", buffer: new Uint8Array(256) }); // $ExpectType string
+    await fs.promises.readFile("testfile", { encoding: "utf8", buffer: new Uint8Array(256) }); // $ExpectType string
 });
 
 {
