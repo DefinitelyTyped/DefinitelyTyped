@@ -275,6 +275,7 @@ const preTokenGenerationv2: PreTokenGenerationV2TriggerHandler = async (event, _
     triggerSource === "TokenGeneration_HostedAuth";
     triggerSource === "TokenGeneration_NewPasswordChallenge";
     triggerSource === "TokenGeneration_RefreshTokens";
+    triggerSource === "TokenGeneration_TokenExchange";
 
     objectOrUndefined = request.clientMetadata;
 };
