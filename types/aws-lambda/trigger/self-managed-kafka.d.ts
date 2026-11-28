@@ -1,6 +1,11 @@
-import { Handler } from "../handler";
+import { AsyncHandler, Handler } from "../handler";
 
+/**
+ * {@link SelfManagedKafkaAsyncHandler} Is the new version of this
+ * @deprecated No longer available as of Node.js 24 Runtime {@link https://aws.amazon.com/blogs/compute/node-js-24-runtime-now-available-in-aws-lambda/}
+ */
 export type SelfManagedKafkaHandler = Handler<SelfManagedKafkaEvent, void>;
+export type SelfManagedKafkaAsyncHandler = AsyncHandler<SelfManagedKafkaEvent, void>;
 
 export interface SelfManagedKafkaRecordHeader {
     [headerKey: string]: number[];

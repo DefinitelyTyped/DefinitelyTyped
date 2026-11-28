@@ -20,9 +20,14 @@ re-export here; the user should only need to import from `"aws-lambda"`.
 Similarly, [aws-lambda-tests.ts]() has declarations for the common type and tests
 for [handler.d.ts](), while the actual service specific tests are all in [test/]()
 
-The mentioned [handler.d.ts]() contains definitions for `Handler<TEvent, TResult>`
-and its associated types like `Context` and `Callback<TResult>`,
-which describe the Lambda NodeJS runtime API.
+The mentioned [handler.d.ts]() contains definitions for `AsyncHandler<TEvent, TResult>`
+and its associated type `Context`, which describe the Lambda NodeJS runtime API.
+
+`AsyncHandler` is the handler type to use. The older `Handler<TEvent, TResult>`, which
+takes a third `Callback<TResult>` parameter, is deprecated: the Node.js 24 runtime
+removed support for callback-based handlers, and rejects a handler that *declares* three
+parameters at initialization. Both types are still exported, and an `AsyncHandler` is
+assignable anywhere a `Handler` is expected.
 
 ### Triggers
 
@@ -36,13 +41,19 @@ For a service `foo` and trigger `bar`, there should ideally be
 a file `trigger/foo-bar.d.ts` containing something like:
 
 ```ts
-import { Callback, Handler } from "../handler";
+import { AsyncHandler, Callback, Handler } from "../handler";
 
 import { FooCommonType } from "../common/foo";
 
+export type FooBarAsyncHandler = AsyncHandler<FooBarEvent, FooBarResult>;
+/**
+ * {@link FooBarAsyncHandler} Is the new version of this
+ * @deprecated No longer available as of Node.js 24 Runtime {@link https://aws.amazon.com/blogs/compute/node-js-24-runtime-now-available-in-aws-lambda/}
+ */
 export type FooBarHandler = Handler<FooBarEvent, FooBarResult>;
 export type FooBarCallback = Callback<FooBarResult>;
 // or, if there is no FooBarResult:
+export type FooBarAsyncHandler = AsyncHandler<FooBarEvent, void>;
 export type FooBarHandler = Handler<FooBarEvent, void>;
 
 export interface FooBarEvent {
@@ -92,7 +103,7 @@ import {
     // ...
  } from "aws-lambda";
 
-const barHandler: FooBarHandler = async (event, context, callback) => {
+const barHandler: FooBarAsyncHandler = async (event, context) => {
     // Check event type
     // Declarations for e.g. strOrNull, bool are in aws-lambda-tests.ts
     strOrNull = event.body;
@@ -137,14 +148,25 @@ const barHandler: FooBarHandler = async (event, context, callback) => {
     };
 
     // check reasonable result-returning styles
+    return result;
+};
+
+const bazHandler: FooBazAsyncHandler = async (event, context) => {
+    // ... as above, for each untested type
+};
+
+// The deprecated callback handler is still exported, so exercise it too,
+// including the callback-based result styles.
+const barCallbackHandler: FooBarHandler = async (event, context, callback) => {
+    let result: FooBarResult;
+    // ... as above
+
     callback(new Error());
     callback(null, result);
     return result;
 };
 
-const bazHandler: FooBazHandler = async (event, context, callback) => {
-    // ... as above, for each untested type
-
+const bazCallbackHandler: FooBazHandler = async (event, context, callback) => {
     // for handlers without a result
     callback();
     callback(new Error());

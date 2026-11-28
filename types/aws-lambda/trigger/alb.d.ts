@@ -1,6 +1,11 @@
-import { Callback, Handler } from "../handler";
+import { AsyncHandler, Callback, Handler } from "../handler";
 
+/**
+ * {@link ALBAsyncHandler} Is the new version of this
+ * @deprecated No longer available as of Node.js 24 Runtime {@link https://aws.amazon.com/blogs/compute/node-js-24-runtime-now-available-in-aws-lambda/}
+ */
 export type ALBHandler = Handler<ALBEvent, ALBResult>;
+export type ALBAsyncHandler = AsyncHandler<ALBEvent, ALBResult>;
 export type ALBCallback = Callback<ALBResult>;
 
 // https://docs.aws.amazon.com/elasticloadbalancing/latest/application/lambda-functions.html

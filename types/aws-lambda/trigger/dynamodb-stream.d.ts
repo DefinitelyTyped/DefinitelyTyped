@@ -1,7 +1,19 @@
-import { Handler } from "../handler";
+import { AsyncHandler, Handler } from "../handler";
 
-// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
-export type DynamoDBStreamHandler = Handler<DynamoDBStreamEvent, DynamoDBBatchResponse | void>;
+/**
+ * {@link DynamoDBStreamAsyncHandler} Is the new version of this
+ * @deprecated No longer available as of Node.js 24 Runtime {@link https://aws.amazon.com/blogs/compute/node-js-24-runtime-now-available-in-aws-lambda/}
+ */
+export type DynamoDBStreamHandler = Handler<
+    DynamoDBStreamEvent,
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+    DynamoDBBatchResponse | void
+>;
+export type DynamoDBStreamAsyncHandler = AsyncHandler<
+    DynamoDBStreamEvent,
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+    DynamoDBBatchResponse | void
+>;
 
 // eslint-disable-next-line @definitelytyped/strict-export-declare-modifiers, @definitelytyped/no-single-element-tuple-type
 type Merge<T> = [{ [K in keyof T]: T[K] }][number];
