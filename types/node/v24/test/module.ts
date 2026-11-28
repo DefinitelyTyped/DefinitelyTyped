@@ -76,9 +76,9 @@ Module.Module === Module;
             mappings: "ASDF;GHJK",
             names: [],
             sourceRoot: "/",
-            sources: [],
+            sources: [null, "a.ts"],
             version: 3,
-            sourcesContent: [],
+            sourcesContent: [null, "y"],
         },
         {
             lineLengths: [1, 2, 3],
@@ -87,6 +87,8 @@ Module.Module === Module;
 
     // $ExpectType SourceMapPayload
     sourceMap.payload;
+    // $ExpectType (string | null)[]
+    sourceMap.payload.sources;
     // $ExpectType SourceMapping | {}
     sourceMap.findEntry(1, 1);
     // $ExpectType SourceOrigin | {}
