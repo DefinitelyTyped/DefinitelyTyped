@@ -8,5 +8,10 @@
     "devDependencies": {
         "@types/srtparsejs": "workspace:."
     },
-    "owners": []
+    "owners": [
+        {
+            "name": "Qiming-Liu",
+            "githubUsername": "Qiming-Liu"
+        }
+    ]
 }
